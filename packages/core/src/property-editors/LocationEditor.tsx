@@ -1,30 +1,30 @@
-import * as React from 'react';
-import { PropertyEditorProps } from '../properties/property-editor-props';
-import { Location } from '../location/location.model';
+import * as React from "react";
+import { PropertyEditorProps } from "../properties/property-editor-props";
+import { Location } from "../location/location";
 
 export default () => (props: PropertyEditorProps<Location>) => {
   const value: Location = props.value || {
     lat: 0,
-    lng: 0
+    lng: 0,
   };
   const { lat, lng } = value;
   return (
     <div>
       <input
         value={value.lng}
-        onChange={e =>
+        onChange={(e) =>
           props.setValue({
             lat,
-            lng: parseInt(e.target.value, 10) || 0
+            lng: parseInt(e.target.value, 10) || 0,
           })
         }
       />
       <input
         value={value.lat}
-        onChange={e =>
+        onChange={(e) =>
           props.setValue({
             lng,
-            lat: parseInt(e.target.value, 10) || 0
+            lat: parseInt(e.target.value, 10) || 0,
           })
         }
       />

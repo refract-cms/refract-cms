@@ -13,6 +13,5 @@
     "rootDir": "./"
     // "composite": true
   },
-  "include": ["src/"],
-  "references": [{ "path": "../core" }]
+  "include": ["src/"]
 }
