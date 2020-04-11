@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
-import { ServerConfig } from '../config/server-config.model';
+import { ServerConfig } from '../config/server-config';
 import { AuthToken } from '@refract-cms/core';
 
 export const tokenService = {
@@ -9,11 +9,11 @@ export const tokenService = {
       nameid: '',
       exp: Math.floor(Date.now() / 1000) + 60 * 60 * 120,
       iss: auth.jwt.issuer || 'refract-cms',
-      aud: 'refract-cms'
+      aud: 'refract-cms',
     };
     return jwt.sign(token, auth.jwt.secret);
   },
   verify: (token: string, { auth }: ServerConfig) => {
     return jwt.verify(token, auth.jwt.secret) as AuthToken;
-  }
+  },
 };

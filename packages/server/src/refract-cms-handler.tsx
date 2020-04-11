@@ -1,6 +1,6 @@
 import * as express from "express";
 import graphqlHTTP from "express-graphql";
-import { ServerConfig } from "./config/server-config.model";
+import { ServerConfig } from "./config/server-config";
 import { RequestHandlerParams } from "express-serve-static-core";
 import multer from "multer";
 import jimp from "jimp";
@@ -8,7 +8,7 @@ import { authService } from "./auth/auth-service";
 import fs from "fs";
 import { MongooseSchemaBuilder } from "./persistance/mongoose-schema-builder";
 import mongoose from "mongoose";
-import { schemaBuilder } from "./graphql/schema.builder";
+import { schemaBuilder } from "./graphql/schema-builder";
 import expressPlayground from "graphql-playground-middleware-express";
 import bodyParser from "body-parser";
 import { requireAuth } from "./auth/require-auth.middleware";

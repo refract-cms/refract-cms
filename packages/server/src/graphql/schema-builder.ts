@@ -10,7 +10,7 @@ import {
   GraphQLInputObjectType,
   GraphQLInputType,
   GraphQLInt,
-  GraphQLScalarType
+  GraphQLScalarType,
 } from 'graphql';
 import mongoose from 'mongoose';
 // import { Properties, buildHelpers } from '../create-public-schema';
@@ -24,7 +24,7 @@ import { ResolvedPropertyOptions } from '../resolved-property-options';
 import { singleRefPlugin } from '../plugins/single-ref-plugin';
 import { multipleRefPlugin } from '../plugins/multiple-ref-plugin';
 import produce from 'immer';
-import { ServerOptions } from '../config/server-options.model';
+import { ServerOptions } from '../config/server-options';
 
 export class SchemaBuilder {
   types: GraphQLObjectType[] = [];
@@ -34,7 +34,7 @@ export class SchemaBuilder {
   init(serverOptions: ServerOptions) {
     this.types = [];
     this.inputTypes = [];
-    this.serverOptions = produce(serverOptions, newServerOptions => {
+    this.serverOptions = produce(serverOptions, (newServerOptions) => {
       newServerOptions.resolverPlugins = newServerOptions.resolverPlugins || [];
       newServerOptions.resolverPlugins.push(singleRefPlugin);
       newServerOptions.resolverPlugins.push(multipleRefPlugin);
@@ -43,7 +43,7 @@ export class SchemaBuilder {
 
   getTypeFromSchema<T>(entitySchema: EntitySchema<T>) {
     return this.buildGraphQLObjectFromSchema({
-      entitySchema
+      entitySchema,
     });
   }
 
@@ -52,23 +52,23 @@ export class SchemaBuilder {
       entitySchema,
       prefixName: '',
       addResolvers: false,
-      suffixName: 'Entity'
+      suffixName: 'Entity',
     });
   }
 
   buildSchema(schema: EntitySchema[]) {
     let publicQueryFields = {};
-    schema.forEach(entitySchema => {
+    schema.forEach((entitySchema) => {
       const type = this.buildGraphQLObjectFromSchema({
         entitySchema,
         prefixName: '',
-        addResolvers: true
+        addResolvers: true,
       });
       const repository = repositoryForSchema(entitySchema);
 
       publicQueryFields = {
         ...publicQueryFields,
-        ...this.buildPublicFieldQueries(entitySchema, repository, type)
+        ...this.buildPublicFieldQueries(entitySchema, repository, type),
       };
 
       console.log(chalk.blue(`Added schema: ${entitySchema.options.displayName || entitySchema.options.alias}`));
@@ -76,45 +76,45 @@ export class SchemaBuilder {
 
     const publicQuery = new GraphQLObjectType({
       name: 'Query',
-      fields: publicQueryFields
+      fields: publicQueryFields,
     });
 
     const publicGraphQLSchema = new GraphQLSchema({ query: publicQuery });
 
     let internalQueryFields = {};
-    schema.forEach(entitySchema => {
+    schema.forEach((entitySchema) => {
       const repository = repositoryForSchema(entitySchema);
       internalQueryFields = {
         ...internalQueryFields,
-        ...this.buildInternalFieldQueries(entitySchema, repository)
+        ...this.buildInternalFieldQueries(entitySchema, repository),
       };
     });
 
     const internalQuery = new GraphQLObjectType({
       name: 'Query',
-      fields: internalQueryFields
+      fields: internalQueryFields,
     });
 
     let mutationFields = {};
-    schema.forEach(entitySchema => {
+    schema.forEach((entitySchema) => {
       const repository = repositoryForSchema(entitySchema);
 
       mutationFields = {
         ...mutationFields,
-        ...this.buildFieldMutations(entitySchema, repository)
+        ...this.buildFieldMutations(entitySchema, repository),
       };
     });
 
     const mutation = new GraphQLObjectType({
       name: 'Mutation',
-      fields: mutationFields
+      fields: mutationFields,
     });
 
     const internalGraphQLSchema = new GraphQLSchema({ query: internalQuery, mutation });
 
     this.serverOptions.events
-      .filter(e => Boolean(e.onSchemaBuilt))
-      .forEach(events => {
+      .filter((e) => Boolean(e.onSchemaBuilt))
+      .forEach((events) => {
         events.onSchemaBuilt(publicGraphQLSchema);
       });
 
@@ -122,7 +122,7 @@ export class SchemaBuilder {
 
     return {
       publicGraphQLSchema,
-      internalGraphQLSchema
+      internalGraphQLSchema,
     };
   }
 
@@ -145,24 +145,24 @@ export class SchemaBuilder {
               .limit(options.limit || 100)
               .skip(options.skip || 0);
           }
-        )
+        ),
       },
       [`${entitySchema.options.alias}Count`]: {
         type: GraphQLInt,
         args: {
-          filter: args.filter
+          filter: args.filter,
         },
-        resolve: (_, { filter }) => repository.countDocuments(getMongoDbFilter(entityType, filter))
+        resolve: (_, { filter }) => repository.countDocuments(getMongoDbFilter(entityType, filter)),
       },
       [`${entitySchema.options.alias}EntityFindById`]: {
         type: entityType,
         args: {
-          id: { type: GraphQLString }
+          id: { type: GraphQLString },
         },
         resolve: (_, { id }) => {
           return repository.findById(id);
-        }
-      }
+        },
+      },
     };
     return resolvers;
   }
@@ -176,7 +176,7 @@ export class SchemaBuilder {
       entitySchema,
       prefixName: '',
       addResolvers: false,
-      suffixName: 'Entity'
+      suffixName: 'Entity',
     });
     const inputType = this.buildInput(`${entitySchema.options.alias}Input`, entitySchema.properties);
     const args = getGraphQLQueryArgs(entityType);
@@ -184,9 +184,9 @@ export class SchemaBuilder {
       [`${entitySchema.options.alias}Count`]: {
         type: GraphQLInt,
         args: {
-          filter: args.filter
+          filter: args.filter,
         },
-        resolve: (_, { filter }) => repository.count(getMongoDbFilter(entityType, filter))
+        resolve: (_, { filter }) => repository.count(getMongoDbFilter(entityType, filter)),
       },
       [`${entitySchema.options.alias}List`]: {
         type: new GraphQLList(type),
@@ -201,19 +201,19 @@ export class SchemaBuilder {
               .skip(options.skip || 0);
           },
           {
-            differentOutputType: true
+            differentOutputType: true,
           }
-        )
+        ),
       },
       [`${entitySchema.options.alias}Preview`]: {
         type,
         args: {
-          record: { type: inputType }
+          record: { type: inputType },
         },
         resolve: (_, { record }, { userId }) => {
           return record;
-        }
-      }
+        },
+      },
     };
 
     if (entitySchema.options.maxOne) {
@@ -222,10 +222,10 @@ export class SchemaBuilder {
         [`${entitySchema.options.alias}`]: {
           type,
           args: {},
-          resolve: async (obj: any, {  }: any, context: any) => {
+          resolve: async (obj: any, {}: any, context: any) => {
             return repository.findOne();
-          }
-        }
+          },
+        },
       };
     } else {
       return {
@@ -233,11 +233,11 @@ export class SchemaBuilder {
         [`${entitySchema.options.alias}FindById`]: {
           type,
           args: {
-            id: { type: GraphQLString }
+            id: { type: GraphQLString },
           },
           resolve: (_, { id }) => {
             return repository.findById(id);
-          }
+          },
         },
         [`${entitySchema.options.alias}FindOne`]: {
           type,
@@ -252,10 +252,10 @@ export class SchemaBuilder {
                 .skip(options.skip || 0);
             },
             {
-              differentOutputType: true
+              differentOutputType: true,
             }
-          )
-        }
+          ),
+        },
       };
     }
   }
@@ -270,19 +270,19 @@ export class SchemaBuilder {
       [`${entitySchema.options.alias}Create`]: {
         type: entityType,
         args: {
-          record: { type: inputType }
+          record: { type: inputType },
         },
         resolve: (_, { record }, { userId }) => {
           if (!userId) {
             throw new Error('AuthenticationError');
           }
           return repository.create(record);
-        }
+        },
       },
       [`${entitySchema.options.alias}Update`]: {
         type: entityType,
         args: {
-          record: { type: inputType }
+          record: { type: inputType },
         },
         resolve: async (_, { record }, { userId }) => {
           if (!userId) {
@@ -293,12 +293,12 @@ export class SchemaBuilder {
           }
           await repository.findByIdAndUpdate(record._id, record);
           return repository.findById(record._id);
-        }
+        },
       },
       [`${entitySchema.options.alias}RemoveById`]: {
         type: GraphQLBoolean,
         args: {
-          id: { type: GraphQLString }
+          id: { type: GraphQLString },
         },
         resolve: async (_, { id }, { userId }) => {
           if (!userId) {
@@ -306,8 +306,8 @@ export class SchemaBuilder {
           }
           await repository.findByIdAndDelete(id);
           return true;
-        }
-      }
+        },
+      },
     };
   }
 
@@ -386,7 +386,7 @@ export class SchemaBuilder {
       [key: string]: PropertyOptions<any, any>;
     }
   ) {
-    const existingType = this.types.find(t => t.name === alias);
+    const existingType = this.types.find((t) => t.name === alias);
 
     if (existingType) {
       return existingType;
@@ -400,16 +400,16 @@ export class SchemaBuilder {
             const propertyType = properties[propertyKey].type;
             const type = this.buildInputType(`${alias}${propertyKey}`, propertyType);
             acc[propertyKey] = {
-              type
+              type,
             };
             return acc;
           },
           {
             _id: {
-              type: MongoIdType
-            }
+              type: MongoIdType,
+            },
           }
-        )
+        ),
     });
 
     this.inputTypes.push(inputTypes);
@@ -423,7 +423,7 @@ export class SchemaBuilder {
     },
     addResolvers?: boolean
   ) {
-    const existingType = this.types.find(t => t.name === alias);
+    const existingType = this.types.find((t) => t.name === alias);
     if (existingType) {
       return existingType;
     }
@@ -432,7 +432,7 @@ export class SchemaBuilder {
 
     const editableAndResolvedProperties = {
       ...properties,
-      ...extraProperties
+      ...extraProperties,
     };
 
     const type = new GraphQLObjectType({
@@ -445,7 +445,7 @@ export class SchemaBuilder {
             const propertyType = propertyOptions.type;
             const type = this.buildType(`${alias}${propertyKey}`, propertyType);
             acc[propertyKey] = {
-              type
+              type,
             };
             if (addResolvers && propertyOptions.resolve) {
               acc[propertyKey].resolve = propertyOptions.resolve;
@@ -453,26 +453,26 @@ export class SchemaBuilder {
             } else if (
               addResolvers &&
               propertyOptions.resolverPlugin &&
-              this.serverOptions.resolverPlugins.some(plugin => plugin.alias === propertyOptions.resolverPlugin.alias)
+              this.serverOptions.resolverPlugins.some((plugin) => plugin.alias === propertyOptions.resolverPlugin.alias)
             ) {
               const plugin = this.serverOptions.resolverPlugins.find(
-                plugin => plugin.alias === propertyOptions.resolverPlugin.alias
+                (plugin) => plugin.alias === propertyOptions.resolverPlugin.alias
               );
               acc[propertyKey] = plugin.buildFieldConfig({
                 propertyKey,
                 meta: propertyOptions.resolverPlugin.meta,
                 serverOptions: this.serverOptions,
-                schemaBuilder: this
+                schemaBuilder: this,
               });
             }
             return acc;
           },
           {
             _id: {
-              type: MongoIdType
-            }
+              type: MongoIdType,
+            },
           }
-        )
+        ),
     });
 
     this.types.push(type);
@@ -486,10 +486,10 @@ export class SchemaBuilder {
       fields: Object.keys(propertyType).reduce((acc, propertyKey) => {
         const type = this.buildType(`${propertyName}${propertyKey}`, propertyType[propertyKey]);
         acc[propertyKey] = {
-          type
+          type,
         };
         return acc;
-      }, {})
+      }, {}),
     });
   }
 
@@ -499,10 +499,10 @@ export class SchemaBuilder {
       fields: Object.keys(propertyType).reduce((acc, propertyKey) => {
         const type = this.buildInputType(`${propertyName}${propertyKey}`, propertyType[propertyKey]);
         acc[propertyKey] = {
-          type
+          type,
         };
         return acc;
-      }, {})
+      }, {}),
     });
   }
 
@@ -510,7 +510,7 @@ export class SchemaBuilder {
     entitySchema,
     prefixName = '',
     addResolvers = true,
-    suffixName = ''
+    suffixName = '',
   }: {
     entitySchema: EntitySchema;
     prefixName?: string;

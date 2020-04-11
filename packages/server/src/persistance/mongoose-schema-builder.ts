@@ -1,12 +1,12 @@
 import { EntitySchema } from '@refract-cms/core';
 import mongoose, { SchemaTypeOpts, Schema, SchemaType, mongo } from 'mongoose';
-import { ServerConfig } from '../config/server-config.model';
+import { ServerConfig } from '../config/server-config';
 
 export class MongooseSchemaBuilder {
   constructor() {}
 
   buildSchema(schemas: EntitySchema[]) {
-    schemas.forEach(entitySchema => {
+    schemas.forEach((entitySchema) => {
       this.configureEntitySchema(entitySchema);
     });
   }
@@ -20,7 +20,7 @@ export class MongooseSchemaBuilder {
     }, {}) as any;
 
     const EntitySchema = new mongoose.Schema(definition, {
-      collection: entitySchema.options.mongoCollectionName
+      collection: entitySchema.options.mongoCollectionName,
     });
     mongoose.model(entitySchema.options.alias, EntitySchema);
   }

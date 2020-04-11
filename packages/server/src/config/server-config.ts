@@ -1,8 +1,8 @@
 import { Config, PropertyType } from '@refract-cms/core';
-import { ResolverPlugin } from '../plugins/resolver-plugin.model';
+import { ResolverPlugin } from '../plugins/resolver-plugin';
 import { ASTNode } from 'graphql';
-import { ServerPlugin } from '../plugins/server-plugin.model';
-import { ServerOptionsArgs } from './server-options-args.model';
+import { ServerPlugin } from '../plugins/server-plugin';
+import { ServerOptionsArgs } from './server-options-args';
 
 export interface ServerConfig extends ServerOptionsArgs {
   config: Config;

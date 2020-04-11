@@ -1,4 +1,4 @@
-import { ServerConfig } from '../config/server-config.model';
+import { ServerConfig } from '../config/server-config';
 import express from 'express';
 
 export interface RefractGraphQLContext {

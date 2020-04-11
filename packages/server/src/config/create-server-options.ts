@@ -1,8 +1,8 @@
-import { ServerOptions } from './server-options.model';
+import { ServerOptions } from './server-options';
 import merge from 'lodash/merge';
 import produce from 'immer';
-import { ServerOptionsArgs } from './server-options-args.model';
-import { ServerConfig } from './server-config.model';
+import { ServerOptionsArgs } from './server-options-args';
+import { ServerConfig } from './server-config';
 import { EntitySchema } from '@refract-cms/core';
 import mergeWith from 'lodash/mergeWith';
 import isArray from 'lodash/isArray';
@@ -34,22 +34,22 @@ export function buildServerOptions(serverConfig: ServerConfig): ServerOptions {
   //   return acc;
   // }, []);
   // console.log(evjents);
-  const events = Array.prototype.concat(configs.map(o => o.events)).filter(Boolean) || [];
+  const events = Array.prototype.concat(configs.map((o) => o.events)).filter(Boolean) || [];
   return {
     config,
     resolverPlugins,
     schemas: config.schema,
     resolvers,
     events,
-    routers: serverConfig.plugins.map(plugin => {
+    routers: serverConfig.plugins.map((plugin) => {
       const router = express.Router();
       if (plugin.configureRouter) {
         plugin.configureRouter(router);
       }
       return {
         alias: plugin.config.name,
-        router
+        router,
       };
-    }) // Array.prototype.concat(serverOptionsConfigs.map(o => o.addExpressRouter()))
+    }), // Array.prototype.concat(serverOptionsConfigs.map(o => o.addExpressRouter()))
   };
 }
