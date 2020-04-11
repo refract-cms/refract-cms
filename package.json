@@ -4,7 +4,9 @@
   "scripts": {
     "build": "lerna run build",
     "bump-version": "lerna version --no-push",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "prettier:test": "prettier --check .",
+    "test": "yarn run prettier:test"
   },
   "workspaces": [
     "packages/*",
