@@ -1,16 +1,13 @@
-import { AppAction } from "../../state/app-action";
-import { ConfigState } from "./config-state";
-import { CONFIGURE } from "./config-actions";
+import { AppAction } from '../../state/app-action';
+import { ConfigState } from './config-state';
+import { CONFIGURE } from './config-actions';
 
 const defaultState: ConfigState = {
-  serverUrl: "",
+  serverUrl: '',
   schema: [],
 };
 
-export function configReducer(
-  state: ConfigState = defaultState,
-  action: AppAction
-): ConfigState {
+export function configReducer(state: ConfigState = defaultState, action: AppAction): ConfigState {
   switch (action.type) {
     case CONFIGURE: {
       return {

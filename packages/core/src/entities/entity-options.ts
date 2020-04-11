@@ -1,10 +1,7 @@
-import { SvgIconProps } from "@material-ui/core/SvgIcon";
-import { CoreContextModel } from "../context/core-context";
-import {
-  ActualType,
-  ActualTypeFromPrototype,
-} from "../properties/property-types";
-import { Return } from "./entity-schema";
+import { SvgIconProps } from '@material-ui/core/SvgIcon';
+import { CoreContextModel } from '../context/core-context';
+import { ActualType, ActualTypeFromPrototype } from '../properties/property-types';
+import { Return } from './entity-schema';
 
 export interface EntityOptions<TEntity = any> {
   alias: string;
@@ -21,7 +18,7 @@ export interface EntityOptions<TEntity = any> {
   };
   icon?: React.ComponentType<SvgIconProps>;
   defaultSort?: {
-    orderByDirection: "DESC" | "ASC";
+    orderByDirection: 'DESC' | 'ASC';
     orderByField: keyof TEntity;
   };
 }

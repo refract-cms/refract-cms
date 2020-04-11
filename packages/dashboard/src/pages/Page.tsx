@@ -11,26 +11,26 @@ export interface PageProps {
 const styles = (theme: Theme) =>
   createStyles({
     padded: {
-      padding: theme.spacing(3)
+      padding: theme.spacing(3),
     },
     appBar: {
       bottom: 'auto',
       top: 64,
-      background: theme.palette.background.default
+      background: theme.palette.background.default,
     },
     toolbar: {
       marginLeft: 240,
       alignItems: 'center',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
       // minHeight: 40,
       // height: 40
     },
     page: {
-      marginTop: 64
+      marginTop: 64,
     },
     actionButton: {
-      marginLeft: theme.spacing()
-    }
+      marginLeft: theme.spacing(),
+    },
   });
 
 interface Props extends PageProps, WithStyles<typeof styles> {}
@@ -38,7 +38,7 @@ interface Props extends PageProps, WithStyles<typeof styles> {}
 const Page: ComponentType<Props> = ({ children, classes, disablePadding, title, actionComponents }) => (
   <div
     className={classNames(classes.page, {
-      [classes.padded]: !disablePadding
+      [classes.padded]: !disablePadding,
     })}
   >
     <AppBar position="fixed" color="default" className={classes.appBar} elevation={0}>

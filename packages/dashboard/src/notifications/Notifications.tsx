@@ -1,24 +1,14 @@
-import React from "react";
-import {
-  withStyles,
-  WithStyles,
-  createStyles,
-  Theme,
-} from "@material-ui/core/styles";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import { AppState } from "../state/app-state";
-import {
-  addNotification,
-  removeNotification,
-} from "./state/notification-actions";
-import { connect } from "react-redux";
-import { combineContainers } from "combine-containers";
-import Close from "@material-ui/icons/Close";
+import React from 'react';
+import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import { AppState } from '../state/app-state';
+import { addNotification, removeNotification } from './state/notification-actions';
+import { connect } from 'react-redux';
+import { combineContainers } from 'combine-containers';
+import Close from '@material-ui/icons/Close';
 
-interface Props
-  extends MapDispatchToProps,
-    ReturnType<typeof mapStateToProps> {}
+interface Props extends MapDispatchToProps, ReturnType<typeof mapStateToProps> {}
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -27,32 +17,20 @@ const styles = (theme: Theme) =>
     },
   });
 
-interface Props
-  extends MapDispatchToProps,
-    ReturnType<typeof mapStateToProps>,
-    WithStyles<typeof styles> {}
+interface Props extends MapDispatchToProps, ReturnType<typeof mapStateToProps>, WithStyles<typeof styles> {}
 
-const Notifications = ({
-  notification,
-  addNotification,
-  removeNotification,
-}: Props) => (
+const Notifications = ({ notification, addNotification, removeNotification }: Props) => (
   <Snackbar
     anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
+      vertical: 'bottom',
+      horizontal: 'right',
     }}
     open={Boolean(notification)}
     autoHideDuration={6000}
     onClose={() => setTimeout(removeNotification, 1)}
-    message={notification ? notification.message : ""}
+    message={notification ? notification.message : ''}
     action={[
-      <IconButton
-        key="close"
-        aria-label="Close"
-        color="inherit"
-        onClick={removeNotification}
-      >
+      <IconButton key="close" aria-label="Close" color="inherit" onClick={removeNotification}>
         <Close />
       </IconButton>,
     ]}
@@ -70,7 +48,4 @@ const mapDispatchToProps = {
 
 type MapDispatchToProps = typeof mapDispatchToProps;
 
-export default combineContainers(
-  withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
-)(Notifications);
+export default combineContainers(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(Notifications);

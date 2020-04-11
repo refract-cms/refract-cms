@@ -8,7 +8,7 @@ export function composeSchema<T>(args: {
 }): EntitySchema<T> {
   return {
     ...args,
-    prototypes: {} as Return<T>
+    prototypes: {} as Return<T>,
   };
 }
 export default composeSchema;

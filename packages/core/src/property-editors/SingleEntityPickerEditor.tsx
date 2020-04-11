@@ -14,7 +14,7 @@ export default (options: SingleEntityPickerOptions) => {
       source={{}}
       serverUrl={serverUrl}
       value={[value].filter(Boolean)}
-      setValue={newValue => {
+      setValue={(newValue) => {
         setValue(newValue[newValue.length - 1]);
       }}
       propertyKey={propertyKey}

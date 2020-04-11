@@ -1,5 +1,5 @@
 export interface EntityListFilter {
   propertyKey: string;
-  operater: "EQ" | "NEQ";
+  operater: 'EQ' | 'NEQ';
   value: any;
 }

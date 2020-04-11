@@ -1,4 +1,4 @@
-import React, { ComponentType } from "react";
+import React, { ComponentType } from 'react';
 import {
   Theme,
   createStyles,
@@ -13,16 +13,15 @@ import {
   MenuItem,
   DialogActions,
   Button,
-} from "@material-ui/core";
-import { compose } from "recompose";
-import { AppState } from "../state/app-state";
-import { connect } from "react-redux";
-import { PropertyOptions, EntitySchema } from "@refract-cms/core";
-import { DialogProps } from "@material-ui/core/Dialog";
-import * as EntityActions from "./state/entity-actions";
+} from '@material-ui/core';
+import { compose } from 'recompose';
+import { AppState } from '../state/app-state';
+import { connect } from 'react-redux';
+import { PropertyOptions, EntitySchema } from '@refract-cms/core';
+import { DialogProps } from '@material-ui/core/Dialog';
+import * as EntityActions from './state/entity-actions';
 
-export interface EntityListSortDialogProps
-  extends Pick<DialogProps, "open" | "onClose"> {
+export interface EntityListSortDialogProps extends Pick<DialogProps, 'open' | 'onClose'> {
   schema: EntitySchema<any>;
   setOpened: (opened: boolean) => void;
 }
@@ -57,7 +56,7 @@ const EntityListSortDialog: ComponentType<Props> = ({
         <FormControl className={classes.formControl} fullWidth>
           <InputLabel>Sort by</InputLabel>
           <Select
-            value={filters.orderByField || ""}
+            value={filters.orderByField || ''}
             onChange={(e) =>
               setOrderByField({
                 alias: schema.options.alias,
@@ -74,9 +73,7 @@ const EntityListSortDialog: ComponentType<Props> = ({
                   schema.properties[propertyKey].type === Number
               )
               .map((propertyKey: string, index: number) => {
-                const propertyOptions = schema.properties[
-                  propertyKey
-                ] as PropertyOptions<any, any>;
+                const propertyOptions = schema.properties[propertyKey] as PropertyOptions<any, any>;
                 return (
                   <MenuItem key={index} value={propertyKey}>
                     {propertyOptions.displayName || propertyKey}
@@ -92,7 +89,7 @@ const EntityListSortDialog: ComponentType<Props> = ({
             onChange={(e) =>
               setOrderByDirection({
                 alias: schema.options.alias,
-                direction: e.target.value as "ASC" | "DESC",
+                direction: e.target.value as 'ASC' | 'DESC',
               })
             }
           >

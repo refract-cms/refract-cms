@@ -1,5 +1,5 @@
-import { AppAction } from "../../state/app-action";
-import { EntityState, EntityStateItem } from "./entity-state";
+import { AppAction } from '../../state/app-action';
+import { EntityState, EntityStateItem } from './entity-state';
 import {
   SET_ORDERBY,
   SET_ORDERBY_DIRECTION,
@@ -8,25 +8,20 @@ import {
   SET_PAGE,
   REMOVE_FILTER,
   RESET_FILTERS,
-} from "./entity-actions";
-import { CONFIGURE } from "../../config/state/config-actions";
-import { convertDateToSimpleDate, graphqlQueryHelper } from "@refract-cms/core";
+} from './entity-actions';
+import { CONFIGURE } from '../../config/state/config-actions';
+import { convertDateToSimpleDate, graphqlQueryHelper } from '@refract-cms/core';
 
 const defaultState: EntityState = {};
 
-export function entityReducer(
-  state = defaultState,
-  action: AppAction
-): EntityState {
+export function entityReducer(state = defaultState, action: AppAction): EntityState {
   switch (action.type) {
     case SET_ORDERBY: {
       return {
         ...state,
         [action.payload.alias]: {
           ...state[action.payload.alias],
-          orderByDirection: state[action.payload.alias]
-            ? state[action.payload.alias].orderByDirection || "ASC"
-            : "ASC",
+          orderByDirection: state[action.payload.alias] ? state[action.payload.alias].orderByDirection || 'ASC' : 'ASC',
           orderByField: action.payload.orderByField,
           currentPage: 0,
         },
@@ -37,13 +32,8 @@ export function entityReducer(
         ...state,
         [action.payload.alias]: {
           ...state[action.payload.alias],
-          orderByDirection: state[action.payload.alias]
-            ? state[action.payload.alias].orderByDirection || "ASC"
-            : "ASC",
-          filters: [
-            ...state[action.payload.alias].filters,
-            action.payload.filter,
-          ],
+          orderByDirection: state[action.payload.alias] ? state[action.payload.alias].orderByDirection || 'ASC' : 'ASC',
+          filters: [...state[action.payload.alias].filters, action.payload.filter],
           currentPage: 0,
         },
       };
@@ -51,10 +41,7 @@ export function entityReducer(
     case UPDATE_FILTER: {
       const { schema } = action.payload;
       const newFilters = [...state[action.payload.alias].filters];
-      if (
-        action.payload.filter.propertyKey ===
-        state[action.payload.alias].filters[action.payload.index].propertyKey
-      ) {
+      if (action.payload.filter.propertyKey === state[action.payload.alias].filters[action.payload.index].propertyKey) {
         newFilters[action.payload.index] = action.payload.filter;
       } else {
         const type = schema.properties[action.payload.filter.propertyKey].type;
@@ -74,9 +61,7 @@ export function entityReducer(
     }
     case REMOVE_FILTER: {
       const { alias, index } = action.payload;
-      const newFilters = [
-        ...state[action.payload.alias].filters.filter((f, i) => i !== index),
-      ];
+      const newFilters = [...state[action.payload.alias].filters.filter((f, i) => i !== index)];
       return {
         ...state,
         [alias]: {
@@ -119,12 +104,8 @@ export function entityReducer(
     case CONFIGURE: {
       return action.payload.schema.reduce((acc, schema) => {
         acc[schema.options.alias] = {
-          orderByDirection: schema.options.defaultSort
-            ? schema.options.defaultSort.orderByDirection || "ASC"
-            : "ASC",
-          orderByField: schema.options.defaultSort
-            ? schema.options.defaultSort.orderByField
-            : undefined,
+          orderByDirection: schema.options.defaultSort ? schema.options.defaultSort.orderByDirection || 'ASC' : 'ASC',
+          orderByField: schema.options.defaultSort ? schema.options.defaultSort.orderByField : undefined,
           filters: [],
           currentPage: 0,
           schema,

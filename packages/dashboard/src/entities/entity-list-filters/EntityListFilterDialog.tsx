@@ -1,4 +1,4 @@
-import React, { ComponentType } from "react";
+import React, { ComponentType } from 'react';
 import {
   Theme,
   createStyles,
@@ -13,16 +13,15 @@ import {
   FormControl,
   MenuItem,
   Grid,
-} from "@material-ui/core";
-import { compose } from "recompose";
-import { AppState } from "../../state/app-state";
-import { connect } from "react-redux";
-import Dialog, { DialogProps } from "@material-ui/core/Dialog";
-import { EntitySchema, isBasicPropertyType } from "@refract-cms/core";
-import * as EntityActions from "../state/entity-actions";
-import { operatorDescriptions } from "./operater-descriptions";
-export interface EntityListFilterDialogProps
-  extends Pick<DialogProps, "open" | "onClose"> {
+} from '@material-ui/core';
+import { compose } from 'recompose';
+import { AppState } from '../../state/app-state';
+import { connect } from 'react-redux';
+import Dialog, { DialogProps } from '@material-ui/core/Dialog';
+import { EntitySchema, isBasicPropertyType } from '@refract-cms/core';
+import * as EntityActions from '../state/entity-actions';
+import { operatorDescriptions } from './operater-descriptions';
+export interface EntityListFilterDialogProps extends Pick<DialogProps, 'open' | 'onClose'> {
   schema: EntitySchema<any>;
   setOpened: (opened: boolean) => void;
   count?: number;
@@ -56,7 +55,7 @@ const EntityListFilterDialog: ComponentType<Props> = ({
 }) => {
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
-      <DialogTitle>Filter {count ? <>({count} matches)</> : ""}</DialogTitle>
+      <DialogTitle>Filter {count ? <>({count} matches)</> : ''}</DialogTitle>
       <DialogContent>
         {filters.map((filter, index) => {
           const Editor = schema.properties[filter.propertyKey].editorComponent;
@@ -80,13 +79,10 @@ const EntityListFilterDialog: ComponentType<Props> = ({
                     }}
                   >
                     {Object.keys(schema.properties)
-                      .filter((propertyKey) =>
-                        isBasicPropertyType(schema.properties[propertyKey].type)
-                      )
+                      .filter((propertyKey) => isBasicPropertyType(schema.properties[propertyKey].type))
                       .map((propertyKey) => (
                         <MenuItem key={propertyKey} value={propertyKey}>
-                          {schema.properties[propertyKey].displayName ||
-                            propertyKey}
+                          {schema.properties[propertyKey].displayName || propertyKey}
                         </MenuItem>
                       ))}
                   </Select>
@@ -110,10 +106,7 @@ const EntityListFilterDialog: ComponentType<Props> = ({
                     }}
                   >
                     {operatorDescriptions.map((operaterDescription) => (
-                      <MenuItem
-                        key={operaterDescription.operater}
-                        value={operaterDescription.operater}
-                      >
+                      <MenuItem key={operaterDescription.operater} value={operaterDescription.operater}>
                         {operaterDescription.displayName}
                       </MenuItem>
                     ))}
@@ -144,9 +137,7 @@ const EntityListFilterDialog: ComponentType<Props> = ({
                 <Button
                   style={{ marginTop: 11 }}
                   fullWidth
-                  onClick={() =>
-                    removeFilter({ alias: schema.options.alias, index })
-                  }
+                  onClick={() => removeFilter({ alias: schema.options.alias, index })}
                 >
                   Remove filter
                 </Button>
@@ -164,19 +155,14 @@ const EntityListFilterDialog: ComponentType<Props> = ({
         >
           Add filter
         </Button>
-        <Button onClick={() => resetFilters({ alias: schema.options.alias })}>
-          Clear
-        </Button>
+        <Button onClick={() => resetFilters({ alias: schema.options.alias })}>Clear</Button>
         <Button onClick={() => setOpened(false)}>Done</Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-function mapStateToProps(
-  state: AppState,
-  ownProps: EntityListFilterDialogProps
-) {
+function mapStateToProps(state: AppState, ownProps: EntityListFilterDialogProps) {
   return {
     filters: state.entity[ownProps.schema.options.alias].filters,
   };

@@ -8,7 +8,7 @@ import {
   ExpansionPanel,
   ExpansionPanelSummary,
   ExpansionPanelActions,
-  ExpansionPanelDetails
+  ExpansionPanelDetails,
 } from '@material-ui/core';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Add from '@material-ui/icons/Add';
@@ -31,7 +31,7 @@ class ListEditor<T> extends React.Component<Props<T>, State<T>> {
   state: State<T> = {
     showAddNewEditor: false,
     stagedValue: undefined,
-    expandedIndex: -1
+    expandedIndex: -1,
   };
 
   render() {
@@ -55,7 +55,7 @@ class ListEditor<T> extends React.Component<Props<T>, State<T>> {
                 propertyOptions={propertyOptions}
                 propertyKey={propertyKey}
                 value={v}
-                setValue={newValue => {
+                setValue={(newValue) => {
                   if (newValue) {
                     const newValues = [...value];
                     newValues[index] = newValue;
@@ -78,9 +78,9 @@ class ListEditor<T> extends React.Component<Props<T>, State<T>> {
             propertyOptions={propertyOptions}
             propertyKey={propertyKey}
             value={this.state.stagedValue}
-            setValue={newValue => {
+            setValue={(newValue) => {
               this.setState({
-                stagedValue: newValue
+                stagedValue: newValue,
               });
             }}
           />
@@ -91,7 +91,7 @@ class ListEditor<T> extends React.Component<Props<T>, State<T>> {
               onClick={() =>
                 this.setState({
                   showAddNewEditor: false,
-                  stagedValue: undefined
+                  stagedValue: undefined,
                 })
               }
             >
@@ -104,7 +104,7 @@ class ListEditor<T> extends React.Component<Props<T>, State<T>> {
                 setValue(newValues as T[]);
                 this.setState({
                   stagedValue: undefined,
-                  showAddNewEditor: false
+                  showAddNewEditor: false,
                 });
               }}
             >
@@ -115,7 +115,7 @@ class ListEditor<T> extends React.Component<Props<T>, State<T>> {
           <IconButton
             onClick={() =>
               this.setState({
-                showAddNewEditor: true
+                showAddNewEditor: true,
               })
             }
           >
@@ -127,6 +127,6 @@ class ListEditor<T> extends React.Component<Props<T>, State<T>> {
   }
 }
 
-export default function<T>(options: ListEditorOptions<T>) {
+export default function <T>(options: ListEditorOptions<T>) {
   return (props: Props<T>) => <ListEditor {...props} {...options} />;
 }

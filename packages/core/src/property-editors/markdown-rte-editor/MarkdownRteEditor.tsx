@@ -11,35 +11,35 @@ export interface MarkdownRteEditorOptions {}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    padding: theme.spacing()
+    padding: theme.spacing(),
   },
   'header-one': {
     ...theme.typography.h1,
-    margin: theme.spacing(1, 0)
+    margin: theme.spacing(1, 0),
   },
   'header-two': {
     ...theme.typography.h2,
-    margin: theme.spacing(1, 0)
+    margin: theme.spacing(1, 0),
   },
   'header-three': {
     ...theme.typography.h3,
-    margin: theme.spacing(1, 0)
+    margin: theme.spacing(1, 0),
   },
   'header-four': {
     ...theme.typography.h4,
-    margin: theme.spacing(1, 0)
+    margin: theme.spacing(1, 0),
   },
   'header-five': {
     ...theme.typography.h5,
-    margin: theme.spacing(1, 0)
+    margin: theme.spacing(1, 0),
   },
   'header-six': {
     ...theme.typography.h6,
-    margin: theme.spacing(1, 0)
+    margin: theme.spacing(1, 0),
   },
   unstyled: {
     ...theme.typography.body1,
-    margin: 0
+    margin: 0,
   },
   blockquote: {
     ...theme.typography.body1,
@@ -47,175 +47,175 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(1, 2),
     fontStyle: 'italic',
     borderLeft: `${theme.spacing()}px solid ${theme.palette.secondary.light}`,
-    marginLeft: 0
+    marginLeft: 0,
   },
   '@global': {
     '.DraftEditor-editorContainer, .DraftEditor-root, .public-DraftEditor-content': {
       height: 'inherit',
-      textAlign: 'initial'
+      textAlign: 'initial',
     },
     ".public-DraftEditor-content[contenteditable='true']": {
-      W: 'read-write-plaintext-only'
+      W: 'read-write-plaintext-only',
     },
     '.DraftEditor-root': {
-      position: 'relative'
+      position: 'relative',
     },
     '.DraftEditor-editorContainer': {
       backgroundColor: 'rgba(255, 255, 255, 0)',
       borderLeft: '0.1px solid transparent',
       position: 'relative',
-      zIndex: 1
+      zIndex: 1,
     },
     '.public-DraftEditor-block': {
-      position: 'relative'
+      position: 'relative',
     },
     '.DraftEditor-alignLeft .public-DraftStyleDefault-block': {
-      textAlign: 'left'
+      textAlign: 'left',
     },
     '.DraftEditor-alignLeft .public-DraftEditorPlaceholder-root': {
       left: '0',
-      textAlign: 'left'
+      textAlign: 'left',
     },
     '.DraftEditor-alignCenter .public-DraftStyleDefault-block': {
-      textAlign: 'center'
+      textAlign: 'center',
     },
     '.DraftEditor-alignCenter .public-DraftEditorPlaceholder-root': {
       margin: '0 auto',
       textAlign: 'center',
-      width: '100%'
+      width: '100%',
     },
     '.DraftEditor-alignRight .public-DraftStyleDefault-block': {
-      textAlign: 'right'
+      textAlign: 'right',
     },
     '.DraftEditor-alignRight .public-DraftEditorPlaceholder-root': {
       right: '0',
-      textAlign: 'right'
+      textAlign: 'right',
     },
     '.public-DraftEditorPlaceholder-root': {
       color: '#9197a3',
       position: 'absolute',
-      zIndex: 1
+      zIndex: 1,
     },
     '.public-DraftEditorPlaceholder-hasFocus': {
-      color: '#bdc1c9'
+      color: '#bdc1c9',
     },
     '.DraftEditorPlaceholder-hidden': {
-      display: 'none'
+      display: 'none',
     },
     '.public-DraftStyleDefault-block': {
       position: 'relative',
-      whiteSpace: 'pre-wrap'
+      whiteSpace: 'pre-wrap',
     },
     '.public-DraftStyleDefault-ltr': {
       direction: 'ltr',
-      textAlign: 'left'
+      textAlign: 'left',
     },
     '.public-DraftStyleDefault-rtl': {
       direction: 'rtl',
-      textAlign: 'right'
+      textAlign: 'right',
     },
     '.public-DraftStyleDefault-listLTR': {
-      direction: 'ltr'
+      direction: 'ltr',
     },
     '.public-DraftStyleDefault-listRTL': {
-      direction: 'rtl'
+      direction: 'rtl',
     },
     '.public-DraftStyleDefault-ol, .public-DraftStyleDefault-ul': {
       margin: '16px 0',
-      padding: '0'
+      padding: '0',
     },
     '.public-DraftStyleDefault-depth0.public-DraftStyleDefault-listLTR': {
-      marginLeft: '1.5em'
+      marginLeft: '1.5em',
     },
     '.public-DraftStyleDefault-depth0.public-DraftStyleDefault-listRTL': {
-      marginRight: '1.5em'
+      marginRight: '1.5em',
     },
     '.public-DraftStyleDefault-depth1.public-DraftStyleDefault-listLTR': {
-      marginLeft: '3em'
+      marginLeft: '3em',
     },
     '.public-DraftStyleDefault-depth1.public-DraftStyleDefault-listRTL': {
-      marginRight: '3em'
+      marginRight: '3em',
     },
     '.public-DraftStyleDefault-depth2.public-DraftStyleDefault-listLTR': {
-      marginLeft: '4.5em'
+      marginLeft: '4.5em',
     },
     '.public-DraftStyleDefault-depth2.public-DraftStyleDefault-listRTL': {
-      marginRight: '4.5em'
+      marginRight: '4.5em',
     },
     '.public-DraftStyleDefault-depth3.public-DraftStyleDefault-listLTR': {
-      marginLeft: '6em'
+      marginLeft: '6em',
     },
     '.public-DraftStyleDefault-depth3.public-DraftStyleDefault-listRTL': {
-      marginRight: '6em'
+      marginRight: '6em',
     },
     '.public-DraftStyleDefault-depth4.public-DraftStyleDefault-listLTR': {
-      marginLeft: '7.5em'
+      marginLeft: '7.5em',
     },
     '.public-DraftStyleDefault-depth4.public-DraftStyleDefault-listRTL': {
-      marginRight: '7.5em'
+      marginRight: '7.5em',
     },
     '.public-DraftStyleDefault-unorderedListItem': {
       listStyleType: 'square',
-      position: 'relative'
+      position: 'relative',
     },
     '.public-DraftStyleDefault-unorderedListItem.public-DraftStyleDefault-depth0': {
-      listStyleType: 'disc'
+      listStyleType: 'disc',
     },
     '.public-DraftStyleDefault-unorderedListItem.public-DraftStyleDefault-depth1': {
-      listStyleType: 'circle'
+      listStyleType: 'circle',
     },
     '.public-DraftStyleDefault-orderedListItem': {
       listStyleType: 'none',
-      position: 'relative'
+      position: 'relative',
     },
     '.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-listLTR:before': {
       left: -36,
       position: 'absolute',
       textAlign: 'right',
-      width: 30
+      width: 30,
     },
     '.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-listRTL:before': {
       position: 'absolute',
       right: -36,
       textAlign: 'left',
-      width: 30
+      width: 30,
     },
     '.public-DraftStyleDefault-orderedListItem:before': {
       content: "counter(ol0) '. '",
-      counterIncrement: 'ol0'
+      counterIncrement: 'ol0',
     },
     '.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth1:before': {
       content: "counter(ol1) '. '",
-      counterIncrement: 'ol1'
+      counterIncrement: 'ol1',
     },
     '.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth2:before': {
       content: "counter(ol2) '. '",
-      counterIncrement: 'ol2'
+      counterIncrement: 'ol2',
     },
     '.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth3:before': {
       content: "counter(ol3) '. '",
-      counterIncrement: 'ol3'
+      counterIncrement: 'ol3',
     },
     '.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth4:before': {
       content: "counter(ol4) '. '",
-      counterIncrement: 'ol4'
+      counterIncrement: 'ol4',
     },
     '.public-DraftStyleDefault-depth0.public-DraftStyleDefault-reset': {
-      counterReset: 'ol0'
+      counterReset: 'ol0',
     },
     '.public-DraftStyleDefault-depth1.public-DraftStyleDefault-reset': {
-      counterReset: 'ol1'
+      counterReset: 'ol1',
     },
     '.public-DraftStyleDefault-depth2.public-DraftStyleDefault-reset': {
-      counterReset: 'ol2'
+      counterReset: 'ol2',
     },
     '.public-DraftStyleDefault-depth3.public-DraftStyleDefault-reset': {
-      counterReset: 'ol3'
+      counterReset: 'ol3',
     },
     '.public-DraftStyleDefault-depth4.public-DraftStyleDefault-reset': {
-      counterReset: 'ol4'
-    }
-  }
+      counterReset: 'ol4',
+    },
+  },
 }));
 
 export default (options: MarkdownRteEditorOptions = {}) => ({ value, setValue }: PropertyEditorProps<string>) => {
@@ -235,7 +235,7 @@ export default (options: MarkdownRteEditorOptions = {}) => ({ value, setValue }:
       <Editor
         editorState={editorState}
         onChange={setEditorState}
-        blockStyleFn={contentBlock => {
+        blockStyleFn={(contentBlock) => {
           const type = contentBlock.getType();
           return classes[type];
         }}

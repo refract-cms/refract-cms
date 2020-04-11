@@ -1,40 +1,32 @@
-import * as express from "express";
-import graphqlHTTP from "express-graphql";
-import { ServerConfig } from "./config/server-config";
-import { RequestHandlerParams } from "express-serve-static-core";
-import multer from "multer";
-import jimp from "jimp";
-import { authService } from "./auth/auth-service";
-import fs from "fs";
-import { MongooseSchemaBuilder } from "./persistance/mongoose-schema-builder";
-import mongoose from "mongoose";
-import { schemaBuilder } from "./graphql/schema-builder";
-import expressPlayground from "graphql-playground-middleware-express";
-import bodyParser from "body-parser";
-import { requireAuth } from "./auth/require-auth.middleware";
-import { RefractGraphQLContext } from "./graphql/refract-graphql-context";
-import { singleRefPlugin } from "./plugins/single-ref-plugin";
-import { multipleRefPlugin } from "./plugins/multiple-ref-plugin";
-import { buildServerOptions } from "./config/create-server-options";
+import * as express from 'express';
+import graphqlHTTP from 'express-graphql';
+import { ServerConfig } from './config/server-config';
+import { RequestHandlerParams } from 'express-serve-static-core';
+import multer from 'multer';
+import jimp from 'jimp';
+import { authService } from './auth/auth-service';
+import fs from 'fs';
+import { MongooseSchemaBuilder } from './persistance/mongoose-schema-builder';
+import mongoose from 'mongoose';
+import { schemaBuilder } from './graphql/schema-builder';
+import expressPlayground from 'graphql-playground-middleware-express';
+import bodyParser from 'body-parser';
+import { requireAuth } from './auth/require-auth.middleware';
+import { RefractGraphQLContext } from './graphql/refract-graphql-context';
+import { singleRefPlugin } from './plugins/single-ref-plugin';
+import { multipleRefPlugin } from './plugins/multiple-ref-plugin';
+import { buildServerOptions } from './config/create-server-options';
 
-const refractCmsHandler = ({
-  serverConfig,
-}: {
-  serverConfig: ServerConfig;
-}) => {
+const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => {
   const { config } = serverConfig;
 
   const router = express.Router();
 
   router.use(bodyParser.json());
 
-  router.post("/login", async (req, res) => {
+  router.post('/login', async (req, res) => {
     const { username, password } = req.body as any;
-    const userId = await authService.findUserIdWithCredentials(
-      username,
-      password,
-      serverConfig
-    );
+    const userId = await authService.findUserIdWithCredentials(username, password, serverConfig);
     if (userId) {
       const token = authService.createAccessToken(userId, serverConfig);
       res.send({ token });
@@ -54,17 +46,14 @@ const refractCmsHandler = ({
   mongooseSchemaBuilder.buildSchema(serverOptions.schemas);
 
   schemaBuilder.init(serverOptions);
-  const {
-    publicGraphQLSchema,
-    internalGraphQLSchema,
-  } = schemaBuilder.buildSchema(serverOptions.schemas);
+  const { publicGraphQLSchema, internalGraphQLSchema } = schemaBuilder.buildSchema(serverOptions.schemas);
 
   serverOptions.routers.forEach((routerDef) => {
     router.use(`/plugins/${routerDef.alias.toLowerCase()}`, routerDef.router);
   });
 
   router.use(
-    "/graphql",
+    '/graphql',
     graphqlHTTP((req, res) => {
       const context: RefractGraphQLContext = {
         req,
@@ -79,31 +68,25 @@ const refractCmsHandler = ({
   );
 
   router.use(
-    "/internal/graphql",
+    '/internal/graphql',
     requireAuth(serverConfig),
     graphqlHTTP((req, res) => {
       const context = {
         userId: req.headers.authorization
-          ? authService.verifyAccessToken(
-              req.headers.authorization!,
-              serverConfig
-            ).nameid
+          ? authService.verifyAccessToken(req.headers.authorization!, serverConfig).nameid
           : null,
       };
       return {
         schema: internalGraphQLSchema,
         graphiql: true,
         context: {
-          userId: "ad",
+          userId: 'ad',
         },
       };
     })
   );
 
-  router.get(
-    "/graphql-playground",
-    expressPlayground({ endpoint: `${serverConfig.rootPath}/graphql` })
-  );
+  router.get('/graphql-playground', expressPlayground({ endpoint: `${serverConfig.rootPath}/graphql` }));
 
   // const filesRepository = new MongoRepository<FileModel>('files', db!);
 
@@ -134,7 +117,7 @@ const refractCmsHandler = ({
   //   res.send(req.file);
   // });
 
-  return [serverConfig.rootPath || "", router] as RequestHandlerParams[];
+  return [serverConfig.rootPath || '', router] as RequestHandlerParams[];
 };
 
 export default refractCmsHandler;

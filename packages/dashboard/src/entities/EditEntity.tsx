@@ -1,23 +1,19 @@
-import React from "react";
-import { RouteComponentProps } from "@reach/router";
-import gql from "graphql-tag";
-import { Mutation, WithApolloClient, withApollo } from "react-apollo";
-import EntityForm from "./EntityForm";
-import { graphqlQueryHelper } from "@refract-cms/core";
-import { combineContainers } from "combine-containers";
-import { connect } from "react-redux";
-import { AppState } from "../state/app-state";
-import { graphql } from "graphql";
-import ApolloClient from "apollo-client";
-import { buildEntityListQueryOptions } from "./state/build-entity-list-query-options";
+import React from 'react';
+import { RouteComponentProps } from '@reach/router';
+import gql from 'graphql-tag';
+import { Mutation, WithApolloClient, withApollo } from 'react-apollo';
+import EntityForm from './EntityForm';
+import { graphqlQueryHelper } from '@refract-cms/core';
+import { combineContainers } from 'combine-containers';
+import { connect } from 'react-redux';
+import { AppState } from '../state/app-state';
+import { graphql } from 'graphql';
+import ApolloClient from 'apollo-client';
+import { buildEntityListQueryOptions } from './state/build-entity-list-query-options';
 
-export interface EditEntityProps
-  extends RouteComponentProps<{ alias: string; id: string | "new" }> {}
+export interface EditEntityProps extends RouteComponentProps<{ alias: string; id: string | 'new' }> {}
 
-export interface Props
-  extends EditEntityProps,
-    WithApolloClient<any>,
-    ReturnType<typeof mapStateToProps> {
+export interface Props extends EditEntityProps, WithApolloClient<any>, ReturnType<typeof mapStateToProps> {
   client: ApolloClient<any>;
 }
 
@@ -43,7 +39,7 @@ const EditEntity = ({ alias, id, client, schema, entityItemState }: Props) => {
   }
   `
   );
-  const newEntity = !id || id === "new";
+  const newEntity = !id || id === 'new';
   const mutation = newEntity ? createMutation : updateMutation;
   return (
     <Mutation mutation={mutation} refetchQueries={[refetchQueryOptions]}>
@@ -54,11 +50,8 @@ const EditEntity = ({ alias, id, client, schema, entityItemState }: Props) => {
             newEntity={newEntity}
             id={id}
             saveEntity={(record) => {
-              const recordWithNullInsteadOfUndefined = Object.keys(
-                record
-              ).reduce((acc, recordKey) => {
-                acc[recordKey] =
-                  record[recordKey] === undefined ? null : record[recordKey];
+              const recordWithNullInsteadOfUndefined = Object.keys(record).reduce((acc, recordKey) => {
+                acc[recordKey] = record[recordKey] === undefined ? null : record[recordKey];
                 return acc;
               }, {});
               // delete recordWithNullInsteadOfUndefined['__typename'];
@@ -86,9 +79,7 @@ const EditEntity = ({ alias, id, client, schema, entityItemState }: Props) => {
 };
 
 function mapStateToProps(state: AppState, ownProps: EditEntityProps) {
-  const entitySchema = state.config.schema.find(
-    (s) => s.options.alias === ownProps.alias
-  )!;
+  const entitySchema = state.config.schema.find((s) => s.options.alias === ownProps.alias)!;
   const entityItemState = state.entity[entitySchema.options.alias];
   return {
     routes: state.router.routes!,
@@ -97,7 +88,6 @@ function mapStateToProps(state: AppState, ownProps: EditEntityProps) {
   };
 }
 
-export default combineContainers(
-  connect(mapStateToProps),
-  withApollo
-)(EditEntity) as React.ComponentType<EditEntityProps>;
+export default combineContainers(connect(mapStateToProps), withApollo)(EditEntity) as React.ComponentType<
+  EditEntityProps
+>;

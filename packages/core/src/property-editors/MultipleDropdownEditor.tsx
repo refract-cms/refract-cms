@@ -16,20 +16,20 @@ export default (options?: MultipleDropdownEditorOptions) => (props: PropertyEdit
         value={value}
         fullWidth
         multiple
-        onChange={e => {
+        onChange={(e) => {
           props.setValue(
-            ((e.target.value as any) as string[]).filter(value => selectOptions.some(option => value === option))
+            ((e.target.value as any) as string[]).filter((value) => selectOptions.some((option) => value === option))
           );
         }}
-        renderValue={e => {
+        renderValue={(e) => {
           if (e instanceof Array) {
             return `${e.join(', ')}`;
           }
           return '';
         }}
       >
-        {selectOptions.map(selectOption => {
-          const checked = value.some(value => value === selectOption);
+        {selectOptions.map((selectOption) => {
+          const checked = value.some((value) => value === selectOption);
           return (
             <MenuItem key={selectOption} value={selectOption}>
               <Checkbox checked={checked} />

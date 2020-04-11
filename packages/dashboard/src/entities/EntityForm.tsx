@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from 'react';
 import {
   EntitySchema,
   graphqlQueryHelper,
@@ -6,8 +6,8 @@ import {
   withCoreContext,
   WithCoreContextProps,
   RenderEditor,
-} from "@refract-cms/core";
-import { navigate } from "@reach/router";
+} from '@refract-cms/core';
+import { navigate } from '@reach/router';
 import {
   Button,
   LinearProgress,
@@ -20,20 +20,20 @@ import {
   AppBar,
   Grid,
   IconButton,
-} from "@material-ui/core";
-import { connect } from "react-redux";
-import { combineContainers } from "combine-containers";
-import { AppState } from "../state/app-state";
-import { Routes } from "../router/routes";
-import { RouteComponentProps } from "@reach/router";
-import { WithApolloClient, withApollo } from "react-apollo";
-import ApolloClient from "apollo-client";
-import gql from "graphql-tag";
-import Page from "../pages/Page";
-import { addNotification } from "../notifications/state/notification-actions";
-import Delete from "@material-ui/icons/Delete";
-import ArrowBack from "@material-ui/icons/ArrowBack";
-import { buildEntityListQueryOptions } from "./state/build-entity-list-query-options";
+} from '@material-ui/core';
+import { connect } from 'react-redux';
+import { combineContainers } from 'combine-containers';
+import { AppState } from '../state/app-state';
+import { Routes } from '../router/routes';
+import { RouteComponentProps } from '@reach/router';
+import { WithApolloClient, withApollo } from 'react-apollo';
+import ApolloClient from 'apollo-client';
+import gql from 'graphql-tag';
+import Page from '../pages/Page';
+import { addNotification } from '../notifications/state/notification-actions';
+import Delete from '@material-ui/icons/Delete';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import { buildEntityListQueryOptions } from './state/build-entity-list-query-options';
 
 interface State {
   updateValues: any;
@@ -127,39 +127,37 @@ class EntityForm extends Component<Props, State> {
           <Grid justify="center" container>
             <Grid item xs={12} sm={12} md={10} lg={8} xl={7}>
               <div className={classes.card}>
-                {Object.keys(schema.properties).map(
-                  (propertyKey: string, index: number) => {
-                    const propertyOptions = schema.properties[propertyKey];
-                    return (
-                      <div key={index} className={classes.propertyEditor}>
-                        <Grid container spacing={2}>
-                          <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-                            <Typography variant="subtitle1" gutterBottom>
-                              {propertyOptions.displayName || propertyKey}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
-                            <RenderEditor
-                              source={this.state.updateValues}
-                              serverUrl={context.serverUrl}
-                              setValue={(value) => {
-                                this.setState({
-                                  updateValues: {
-                                    ...this.state.updateValues,
-                                    [propertyKey]: value,
-                                  },
-                                });
-                              }}
-                              value={this.state.updateValues[propertyKey]}
-                              propertyKey={propertyKey}
-                              propertyOptions={propertyOptions}
-                            />
-                          </Grid>
+                {Object.keys(schema.properties).map((propertyKey: string, index: number) => {
+                  const propertyOptions = schema.properties[propertyKey];
+                  return (
+                    <div key={index} className={classes.propertyEditor}>
+                      <Grid container spacing={2}>
+                        <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+                          <Typography variant="subtitle1" gutterBottom>
+                            {propertyOptions.displayName || propertyKey}
+                          </Typography>
                         </Grid>
-                      </div>
-                    );
-                  }
-                )}
+                        <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+                          <RenderEditor
+                            source={this.state.updateValues}
+                            serverUrl={context.serverUrl}
+                            setValue={(value) => {
+                              this.setState({
+                                updateValues: {
+                                  ...this.state.updateValues,
+                                  [propertyKey]: value,
+                                },
+                              });
+                            }}
+                            value={this.state.updateValues[propertyKey]}
+                            propertyKey={propertyKey}
+                            propertyOptions={propertyOptions}
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                  );
+                })}
               </div>
             </Grid>
           </Grid>
@@ -175,11 +173,7 @@ class EntityForm extends Component<Props, State> {
         .saveEntity(this.state.updateValues)
         .then(() => {
           this.back();
-          this.props.addNotification(
-            `Successfully saved ${
-              schema.options.displayName || schema.options.alias
-            }.`
-          );
+          this.props.addNotification(`Successfully saved ${schema.options.displayName || schema.options.alias}.`);
         })
         .catch(() => {
           this.setState({ loading: false });
@@ -188,7 +182,7 @@ class EntityForm extends Component<Props, State> {
   }
 
   delete() {
-    if (window.confirm("Are you sure you want to delete?")) {
+    if (window.confirm('Are you sure you want to delete?')) {
       const { client, schema, entityItemState, id } = this.props;
       const refetchQueryOptions = buildEntityListQueryOptions(entityItemState);
       this.setState({ loading: true }, () => {
@@ -202,11 +196,7 @@ class EntityForm extends Component<Props, State> {
           })
           .then(() => {
             this.back();
-            this.props.addNotification(
-              `Successfully deleted ${
-                schema.options.displayName || schema.options.alias
-              }.`
-            );
+            this.props.addNotification(`Successfully deleted ${schema.options.displayName || schema.options.alias}.`);
           })
           .catch(() => {
             this.setState({ loading: false });
@@ -228,9 +218,7 @@ export interface EntityFormProps {
 }
 
 function mapStateToProps(state: AppState, ownProps: EntityFormProps) {
-  const entitySchema = state.config.schema.find(
-    (s) => s.options.alias === ownProps.alias
-  )!;
+  const entitySchema = state.config.schema.find((s) => s.options.alias === ownProps.alias)!;
   const entityItemState = state.entity[entitySchema.options.alias];
   return {
     routes: state.router.routes!,

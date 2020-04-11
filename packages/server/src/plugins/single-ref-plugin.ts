@@ -8,10 +8,10 @@ export const singleRefPlugin = createResolverPlugin({
     const refSchema: EntitySchema = meta.schema;
     return {
       type: schemaBuilder.getTypeFromSchema(refSchema),
-      resolve: source => {
+      resolve: (source) => {
         const id: string = source[propertyKey] as any;
         return repositoryForSchema(refSchema).findOne({ _id: id }) as any;
-      }
+      },
     };
-  }
+  },
 });

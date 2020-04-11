@@ -1,6 +1,6 @@
-import React from "react";
-import { RouteComponentProps, Link } from "@reach/router";
-import Page from "../pages/Page";
+import React from 'react';
+import { RouteComponentProps, Link } from '@reach/router';
+import Page from '../pages/Page';
 import {
   Typography,
   Grid,
@@ -15,16 +15,14 @@ import {
   CardActions,
   Button,
   Avatar,
-} from "@material-ui/core";
-import { AppState } from "../state/app-state";
-import gql from "graphql-tag";
-import { connect } from "react-redux";
-import { Query } from "react-apollo";
-import { createLinkComponent } from "../shared/create-link-component";
+} from '@material-ui/core';
+import { AppState } from '../state/app-state';
+import gql from 'graphql-tag';
+import { connect } from 'react-redux';
+import { Query } from 'react-apollo';
+import { createLinkComponent } from '../shared/create-link-component';
 
-interface OverviewPageProps
-  extends RouteComponentProps,
-    ReturnType<typeof mapStateToProps> {}
+interface OverviewPageProps extends RouteComponentProps, ReturnType<typeof mapStateToProps> {}
 
 class OverviewPage extends React.Component<OverviewPageProps> {
   render() {
@@ -42,27 +40,13 @@ class OverviewPage extends React.Component<OverviewPageProps> {
                 {schemas.map((schema) => {
                   const count = data[`${schema.options.alias}Count`];
                   return (
-                    <Grid
-                      key={schema.options.alias}
-                      item
-                      xs={12}
-                      sm={6}
-                      md={4}
-                      lg={3}
-                      xl={2}
-                    >
+                    <Grid key={schema.options.alias} item xs={12} sm={6} md={4} lg={3} xl={2}>
                       <Card>
                         <CardHeader
-                          title={
-                            schema.options.displayName || schema.options.alias
-                          }
+                          title={schema.options.displayName || schema.options.alias}
                           avatar={
                             <Avatar>
-                              {schema.options.icon ? (
-                                <schema.options.icon />
-                              ) : (
-                                schema.options.alias[0].toUpperCase()
-                              )}
+                              {schema.options.icon ? <schema.options.icon /> : schema.options.alias[0].toUpperCase()}
                             </Avatar>
                           }
                         />
@@ -75,9 +59,7 @@ class OverviewPage extends React.Component<OverviewPageProps> {
                             fullWidth
                             variant="outlined"
                             size="small"
-                            component={createLinkComponent(
-                              routes.entity.list.createUrl(schema)
-                            )}
+                            component={createLinkComponent(routes.entity.list.createUrl(schema))}
                           >
                             Start editing
                           </Button>
@@ -96,8 +78,7 @@ class OverviewPage extends React.Component<OverviewPageProps> {
 }
 
 function mapStateToProps(state: AppState) {
-  const countFields = state.config.schema.map((s) => `${s.options.alias}Count`)
-    .join(`
+  const countFields = state.config.schema.map((s) => `${s.options.alias}Count`).join(`
   `);
   const QUERY = gql`
   {

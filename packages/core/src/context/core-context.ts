@@ -1,6 +1,6 @@
-import React from "react";
-import { PluginConfig } from "../plugins/plugin-config";
-import { AxiosInstance } from "axios";
+import React from 'react';
+import { PluginConfig } from '../plugins/plugin-config';
+import { AxiosInstance } from 'axios';
 
 export interface CoreContextModel {
   serverUrl: string;
@@ -9,7 +9,7 @@ export interface CoreContextModel {
 }
 
 export const CoreContext = React.createContext<CoreContextModel>({
-  serverUrl: "",
+  serverUrl: '',
   getPluginAxios: null,
   // fileService: new FileService('')
 });

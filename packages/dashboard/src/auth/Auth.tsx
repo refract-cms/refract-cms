@@ -1,22 +1,22 @@
-import React, { Component, ChangeEvent } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import LockIcon from "@material-ui/icons/LockOutlined";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
-import { RouteComponentProps } from "@reach/router";
-import { createStyles, Theme } from "@material-ui/core";
-import gql from "graphql-tag";
-import { Mutation, withApollo, WithApolloClient } from "react-apollo";
-import { connect } from "react-redux";
-import { combineContainers } from "combine-containers";
-import { setActiveUserToken } from "./state/auth-actions";
-import { AppState } from "../state/app-state";
+import React, { Component, ChangeEvent } from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import LockIcon from '@material-ui/icons/LockOutlined';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import { RouteComponentProps } from '@reach/router';
+import { createStyles, Theme } from '@material-ui/core';
+import gql from 'graphql-tag';
+import { Mutation, withApollo, WithApolloClient } from 'react-apollo';
+import { connect } from 'react-redux';
+import { combineContainers } from 'combine-containers';
+import { setActiveUserToken } from './state/auth-actions';
+import { AppState } from '../state/app-state';
 
 interface AuthProps extends RouteComponentProps {}
 
@@ -36,31 +36,29 @@ const generateAccessTokenMutation = gql(`
 const styles = (theme: Theme) =>
   createStyles({
     main: {
-      width: "auto",
-      display: "block", // Fix IE 11 issue.
+      width: 'auto',
+      display: 'block', // Fix IE 11 issue.
       marginLeft: theme.spacing(3),
       marginRight: theme.spacing(3),
       [theme.breakpoints.up(400 + theme.spacing(3 * 2))]: {
         width: 400,
-        marginLeft: "auto",
-        marginRight: "auto",
+        marginLeft: 'auto',
+        marginRight: 'auto',
       },
     },
     paper: {
       marginTop: theme.spacing(8),
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(
-        3
-      )}px`,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: `${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(3)}px`,
     },
     avatar: {
       margin: theme.spacing(),
       backgroundColor: theme.palette.secondary.main,
     },
     form: {
-      width: "100%", // Fix IE 11 issue.
+      width: '100%', // Fix IE 11 issue.
       marginTop: theme.spacing(),
     },
     submit: {
@@ -77,13 +75,12 @@ interface State {
 
 class Auth extends Component<Props, any> {
   state: State = {
-    username: "",
-    password: "",
+    username: '',
+    password: '',
     loggingIn: false,
   };
 
-  onChange = (name: string) => (e: ChangeEvent<HTMLInputElement>) =>
-    this.setState({ [name]: e.target.value });
+  onChange = (name: string) => (e: ChangeEvent<HTMLInputElement>) => this.setState({ [name]: e.target.value });
 
   render() {
     const { classes } = this.props;
@@ -106,13 +103,13 @@ class Auth extends Component<Props, any> {
                   error: undefined,
                 });
                 fetch(`${this.props.config.serverUrl}/login`, {
-                  method: "POST",
+                  method: 'POST',
                   body: JSON.stringify({
                     username,
                     password,
                   }),
                   headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                   },
                 })
                   .then((res) => {
@@ -130,7 +127,7 @@ class Auth extends Component<Props, any> {
                   .catch(() => {
                     this.setState({
                       isLoading: false,
-                      error: "Login failed",
+                      error: 'Login failed',
                     });
                   });
               }}
@@ -140,7 +137,7 @@ class Auth extends Component<Props, any> {
                 <InputLabel htmlFor="username">Username</InputLabel>
                 <Input
                   value={this.state.username}
-                  onChange={this.onChange("username")}
+                  onChange={this.onChange('username')}
                   id="username"
                   name="username"
                   autoFocus
@@ -150,7 +147,7 @@ class Auth extends Component<Props, any> {
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <Input
                   value={this.state.password}
-                  onChange={this.onChange("password")}
+                  onChange={this.onChange('password')}
                   name="password"
                   type="password"
                   id="password"
@@ -158,13 +155,7 @@ class Auth extends Component<Props, any> {
                 />
               </FormControl>
 
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
+              <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                 Sign in
               </Button>
             </form>

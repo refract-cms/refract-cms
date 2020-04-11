@@ -1,10 +1,8 @@
-import { EntityStateItem } from "./entity-state";
-import { graphqlQueryHelper } from "@refract-cms/core";
-import { PureQueryOptions } from "apollo-client";
+import { EntityStateItem } from './entity-state';
+import { graphqlQueryHelper } from '@refract-cms/core';
+import { PureQueryOptions } from 'apollo-client';
 
-export function buildEntityListQueryOptions(
-  state: EntityStateItem
-): PureQueryOptions {
+export function buildEntityListQueryOptions(state: EntityStateItem): PureQueryOptions {
   const query = graphqlQueryHelper.getAllQueryWithAllFields(state.schema);
   let transformedFilter = {};
   let transformedSort = {};

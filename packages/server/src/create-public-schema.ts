@@ -78,7 +78,7 @@
 //           });
 //         }
 //       } as any;
-//     }, 
+//     },
 //     resolveImageProperty: propertyKey => {
 //       const crops = (schema.properties as any)[propertyKey].type.meta.crops.meta;
 //       const cropKeys = Object.keys(crops);

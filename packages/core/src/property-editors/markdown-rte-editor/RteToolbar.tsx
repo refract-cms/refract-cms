@@ -13,40 +13,40 @@ export interface RteToolbarProps {
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      marginBottom: theme.spacing()
+      marginBottom: theme.spacing(),
     },
     active: {
       backgroundColor: theme.palette.secondary.main,
       color: theme.palette.secondary.contrastText,
       '&:hover': {
-        backgroundColor: theme.palette.secondary.light
-      }
+        backgroundColor: theme.palette.secondary.light,
+      },
     },
     buttonGroup: {
       marginRight: theme.spacing(),
-      marginBottom: theme.spacing()
-    }
+      marginBottom: theme.spacing(),
+    },
   });
 
 interface Props extends RteToolbarProps, WithStyles<typeof styles> {}
 
-const RteToolbar: ComponentType<Props> = props => {
+const RteToolbar: ComponentType<Props> = (props) => {
   const { classes, setEditorState, editorState } = props;
   function createBlockButtonProps({ blockType }: { blockType: string }) {
     return {
       className: classNames({
-        [classes.active]: RichUtils.getCurrentBlockType(editorState) === blockType
+        [classes.active]: RichUtils.getCurrentBlockType(editorState) === blockType,
       }),
-      onClick: () => setEditorState(RichUtils.toggleBlockType(editorState, blockType))
+      onClick: () => setEditorState(RichUtils.toggleBlockType(editorState, blockType)),
     };
   }
   function createStyleButtonProps({ inlineStyle }: { inlineStyle: string }) {
     const currentStyle = props.editorState.getCurrentInlineStyle();
     return {
       className: classNames({
-        [classes.active]: currentStyle.has(inlineStyle)
+        [classes.active]: currentStyle.has(inlineStyle),
       }),
-      onClick: () => setEditorState(RichUtils.toggleInlineStyle(editorState, inlineStyle))
+      onClick: () => setEditorState(RichUtils.toggleInlineStyle(editorState, inlineStyle)),
     };
   }
   return (

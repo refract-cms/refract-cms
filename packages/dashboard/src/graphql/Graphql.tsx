@@ -8,8 +8,8 @@ const styles = (theme: Theme) =>
       width: '100%',
       height: 'calc(100vh - 64px)',
       border: 'none',
-      marginBottom: `-4px`
-    }
+      marginBottom: `-4px`,
+    },
   });
 
 interface GraphqlProps extends RouteComponentProps {

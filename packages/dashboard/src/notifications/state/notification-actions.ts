@@ -6,7 +6,7 @@ export const REMOVE_NOTIFICATION = '@@CMS/REMOVE_NOTIFICATION';
 
 export const addNotification = (message: string) => {
   return action(ADD_NOTIFICATION, {
-    message
+    message,
   });
 };
 

@@ -10,7 +10,7 @@ function customizer(objValue, srcValue) {
 }
 
 const defaultExtensionConfig: PluginConfig = {
-  schema: []
+  schema: [],
 };
 
 export const configure = (config: Config, ...extensions: PluginConfig[]) => {

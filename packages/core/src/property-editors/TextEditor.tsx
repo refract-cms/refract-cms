@@ -15,11 +15,11 @@ export default (options: TextEditorOptions = defaultOptions) => (props: Property
       multiline={options.multiline}
       fullWidth
       inputProps={{
-        maxLength: options.maxLength
+        maxLength: options.maxLength,
       }}
       label={props.propertyOptions.displayName}
       value={props.value || ''}
-      onChange={e => props.setValue(e.target.value)}
+      onChange={(e) => props.setValue(e.target.value)}
     />
   );
 };

@@ -1,4 +1,4 @@
-import { EntitySchema } from "@refract-cms/core";
+import { EntitySchema } from '@refract-cms/core';
 
 export interface Routes {
   root: {
@@ -12,7 +12,7 @@ export interface Routes {
   graphql: {
     path: string;
     createUrl: () => string;
-  }
+  };
   content: {
     path: string;
     createUrl: (schema: EntitySchema) => string;
@@ -24,7 +24,7 @@ export interface Routes {
   files: {
     path: string;
     createUrl: () => string;
-  }
+  };
   entity: {
     list: {
       path: string;
@@ -34,6 +34,5 @@ export interface Routes {
       path: string;
       createUrl: (args: { id: string | 'new'; schema: EntitySchema }) => string;
     };
-  }
-  
+  };
 }

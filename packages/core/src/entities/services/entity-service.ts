@@ -1,13 +1,10 @@
-import { pickBy, negate, merge } from "lodash";
-import { EntitySchema } from "../entity-schema";
-import { Entity } from "../entity";
-import { CoreContextModel } from "../../context/core-context";
+import { pickBy, negate, merge } from 'lodash';
+import { EntitySchema } from '../entity-schema';
+import { Entity } from '../entity';
+import { CoreContextModel } from '../../context/core-context';
 
 class EntityService {
-  instanceDisplayPropsOrDefault = (
-    entitySchema: EntitySchema,
-    context: CoreContextModel
-  ) => (entity: any) => {
+  instanceDisplayPropsOrDefault = (entitySchema: EntitySchema, context: CoreContextModel) => (entity: any) => {
     const defaultInstanceDisplayProps: {
       primaryText: string;
       secondaryText: string | undefined;

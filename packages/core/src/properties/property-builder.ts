@@ -10,12 +10,12 @@ function singleReference(
     ...options,
     type: String,
     editorComponent: createSingleEntityPickerEditor({
-      schema
+      schema,
     }),
     resolverPlugin: {
       alias: 'singleRef',
-      meta: { schema }
-    }
+      meta: { schema },
+    },
   };
 }
 
@@ -28,16 +28,16 @@ function multipleReferences(
     type: [String],
     editorComponent: createMultipleEntityPickerEditor({
       schema,
-      max: options.max
+      max: options.max,
     }),
     resolverPlugin: {
       alias: 'multipleRef',
-      meta: { schema }
-    }
+      meta: { schema },
+    },
   };
 }
 
 export const propertyBuilder = {
   singleReference,
-  multipleReferences
+  multipleReferences,
 };

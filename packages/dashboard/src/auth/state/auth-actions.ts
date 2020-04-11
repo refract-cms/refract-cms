@@ -1,7 +1,7 @@
-import { authService } from "../auth-service";
-import { action } from "typesafe-actions";
+import { authService } from '../auth-service';
+import { action } from 'typesafe-actions';
 
-export const SET_ACTIVE_USER_TOKEN = "@@CMS/SET_ACTIVE_USER_TOKEN";
+export const SET_ACTIVE_USER_TOKEN = '@@CMS/SET_ACTIVE_USER_TOKEN';
 
 export function setActiveUserToken(token: string | null) {
   if (token) {

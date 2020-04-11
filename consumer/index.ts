@@ -1,1 +1,1 @@
-import { composeSchema } from "@refract-cms/core";
+import { composeSchema } from '@refract-cms/core';

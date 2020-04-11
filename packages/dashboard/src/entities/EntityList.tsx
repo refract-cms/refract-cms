@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Query, withApollo } from "react-apollo";
+import React, { Component } from 'react';
+import { Query, withApollo } from 'react-apollo';
 import {
   LinearProgress,
   List,
@@ -16,29 +16,23 @@ import {
   TablePagination,
   Badge,
   Tooltip,
-} from "@material-ui/core";
-import {
-  Entity,
-  graphqlQueryHelper,
-  EntityListItem,
-  PropertyOptions,
-} from "@refract-cms/core";
-import { RouteComponentProps, Link } from "@reach/router";
-import { connect } from "react-redux";
-import { AppState } from "../state/app-state";
-import { combineContainers } from "combine-containers";
-import Page from "../pages/Page";
-import Sort from "@material-ui/icons/Sort";
-import Filter from "@material-ui/icons/FilterList";
-import Refresh from "@material-ui/icons/Refresh";
-import EntityListSortDialog from "./EntityListSortDialog";
-import EntityListFilterDialog from "./entity-list-filters/EntityListFilterDialog";
-import { createLinkComponent } from "../shared/create-link-component";
-import * as EntityActions from "./state/entity-actions";
-import { buildEntityListQueryOptions } from "./state/build-entity-list-query-options";
+} from '@material-ui/core';
+import { Entity, graphqlQueryHelper, EntityListItem, PropertyOptions } from '@refract-cms/core';
+import { RouteComponentProps, Link } from '@reach/router';
+import { connect } from 'react-redux';
+import { AppState } from '../state/app-state';
+import { combineContainers } from 'combine-containers';
+import Page from '../pages/Page';
+import Sort from '@material-ui/icons/Sort';
+import Filter from '@material-ui/icons/FilterList';
+import Refresh from '@material-ui/icons/Refresh';
+import EntityListSortDialog from './EntityListSortDialog';
+import EntityListFilterDialog from './entity-list-filters/EntityListFilterDialog';
+import { createLinkComponent } from '../shared/create-link-component';
+import * as EntityActions from './state/entity-actions';
+import { buildEntityListQueryOptions } from './state/build-entity-list-query-options';
 
-export interface EntitiesListProps
-  extends RouteComponentProps<{ alias: string }> {}
+export interface EntitiesListProps extends RouteComponentProps<{ alias: string }> {}
 
 interface Props
   extends EntitiesListProps,
@@ -56,10 +50,10 @@ interface State {
 const styles = (theme: Theme) =>
   createStyles({
     textLink: {
-      cursor: "pointer",
+      cursor: 'pointer',
       color: theme.palette.secondary.main,
-      "&:hover": {
-        textDecoration: "underline",
+      '&:hover': {
+        textDecoration: 'underline',
       },
     },
   });
@@ -72,13 +66,7 @@ class EntitiesList extends Component<Props, State> {
   };
 
   render() {
-    const {
-      routes,
-      entitySchema,
-      classes,
-      entityItemState,
-      setPage,
-    } = this.props;
+    const { routes, entitySchema, classes, entityItemState, setPage } = this.props;
     const { query, variables } = buildEntityListQueryOptions(entityItemState);
     return (
       <div>
@@ -98,53 +86,28 @@ class EntitiesList extends Component<Props, State> {
         >
           {({ loading, data, refetch, variables }) => {
             const items = data.items || [];
-            if (
-              loading &&
-              this.state.lastFetchAlias !== entitySchema.options.alias
-            ) {
+            if (loading && this.state.lastFetchAlias !== entitySchema.options.alias) {
               return <LinearProgress />;
             }
             return (
               <Page
-                title={
-                  entitySchema.options.displayName || entitySchema.options.alias
-                }
+                title={entitySchema.options.displayName || entitySchema.options.alias}
                 actionComponents={
                   !entitySchema.options.maxOne
                     ? [
-                        <IconButton
-                          disabled={loading}
-                          onClick={() => refetch(variables)}
-                        >
+                        <IconButton disabled={loading} onClick={() => refetch(variables)}>
                           <Refresh />
                         </IconButton>,
-                        <IconButton
-                          onClick={() =>
-                            this.setState({ sortDialogOpen: true })
-                          }
-                        >
+                        <IconButton onClick={() => this.setState({ sortDialogOpen: true })}>
                           <Tooltip title="Sort">
-                            <Badge
-                              variant="dot"
-                              badgeContent={
-                                entityItemState.orderByField ? 1 : 0
-                              }
-                              color="secondary"
-                            >
+                            <Badge variant="dot" badgeContent={entityItemState.orderByField ? 1 : 0} color="secondary">
                               <Sort />
                             </Badge>
                           </Tooltip>
                         </IconButton>,
-                        <IconButton
-                          onClick={() =>
-                            this.setState({ filterDialogOpen: true })
-                          }
-                        >
+                        <IconButton onClick={() => this.setState({ filterDialogOpen: true })}>
                           <Tooltip title="Filters">
-                            <Badge
-                              badgeContent={entityItemState.filters.length}
-                              color="secondary"
-                            >
+                            <Badge badgeContent={entityItemState.filters.length} color="secondary">
                               <Filter />
                             </Badge>
                           </Tooltip>
@@ -154,7 +117,7 @@ class EntitiesList extends Component<Props, State> {
                           color="primary"
                           component={createLinkComponent(
                             routes.entity.edit.createUrl({
-                              id: "new",
+                              id: 'new',
                               schema: entitySchema,
                             })
                           )}
@@ -169,20 +132,15 @@ class EntitiesList extends Component<Props, State> {
                   <div>
                     <List
                       subheader={
-                        entityItemState &&
-                        entityItemState.orderByField &&
-                        entityItemState.orderByDirection ? (
+                        entityItemState && entityItemState.orderByField && entityItemState.orderByDirection ? (
                           <ListSubheader
                             className={classes.textLink}
-                            onClick={() =>
-                              this.setState({ sortDialogOpen: true })
-                            }
+                            onClick={() => this.setState({ sortDialogOpen: true })}
                           >
-                            Sorted by{" "}
+                            Sorted by{' '}
                             {
-                              (entitySchema.properties[
-                                entityItemState.orderByField
-                              ] as PropertyOptions<any, any>).displayName
+                              (entitySchema.properties[entityItemState.orderByField] as PropertyOptions<any, any>)
+                                .displayName
                             }
                             , {entityItemState.orderByDirection}
                           </ListSubheader>
@@ -234,7 +192,7 @@ class EntitiesList extends Component<Props, State> {
                           to={
                             items.length === 0
                               ? routes.entity.edit.createUrl({
-                                  id: "new",
+                                  id: 'new',
                                   schema: entitySchema,
                                 })
                               : routes.entity.edit.createUrl({
@@ -246,9 +204,7 @@ class EntitiesList extends Component<Props, State> {
                         />
                       )}
                     >
-                      Edit{" "}
-                      {entitySchema.options.displayName ||
-                        entitySchema.options.alias}
+                      Edit {entitySchema.options.displayName || entitySchema.options.alias}
                     </Button>
                   </div>
                 )}
@@ -279,9 +235,7 @@ const mapDispatchToProps = { ...EntityActions };
 type DispatchProps = typeof mapDispatchToProps;
 
 function mapStateToProps(state: AppState, ownProps: EntitiesListProps) {
-  const entitySchema = state.config.schema.find(
-    (s) => s.options.alias === ownProps.alias
-  )!;
+  const entitySchema = state.config.schema.find((s) => s.options.alias === ownProps.alias)!;
   const entityItemState = state.entity[entitySchema.options.alias];
   return {
     schema: state.config.schema,

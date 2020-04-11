@@ -13,8 +13,8 @@ export interface DatePickerOptions {}
 
 const styles = (theme: Theme) => ({
   editor: {
-    width: '100%'
-  }
+    width: '100%',
+  },
 });
 
 interface Props extends PropertyEditorProps<Date>, WithStyles<typeof styles> {}

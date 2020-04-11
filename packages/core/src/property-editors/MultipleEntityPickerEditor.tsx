@@ -1,5 +1,5 @@
-import * as React from "react";
-import { PropertyEditorProps } from "../properties/property-editor-props";
+import * as React from 'react';
+import { PropertyEditorProps } from '../properties/property-editor-props';
 import {
   Theme,
   withStyles,
@@ -19,18 +19,18 @@ import {
   createStyles,
   Chip,
   Avatar,
-} from "@material-ui/core";
-import { combineContainers } from "combine-containers";
-import { graphql, DataProps } from "react-apollo";
-import { graphqlQueryHelper } from "../graphql/graphql-query-helper";
-import { EntitySchema } from "../entities/entity-schema";
-import { Entity } from "../entities/entity";
-import EntityListItem from "../entities/EntityListItem";
-import { entityService } from "../entities/services/entity-service";
-import pluralize from "pluralize";
-import AddCircle from "@material-ui/icons/AddCircle";
-import { withCoreContext } from "../context/with-core-context";
-import { WithCoreContextProps } from "../context/with-core-context-props";
+} from '@material-ui/core';
+import { combineContainers } from 'combine-containers';
+import { graphql, DataProps } from 'react-apollo';
+import { graphqlQueryHelper } from '../graphql/graphql-query-helper';
+import { EntitySchema } from '../entities/entity-schema';
+import { Entity } from '../entities/entity';
+import EntityListItem from '../entities/EntityListItem';
+import { entityService } from '../entities/services/entity-service';
+import pluralize from 'pluralize';
+import AddCircle from '@material-ui/icons/AddCircle';
+import { withCoreContext } from '../context/with-core-context';
+import { WithCoreContextProps } from '../context/with-core-context-props';
 
 export interface MultipleEntityPickerOptions {
   schema: EntitySchema;
@@ -40,13 +40,13 @@ export interface MultipleEntityPickerOptions {
 const styles = (theme: Theme) =>
   createStyles({
     editor: {
-      width: "100%",
+      width: '100%',
     },
     textLink: {
-      cursor: "pointer",
+      cursor: 'pointer',
       color: theme.palette.secondary.main,
-      "&:hover": {
-        textDecoration: "underline",
+      '&:hover': {
+        textDecoration: 'underline',
       },
     },
     chip: {
@@ -96,29 +96,18 @@ class MultipleEntityPickerEditor extends React.Component<Props, State> {
       return <CircularProgress />;
     }
     const selectedEntityIds = value || [];
-    const instanceDisplayProps = entityService.instanceDisplayPropsOrDefault(
-      schema,
-      context
-    );
+    const instanceDisplayProps = entityService.instanceDisplayPropsOrDefault(schema, context);
     return data.items ? (
       <div>
         {value ? (
           <React.Fragment>
             {selectedEntityIds.map((id) => {
-              const match = data.items
-                ? data.items.find((entity) => entity._id === id)
-                : undefined;
-              const url = match
-                ? instanceDisplayProps(match).imageUrl
-                : undefined;
+              const match = data.items ? data.items.find((entity) => entity._id === id) : undefined;
+              const url = match ? instanceDisplayProps(match).imageUrl : undefined;
               return match ? (
                 <Chip
                   key={id}
-                  avatar={
-                    url ? (
-                      <Avatar src={instanceDisplayProps(match).imageUrl} />
-                    ) : undefined
-                  }
+                  avatar={url ? <Avatar src={instanceDisplayProps(match).imageUrl} /> : undefined}
                   label={instanceDisplayProps(match).primaryText}
                   onDelete={this.handleOnChange({ entity: match })}
                   className={classes.chip}
@@ -153,10 +142,7 @@ class MultipleEntityPickerEditor extends React.Component<Props, State> {
                     button
                     onClick={this.handleOnChange({ entity })}
                     SecondaryAction={
-                      <Checkbox
-                        onChange={this.handleOnChange({ entity })}
-                        checked={this.isChecked({ entity })}
-                      />
+                      <Checkbox onChange={this.handleOnChange({ entity })} checked={this.isChecked({ entity })} />
                     }
                   />
                 );
@@ -164,9 +150,7 @@ class MultipleEntityPickerEditor extends React.Component<Props, State> {
             </List>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => this.setState({ dialogOpen: false })}>
-              Done
-            </Button>
+            <Button onClick={() => this.setState({ dialogOpen: false })}>Done</Button>
           </DialogActions>
         </Dialog>
       </div>
@@ -177,15 +161,13 @@ class MultipleEntityPickerEditor extends React.Component<Props, State> {
 }
 
 export default (options: MultipleEntityPickerOptions) => {
-  const ENTITY_PICKER_QUERY = graphqlQueryHelper.getAllQueryWithAllFields(
-    options.schema
-  );
+  const ENTITY_PICKER_QUERY = graphqlQueryHelper.getAllQueryWithAllFields(options.schema);
   const Editor = combineContainers(
     withCoreContext,
     withStyles(styles),
     graphql(ENTITY_PICKER_QUERY, {
       options: {
-        fetchPolicy: "network-only",
+        fetchPolicy: 'network-only',
         variables: {
           filter: {},
           sort: {},
@@ -197,7 +179,5 @@ export default (options: MultipleEntityPickerOptions) => {
       },
     })
   )(MultipleEntityPickerEditor);
-  return (
-    props: PropertyEditorProps<string[]> & MultipleEntityPickerOptions
-  ) => <Editor {...props} {...options} />;
+  return (props: PropertyEditorProps<string[]> & MultipleEntityPickerOptions) => <Editor {...props} {...options} />;
 };

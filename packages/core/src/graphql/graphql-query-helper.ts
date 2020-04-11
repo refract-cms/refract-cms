@@ -35,7 +35,7 @@ class GraphqlQueryHelper {
   }
 
   buildProperties(properties: { [key: string]: PropertyType }): string {
-    return Object.keys(properties).map(propertyKey => {
+    return Object.keys(properties).map((propertyKey) => {
       const propertyType = properties[propertyKey];
       if (
         isBasicPropertyType(propertyType) ||

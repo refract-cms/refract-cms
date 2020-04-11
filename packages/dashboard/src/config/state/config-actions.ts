@@ -6,6 +6,6 @@ export const CONFIGURE = '@@CMS/CONFIGURE';
 export const configure = (config: Config, serverUrl: string) => {
   return action(CONFIGURE, {
     ...config,
-    serverUrl
+    serverUrl,
   });
 };

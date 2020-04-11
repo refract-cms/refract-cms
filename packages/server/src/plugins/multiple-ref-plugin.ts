@@ -20,14 +20,14 @@ export const multipleRefPlugin = createResolverPlugin({
           .find(
             merge(filter, {
               _id: {
-                $in: ids
-              }
+                $in: ids,
+              },
             })
           )
           .sort(options.sort)
           .limit(options.limit)
           .skip(options.skip);
-      })
+      }),
     };
-  }
+  },
 });

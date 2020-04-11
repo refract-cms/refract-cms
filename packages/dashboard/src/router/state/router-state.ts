@@ -1,5 +1,5 @@
-import { Routes } from "../routes";
+import { Routes } from '../routes';
 
 export interface RouterState {
   routes?: Routes;
-} 
+}

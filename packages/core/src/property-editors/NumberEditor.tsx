@@ -18,11 +18,11 @@ export default (options: TextEditorOptions = defaultOptions) => (props: Property
       multiline={options.multiline}
       fullWidth
       inputProps={{
-        maxLength: options.maxLength
+        maxLength: options.maxLength,
       }}
       label={props.propertyOptions.displayName}
       value={props.value || ''}
-      onChange={e => {
+      onChange={(e) => {
         let val: number = 0;
         if (options.numberType === 'FLOAT') {
           val = parseFloat(e.target.value);

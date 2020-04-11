@@ -6,6 +6,6 @@ export function createResolver<T, N>(
   properties: { [K in keyof N]: ResolvedPropertyOptions<T, N[K]> }
 ) {
   return {
-    [schema.options.alias]: properties
+    [schema.options.alias]: properties,
   };
 }

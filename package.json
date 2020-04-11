@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "lerna run build",
-    "bump-version": "lerna version --no-push"
+    "bump-version": "lerna version --no-push",
+    "prettier": "prettier --write ."
   },
   "workspaces": [
     "packages/*",

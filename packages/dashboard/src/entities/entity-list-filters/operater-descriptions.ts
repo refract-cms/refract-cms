@@ -1,30 +1,30 @@
 export const operatorDescriptions = [
   {
     operater: 'EQ',
-    displayName: 'Equals'
+    displayName: 'Equals',
   },
   {
     operater: 'NEQ',
-    displayName: 'Not equal to'
+    displayName: 'Not equal to',
   },
   {
     operater: 'GT',
-    displayName: 'Greater than'
+    displayName: 'Greater than',
   },
   {
     operater: 'GTE',
-    displayName: 'Greater than or equal to'
+    displayName: 'Greater than or equal to',
   },
   {
     operater: 'LTE',
-    displayName: 'Less than or equal to'
+    displayName: 'Less than or equal to',
   },
   {
     operater: 'LT',
-    displayName: 'Less than'
+    displayName: 'Less than',
   },
   {
     operater: 'IN',
-    displayName: 'In'
-  }
+    displayName: 'In',
+  },
 ];

@@ -1,23 +1,23 @@
-import React from "react";
-import OverviewPage from "./overview/OverviewPage";
-import classNames from "classnames";
-import { withStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
-import MenuIcon from "@material-ui/icons/Menu";
-import ImageIcon from "@material-ui/icons/Image";
-import CloudIcon from "@material-ui/icons/Cloud";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import ExitToApp from "@material-ui/icons/ExitToApp";
+import React from 'react';
+import OverviewPage from './overview/OverviewPage';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
+import MenuIcon from '@material-ui/icons/Menu';
+import ImageIcon from '@material-ui/icons/Image';
+import CloudIcon from '@material-ui/icons/Cloud';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import {
   ListItem,
   ListItemIcon,
@@ -27,51 +27,51 @@ import {
   Theme,
   CircularProgress,
   Tooltip,
-} from "@material-ui/core";
-import HomeIcon from "@material-ui/icons/Home";
-import HelpIcon from "@material-ui/icons/Help";
-import { Config, EntitySchema, CoreContext } from "@refract-cms/core";
-import Graphql from "./graphql/Graphql";
-import { ApolloProvider } from "react-apollo";
-import { createApolloClient } from "./graphql/create-apollo-client";
-import EntityList from "./entities/EntityList";
-import { Router, Link } from "@reach/router";
-import { setBaseRoute } from "./router/state/router-actions";
-import { AppState } from "./state/app-state";
-import { connect, Provider } from "react-redux";
-import { combineContainers } from "combine-containers";
-import { configure } from "./config/state/config-actions";
-import { store } from "./state/root-store";
-import { provide } from "./state/provide";
-import EditEntity from "./entities/EditEntity";
-import Auth from "./auth/Auth";
-import { logout } from "./auth/state/auth-actions";
-import Notifications from "./notifications/Notifications";
+} from '@material-ui/core';
+import HomeIcon from '@material-ui/icons/Home';
+import HelpIcon from '@material-ui/icons/Help';
+import { Config, EntitySchema, CoreContext } from '@refract-cms/core';
+import Graphql from './graphql/Graphql';
+import { ApolloProvider } from 'react-apollo';
+import { createApolloClient } from './graphql/create-apollo-client';
+import EntityList from './entities/EntityList';
+import { Router, Link } from '@reach/router';
+import { setBaseRoute } from './router/state/router-actions';
+import { AppState } from './state/app-state';
+import { connect, Provider } from 'react-redux';
+import { combineContainers } from 'combine-containers';
+import { configure } from './config/state/config-actions';
+import { store } from './state/root-store';
+import { provide } from './state/provide';
+import EditEntity from './entities/EditEntity';
+import Auth from './auth/Auth';
+import { logout } from './auth/state/auth-actions';
+import Notifications from './notifications/Notifications';
 // import { FileService } from '@refract-cms/core';
-import { createLinkComponent } from "./shared/create-link-component";
-import axios from "axios";
-import { authService } from "./auth/auth-service";
+import { createLinkComponent } from './shared/create-link-component';
+import axios from 'axios';
+import { authService } from './auth/auth-service';
 
 const drawerWidth = 240;
 
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      display: "flex",
+      display: 'flex',
     },
     toolbar: {
       paddingRight: 24, // keep right padding when drawer closed
     },
     toolbarIcon: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-end",
-      padding: "0 8px",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      padding: '0 8px',
       ...theme.mixins.toolbar,
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(["width", "margin"], {
+      transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
@@ -89,36 +89,36 @@ const styles = (theme: Theme) =>
       marginRight: 36,
     },
     menuButtonHidden: {
-      display: "none",
+      display: 'none',
     },
     title: {
       flexGrow: 1,
     },
     drawerPaper: {
-      position: "relative",
-      whiteSpace: "nowrap",
+      position: 'relative',
+      whiteSpace: 'nowrap',
       width: drawerWidth,
-      transition: theme.transitions.create("width", {
+      transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
     drawerPaperClose: {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
+      overflowX: 'hidden',
+      transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
       width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up('sm')]: {
         width: theme.spacing(9),
       },
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
-      height: "100vh",
-      overflow: "auto",
+      height: '100vh',
+      overflow: 'auto',
       background: theme.palette.background.default,
     },
     chartContainer: {
@@ -165,15 +165,7 @@ class Dashboard extends React.Component<Props> {
   }
 
   render() {
-    const {
-      classes,
-      config,
-      serverUrl,
-      routes,
-      isLoggedIn,
-      logout,
-      homePageUrl,
-    } = this.props;
+    const { classes, config, serverUrl, routes, isLoggedIn, logout, homePageUrl } = this.props;
     if (!routes) {
       return <CircularProgress />;
     }
@@ -185,7 +177,7 @@ class Dashboard extends React.Component<Props> {
             const client = axios.create({
               baseURL: `${serverUrl}/plugins/${pluginAlias}`,
               headers: {
-                Authorization: "Bearer " + authService.getAccessToken(),
+                Authorization: 'Bearer ' + authService.getAccessToken(),
               },
             });
             return client;
@@ -205,32 +197,18 @@ class Dashboard extends React.Component<Props> {
             <div className={classes.root}>
               <AppBar
                 position="absolute"
-                className={classNames(
-                  classes.appBar,
-                  this.state.open && classes.appBarShift
-                )}
+                className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
               >
-                <Toolbar
-                  disableGutters={!this.state.open}
-                  className={classes.toolbar}
-                >
+                <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
                   <IconButton
                     color="inherit"
                     aria-label="Open drawer"
                     onClick={this.handleDrawerOpen}
-                    className={classNames(
-                      classes.menuButton,
-                      this.state.open && classes.menuButtonHidden
-                    )}
+                    className={classNames(classes.menuButton, this.state.open && classes.menuButtonHidden)}
                   >
                     <MenuIcon />
                   </IconButton>
-                  <Typography
-                    variant="h6"
-                    color="inherit"
-                    noWrap
-                    className={classes.title}
-                  >
+                  <Typography variant="h6" color="inherit" noWrap className={classes.title}>
                     Content Dashboard
                   </Typography>
                   {/* <IconButton color="inherit">
@@ -250,10 +228,7 @@ class Dashboard extends React.Component<Props> {
               <Drawer
                 variant="permanent"
                 classes={{
-                  paper: classNames(
-                    classes.drawerPaper,
-                    !this.state.open && classes.drawerPaperClose
-                  ),
+                  paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
                 }}
                 open={this.state.open}
               >
@@ -264,19 +239,13 @@ class Dashboard extends React.Component<Props> {
                 </div>
                 <Divider />
                 <List>
-                  <ListItem
-                    button
-                    component={createLinkComponent(routes.root.createUrl())}
-                  >
+                  <ListItem button component={createLinkComponent(routes.root.createUrl())}>
                     <ListItemIcon>
                       <DashboardIcon />
                     </ListItemIcon>
                     <ListItemText primary="Overview" />
                   </ListItem>
-                  <ListItem
-                    button
-                    component={createLinkComponent(routes.graphql.createUrl())}
-                  >
+                  <ListItem button component={createLinkComponent(routes.graphql.createUrl())}>
                     <ListItemIcon>
                       <CloudIcon />
                     </ListItemIcon>
@@ -290,20 +259,14 @@ class Dashboard extends React.Component<Props> {
                       <ListItem
                         key={schema.options.alias}
                         button
-                        component={createLinkComponent(
-                          routes.entity.list.createUrl(schema)
-                        )}
+                        component={createLinkComponent(routes.entity.list.createUrl(schema))}
                       >
                         {schema.options.icon && (
                           <ListItemIcon>
                             <schema.options.icon />
                           </ListItemIcon>
                         )}
-                        <ListItemText
-                          primary={
-                            schema.options.displayName || schema.options.alias
-                          }
-                        />
+                        <ListItemText primary={schema.options.displayName || schema.options.alias} />
                       </ListItem>
                     );
                   })}
@@ -352,8 +315,5 @@ const mapDispatchToProps = {
 type MapDispatchToProps = typeof mapDispatchToProps;
 
 export default provide(store)(
-  combineContainers(
-    connect(mapStateToProps, mapDispatchToProps),
-    withStyles(styles)
-  )(Dashboard)
+  combineContainers(connect(mapStateToProps, mapDispatchToProps), withStyles(styles))(Dashboard)
 ) as React.ComponentType<DashboardProps>;
