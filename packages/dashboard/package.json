@@ -42,7 +42,8 @@
     "react-router-dom": "^4.3.1",
     "recompose": "^0.30.0",
     "redux": "^4.0.1",
-    "typesafe-actions": "^2.0.4"
+    "typesafe-actions": "^2.0.4",
+    "@refract-cms/core": "1.0.0"
   },
   "devDependencies": {
     "@types/reach__router": "^1.3.4"
