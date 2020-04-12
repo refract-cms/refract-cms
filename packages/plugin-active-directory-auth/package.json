@@ -1,11 +1,10 @@
 {
-  "name": "@refract-cms/create",
+  "name": "@refract-cms/plugin-active-directory-auth",
   "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "types": "src/index.ts",
   "scripts": {
-    "dev": "ts-node --project ./tsconfig-dev.json dev.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pika build"
   },
@@ -18,22 +17,14 @@
         "@pika/plugin-build-node"
       ],
       [
-        "@pika/plugin-simple-bin",
-        {
-          "bin": "create-refract-cms-app"
-        }
+        "@pika/plugin-build-types"
       ]
     ]
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "^5.0.0",
-    "inquirer": "^7.1.0"
-  },
-  "devDependencies": {
-    "@types/inquirer": "^6.5.0",
-    "ts-node": "^8.8.2",
-    "typescript": "3.7.5"
+    "@refract-cms/core": "^0.0.5",
+    "@refract-cms/server": "^0.0.5"
   }
 }

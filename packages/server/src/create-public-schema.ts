@@ -1,6 +1,6 @@
 // import { EntitySchema, Entity, PropertyType, ImageRef, RefractTypes, PropertyOptions } from '@refract-cms/core';
 // import queryString from 'query-string';
-// import { ServerConfig } from './server-config.model';
+// import { ServerConfig } from './server-config';
 // import { repositoryForSchema } from './repository-for-schema';
 
 // export interface Property<TEntity extends Entity, P> {

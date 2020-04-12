@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/core",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "types": "src/index.ts",
@@ -53,8 +53,5 @@
     "react-redux": "^7.2.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1"
-  },
-  "devDependencies": {
-    "typescript": "3.7.5"
   }
 }
