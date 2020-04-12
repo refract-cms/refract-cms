@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/server",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@refract-cms/core": "^0.0.4",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "fork-ts-checker-webpack-plugin": "^0.4.15",
