@@ -2310,6 +2310,13 @@
     "@types/node" "^10.12.18"
     rollup "^1.1.0"
 
+"@pika/plugin-simple-bin@^0.9.2":
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/@pika/plugin-simple-bin/-/plugin-simple-bin-0.9.2.tgz#763a0894020366eb6b2dbb8d796cfb0b29fea720"
+  integrity sha512-uGgRZXGhpj23IudF4T9/+LzH7kzDr+eDOrpEglB0K6Dl4+5tGmUf894xSkzWc+6Ff50B0JaK/XX5KbJ3mruYzA==
+  dependencies:
+    "@pika/types" "^0.9.2"
+
 "@pika/plugin-standard-pkg@^0.9.2":
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/@pika/plugin-standard-pkg/-/plugin-standard-pkg-0.9.2.tgz#9bae9ff151d46c852d39a423d7b80e11bb335d69"
