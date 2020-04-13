@@ -1,5 +1,5 @@
 {
-  "name": "@refract-cms/create",
+  "name": "create-refract-cms-app",
   "version": "0.0.5",
   "description": "",
   "main": "index.js",
@@ -22,18 +22,27 @@
         {
           "bin": "create-refract-cms-app"
         }
+      ],
+      [
+        "@pika/plugin-copy-assets",
+        {}
       ]
     ]
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^2.4.2",
     "commander": "^5.0.0",
-    "inquirer": "^7.1.0"
+    "fs-extra": "^9.0.0",
+    "inquirer": "7.1.0",
+    "ora": "^4.0.3",
+    "shelljs": "^0.8.3"
   },
   "devDependencies": {
+    "@types/fs-extra": "^8.1.0",
     "@types/inquirer": "^6.5.0",
-    "ts-node": "^8.8.2",
-    "typescript": "3.7.5"
+    "@types/shelljs": "^0.8.7",
+    "ts-node": "^8.8.2"
   }
 }

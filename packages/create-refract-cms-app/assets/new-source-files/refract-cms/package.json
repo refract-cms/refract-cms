@@ -1,0 +1,26 @@
+{
+  "name": "cli-consumer",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "refract-cms start",
+    "build": "refract-cms build",
+    "start:prod": "node ./dist/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@refract-cms/cli": "alpha",
+    "@refract-cms/server": "alpha",
+    "@refract-cms/core": "alpha",
+    "@refract-cms/dashboard": "alpha",
+    "@types/dotenv": "^6.1.1",
+    "dotenv": "^7.0.0",
+    "prettier": "^1.17.0",
+    "prettier-loader": "^2.1.1"
+  },
+  "devDependencies": {},
+  "peerDependencies": {}
+}

@@ -1,0 +1,23 @@
+bracketSpacing: true
+semi: true
+parser: babel
+overrides:
+- files: "**/*.js"
+  options:
+    printWidth: 120
+    useTabs: false
+    singleQuote: true
+- files: "**/*.ts*"
+  options:
+    parser: typescript
+    printWidth: 120
+    useTabs: false
+    singleQuote: true
+- files: "**/*.css*"
+  options:
+    parser: css
+    useTabs: false
+    singleQuote: true
+- files: "**/src/*.json"
+  options:
+    parser: json
