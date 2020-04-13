@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/cli",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -17,9 +17,9 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
-    "@refract-cms/core": "^0.0.9",
-    "@refract-cms/dashboard": "^0.0.9",
-    "@refract-cms/server": "^0.0.9",
+    "@refract-cms/core": "^0.0.10",
+    "@refract-cms/dashboard": "^0.0.10",
+    "@refract-cms/server": "^0.0.10",
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
     "cors": "2.8.5",

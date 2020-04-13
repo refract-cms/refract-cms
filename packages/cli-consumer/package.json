@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/cli-consumer",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "private": true,
   "main": "index.js",
@@ -12,10 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@refract-cms/cli": "^0.0.9",
-    "@refract-cms/core": "^0.0.9",
+    "@refract-cms/cli": "^0.0.10",
+    "@refract-cms/core": "^0.0.10",
     "@refract-cms/dashboard": "alpha",
-    "@refract-cms/server": "^0.0.9",
+    "@refract-cms/server": "^0.0.10",
     "@types/dotenv": "^6.1.1",
     "dotenv": "^7.0.0",
     "prettier": "^1.17.0",
