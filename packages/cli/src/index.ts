@@ -1,32 +1,37 @@
-import inquirer from 'inquirer';
-import program from 'commander';
 import express from 'express';
+import chalk from 'chalk';
 import { ServerConfig } from '@refract-cms/server';
-import { Config } from '@refract-cms/core';
-import { Theme } from '@material-ui/core';
 
-export interface CliServerConfig extends Omit<ServerConfig, 'rootPath' | 'config'> {
-  configureExpress?: (app: express.Express) => void;
-}
-export interface CliConfig extends Config {
-  theme: Theme;
-  path?: string;
-}
-export function configureCli(config: CliConfig): CliConfig {
-  return {
-    ...config,
-    path: (config.path || '/').replace(/\/$/, ''),
-  };
-}
+// this require is necessary for server HMR to recover from error
+// tslint:disable-next-line:no-var-requires
+let app = require('./server').default;
 
-export function configureCliServer(config: CliServerConfig): CliServerConfig {
-  return config;
-}
-function run(args: any) {
-  return new Promise((resolve) => {
-    console.log('run...', args, import.meta.url);
-    resolve();
+if (module.hot) {
+  module.hot.accept('./server', () => {
+    console.log('🔁  HMR Reloading `./server`...');
+    try {
+      app = require('./server').default;
+    } catch (error) {
+      console.error(error);
+    }
   });
+  console.info('✅  Server-side HMR Enabled!');
 }
 
-export default run;
+const port = process.env.PORT || 3000;
+
+export default express()
+  .use((req, res) => app.handle(req, res))
+  .listen(port, (err: Error) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(`> Started on port ${port}`);
+    console.log(`Dashboard: ${chalk.magenta('http://localhost:3000')}`);
+    console.log(`GraphiQL: ${chalk.magenta('http://localhost:3000/cms/graphql')}`);
+    console.log(`GraphQL Playground: ${chalk.magenta('http://localhost:3000/cms/graphql-playground')}`);
+  });
+
+// workaround for ts local development
+export * from '../index';

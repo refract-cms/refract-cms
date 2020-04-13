@@ -1,21 +1,24 @@
-process.env.NODE_ENV = 'development';
-import fs from 'fs';
-import webpack from 'webpack';
+process.env.NODE_ENV = "development";
+const fs = require("fs");
+const webpack = require("webpack");
+const {
+  createServerConfig,
+  createClientConfig
+} = require("../config/create-dev-config");
+const devServer = require("webpack-dev-server");
+const chalk = require("chalk").default;
 
-import { createServerConfig, createClientConfig } from '../config/create-dev-config';
-import devServer from 'webpack-dev-server';
-import chalk from 'chalk';
-
-//@ts-ignore
 process.noDeprecation = true; // turns off that loadQuery clutter.
 
 // Capture any --inspect or --inspect-brk flags (with optional values) so that we
 // can pass them when we invoke nodejs
-process.env.INSPECT_BRK = process.argv.find((arg) => arg.match(/--inspect-brk(=|$)/)) || '';
-process.env.INSPECT = process.argv.find((arg) => arg.match(/--inspect(=|$)/)) || '';
+process.env.INSPECT_BRK =
+  process.argv.find(arg => arg.match(/--inspect-brk(=|$)/)) || "";
+process.env.INSPECT =
+  process.argv.find(arg => arg.match(/--inspect(=|$)/)) || "";
 
 function main() {
-  console.info('Compiling...');
+  console.info("Compiling...");
 
   let clientConfig = createClientConfig();
   let serverConfig = createServerConfig();
@@ -28,7 +31,7 @@ function main() {
   let watching;
 
   // Start our server webpack instance in watch mode after assets compile
-  clientCompiler.plugin('done', () => {
+  clientCompiler.plugin("done", () => {
     // If we've already started the server watcher, bail early.
     if (watching) {
       return;
@@ -37,15 +40,15 @@ function main() {
     watching = serverCompiler.watch(
       {
         quiet: true,
-        stats: 'errors-only',
+        stats: "errors-only"
       },
       /* eslint-disable no-unused-vars */
-      (stats) => {}
+      stats => {}
     );
   });
 
   const clientDevServer = new devServer(clientCompiler, clientConfig.devServer);
-  clientDevServer.listen(3001, (err) => {
+  clientDevServer.listen(3001, err => {
     if (err) {
       console.error(err);
     }
@@ -58,7 +61,7 @@ function compile(config) {
   try {
     compiler = webpack(config);
   } catch (e) {
-    console.error('Failed to compile.', [e]);
+    console.error("Failed to compile.", [e]);
     // process.exit(1);
   }
   return compiler;

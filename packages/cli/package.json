@@ -3,47 +3,29 @@
   "version": "0.0.5",
   "description": "",
   "main": "index.js",
-  "types": "src/index.ts",
+  "bin": {
+    "refract-cms": "./bin/refract-cms.js"
+  },
   "scripts": {
-    "dev": "ts-node --project ./tsconfig-dev.json dev.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pika build"
+    "build": "echo \"no build required\"",
+    "dev": "echo \"no build required\"",
+    "clean": "echo \"no build required\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-standard-pkg"
-      ],
-      [
-        "@pika/plugin-build-node"
-      ],
-      [
-        "@pika/plugin-build-types"
-      ],
-      [
-        "@pika/plugin-copy-assets",
-        {}
-      ],
-      [
-        "@pika/plugin-simple-bin",
-        {
-          "bin": "create-refract-cms-app"
-        }
-      ]
-    ]
-  },
+  "typings": "./index.d.ts",
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
-    "commander": "^5.0.0",
-    "chalk": "^2.4.2",
-    "shelljs": "^0.8.3",
     "@refract-cms/core": "^0.0.5",
-    "@refract-cms/dashboard": "^0.0.5",
     "@refract-cms/server": "^0.0.5",
+    "@refract-cms/dashboard": "^0.0.5",
+    "@babel/polyfill": "^7.4.4",
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
+    "cors": "2.8.5",
     "fork-ts-checker-webpack-plugin": "^1.2.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "fs-extra": "^7.0.1",
     "razzle-dev-utils": "^3.0.0",
     "react-hot-loader": "^4.8.4",
     "start-server-webpack-plugin": "^2.2.5",
@@ -55,8 +37,5 @@
     "webpack-merge": "^4.2.1",
     "webpack-node-externals": "^1.7.2",
     "webpackbar": "^3.2.0"
-  },
-  "devDependencies": {
-    "ts-node": "^8.8.2"
   }
 }
