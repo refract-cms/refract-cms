@@ -14,7 +14,7 @@
   "dependencies": {
     "@refract-cms/cli": "^0.0.10",
     "@refract-cms/core": "^0.0.10",
-    "@refract-cms/dashboard": "alpha",
+    "@refract-cms/dashboard": "^0.0.10",
     "@refract-cms/server": "^0.0.10",
     "@types/dotenv": "^6.1.1",
     "dotenv": "^7.0.0",

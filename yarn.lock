@@ -2454,32 +2454,6 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@refract-cms/dashboard@alpha":
-  version "0.8.6-alpha.723"
-  resolved "https://registry.yarnpkg.com/@refract-cms/dashboard/-/dashboard-0.8.6-alpha.723.tgz#570f0722c89a66e70114f1193c64276476a317bd"
-  integrity sha512-XlnAojwGN+RWldt4+QN/ehhVSWR0KHgVAH++6enOUtTw+jHR/vBTDBstOeyjWy4aTFGxVm1k1sOgHKMWykAUXQ==
-  dependencies:
-    "@reach/router" "^1.2.1"
-    apollo-boost "^0.1.23"
-    apollo-client "^2.4.8"
-    apollo-link-context "^1.0.10"
-    axios "^0.18.1"
-    classnames "^2.2.6"
-    combine-containers "^0.1.3-alpha"
-    fork-ts-checker-webpack-plugin "^0.4.15"
-    lodash "^4.17.11"
-    moment "^2.24.0"
-    pluralize "^7.0.0"
-    react "^16.8.4"
-    react-apollo "^2.3.1"
-    react-dom "^16.8.4"
-    react-redux "^5.1.1"
-    react-router "^4.3.1"
-    react-router-dom "^4.3.1"
-    recompose "^0.30.0"
-    redux "^4.0.1"
-    typesafe-actions "^2.0.4"
-
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -3382,14 +3356,6 @@ axios@0.19.2:
   integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
   dependencies:
     follow-redirects "1.5.10"
-
-axios@^0.18.1:
-  version "0.18.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.1.tgz#ff3f0de2e7b5d180e757ad98000f1081b87bcea3"
-  integrity sha512-0BfJq4NSfQXd+SkFdrvFbG7addhYSBA2mQwISr46pD6E5iqkWg02RAs8vyTT/j0RTnoYmeXauBuSv1qKwR179g==
-  dependencies:
-    follow-redirects "1.5.10"
-    is-buffer "^2.0.2"
 
 babel-code-frame@^6.22.0:
   version "6.26.0"
@@ -6885,11 +6851,6 @@ is-buffer@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
-
-is-buffer@^2.0.2:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.4.tgz#3e572f23c8411a5cfd9557c849e3665e0b290623"
-  integrity sha512-Kq1rokWXOPXWuaMAqZiJW4XxsmD9zGx9q4aePabbn3qCRGedtH7Cm+zV8WETitMfu1wdh+Rvd6w5egwSngUX2A==
 
 is-builtin-module@^3.0.0:
   version "3.0.0"
