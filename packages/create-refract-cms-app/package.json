@@ -1,13 +1,13 @@
 {
   "name": "create-refract-cms-app",
-  "version": "0.0.5",
+  "version": "0.0.9",
   "description": "",
   "main": "index.js",
   "bin": {
     "create-refract-cms-app": "./bin/create-refract-cms-app.js"
   },
   "scripts": {
-    "build": "echo \"no build required\"",
+    "build": "node ./build.js",
     "dev": "echo \"no build required\"",
     "clean": "echo \"no build required\"",
     "test": "echo \"Error: no test specified\" && exit 1"

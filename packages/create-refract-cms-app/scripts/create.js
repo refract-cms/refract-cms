@@ -5,11 +5,11 @@ const shell = require("shelljs");
 const ora = require("ora");
 const spawn = require("child_process").spawn;
 
-module.exports = function({ dir, sampleSchema }) {
+module.exports = function ({ dir, sampleSchema }) {
   const appDir = path.resolve(process.cwd(), dir);
   const spinner = ora({
     text: "Installing dependencies",
-    spinner: "dots"
+    spinner: "dots",
   });
 
   const npmInstall = () => {
@@ -43,7 +43,7 @@ module.exports = function({ dir, sampleSchema }) {
     console.log(chalk.yellow("cd " + dir));
     console.log(chalk.yellow("docker-compose up --build"));
     console.log("--------");
-    console.log("Changes made in ./refract-cms/src will be hot-reloaded.")
+    console.log("Changes made in ./refract-cms/src will be hot-reloaded.");
     process.exit();
   });
 };
