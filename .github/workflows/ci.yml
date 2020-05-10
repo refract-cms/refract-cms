@@ -24,8 +24,8 @@ jobs:
 
     - name: Run a multi-line script
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        yarn
+        yarn build
 
   publish:
     if: github.ref == 'refs/heads/master'
@@ -35,5 +35,4 @@ jobs:
 
     - name: Run a multi-line script
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        lerna publish
