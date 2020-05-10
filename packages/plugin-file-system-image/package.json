@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/plugin-file-system-image",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "",
   "main": "index.js",
   "types": "src/index.ts",
@@ -24,7 +24,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@refract-cms/core": "^0.9.4",
-    "@refract-cms/server": "^0.9.4"
+    "@refract-cms/core": "^0.9.5",
+    "@refract-cms/server": "^0.9.5"
   }
 }

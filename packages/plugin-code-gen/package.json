@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/plugin-code-gen",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "",
   "main": "index.js",
   "types": "src/index.ts",
@@ -29,7 +29,7 @@
     "@graphql-codegen/typescript": "1.4.0",
     "@graphql-codegen/typescript-operations": "1.4.0",
     "@graphql-codegen/typescript-react-apollo": "1.4.0",
-    "@refract-cms/core": "^0.9.4",
-    "@refract-cms/server": "^0.9.4"
+    "@refract-cms/core": "^0.9.5",
+    "@refract-cms/server": "^0.9.5"
   }
 }
