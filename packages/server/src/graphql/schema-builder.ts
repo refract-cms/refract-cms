@@ -19,7 +19,7 @@ import { getGraphQLQueryArgs, getMongoDbQueryResolver, getMongoDbFilter } from '
 import { Db, ObjectId } from 'mongodb';
 import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date';
 import chalk from 'chalk';
-import { MongoIdType } from './mongo-id.type';
+import { MongoIdType } from './mongo-id-type';
 import { ResolvedPropertyOptions } from '../resolved-property-options';
 import { singleRefPlugin } from '../plugins/single-ref-plugin';
 import { multipleRefPlugin } from '../plugins/multiple-ref-plugin';

@@ -11,7 +11,7 @@ import mongoose from 'mongoose';
 import { schemaBuilder } from './graphql/schema-builder';
 import expressPlayground from 'graphql-playground-middleware-express';
 import bodyParser from 'body-parser';
-import { requireAuth } from './auth/require-auth.middleware';
+import { requireAuth } from './auth/require-auth-middleware';
 import { RefractGraphQLContext } from './graphql/refract-graphql-context';
 import { singleRefPlugin } from './plugins/single-ref-plugin';
 import { multipleRefPlugin } from './plugins/multiple-ref-plugin';
