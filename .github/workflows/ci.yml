@@ -25,6 +25,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           npm set //registry.npmjs.org/:_authToken $NPM_TOKEN
+          npm config set access public
           npx lerna publish from-package --yes
 
         env:
