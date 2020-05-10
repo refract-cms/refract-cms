@@ -25,7 +25,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           echo "registry=//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-          npx lerna publish from-package --yes --no-push --no-git-tag-version
+          npx lerna publish from-package --yes
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
