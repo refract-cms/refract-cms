@@ -12,11 +12,7 @@
     "moduleResolution": "node",
     "preserveSymlinks": true,
     "rootDir": "./",
-    "declaration": true,
-    "baseUrl": "./",
-    "paths": {
-      "@refract-cms/*": ["./packages/*/src"]
-    }
+    "declaration": true
   },
   "exclude": ["**/pkg/**"]
 }
