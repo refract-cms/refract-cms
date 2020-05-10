@@ -24,4 +24,4 @@ jobs:
       - name: Lerna publish
         if: github.ref == 'refs/heads/master'
         run: |
-          npx lerna publish from-package
+          npx lerna publish from-package --yes
