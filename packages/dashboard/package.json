@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/dashboard",
-  "version": "0.9.5",
+  "version": "0.10.0",
   "description": "",
   "main": "index.js",
   "types": "src/index.ts",
@@ -14,9 +14,6 @@
         "@pika/plugin-ts-standard-pkg"
       ],
       [
-        "@pika/plugin-build-node"
-      ],
-      [
         "@pika/plugin-build-types"
       ]
     ]
@@ -25,7 +22,7 @@
   "license": "ISC",
   "dependencies": {
     "@reach/router": "^1.2.1",
-    "@refract-cms/core": "^0.9.5",
+    "@refract-cms/core": "^0.10.0",
     "apollo-boost": "^0.1.23",
     "apollo-client": "^2.4.8",
     "apollo-link-context": "^1.0.10",

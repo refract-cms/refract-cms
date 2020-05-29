@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/server",
-  "version": "0.9.5",
+  "version": "0.10.0",
   "description": "",
   "main": "index.js",
   "types": "src/index.ts",
@@ -14,9 +14,6 @@
         "@pika/plugin-ts-standard-pkg"
       ],
       [
-        "@pika/plugin-build-node"
-      ],
-      [
         "@pika/plugin-build-types"
       ]
     ]
@@ -24,7 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@refract-cms/core": "^0.9.5",
+    "@refract-cms/core": "^0.10.0",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "fork-ts-checker-webpack-plugin": "^0.4.15",
