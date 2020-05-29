@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/core",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "",
   "main": "index.js",
   "types": "src/index.ts",
@@ -12,6 +12,12 @@
     "pipeline": [
       [
         "@pika/plugin-ts-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-web"
+      ],
+      [
+        "@pika/plugin-build-node"
       ],
       [
         "@pika/plugin-build-types"
