@@ -1,12 +1,24 @@
 {
-  "name": "refract-cms-example-basic",
+  "name": "@refract-cms/example-basic",
   "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server:build": "parcel build --bundle-node-modules --target node --no-minify ./src/server/index.ts",
+    "server:build:watch": "parcel watch --bundle-node-modules --target node ./src/server/index.ts",
+    "server:start": "node ./dist/index.js",
+    "server:run:watch": "nodemon --watch dist ./dist/index.js",
+    "dev": "npm run server:build && npm-run-all -p server:run:watch server:build:watch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.9.7"
+  }
 }

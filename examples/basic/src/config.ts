@@ -7,7 +7,7 @@ import {
 } from '@refract-cms/core';
 
 const ArticleSchema = composeSchema({
-  options: { alias: 'Article' },
+  options: { alias: 'article' },
   properties: {
     title: {
       type: String,

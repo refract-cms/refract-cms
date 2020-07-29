@@ -10,7 +10,7 @@
   },
   "workspaces": [
     "packages/*",
-    "consumer"
+    "examples/*"
   ],
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
