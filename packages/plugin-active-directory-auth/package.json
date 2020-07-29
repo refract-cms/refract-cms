@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/plugin-active-directory-auth",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "",
   "main": "index.js",
   "types": "src/index.ts",
@@ -21,7 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@refract-cms/core": "^0.10.1",
-    "@refract-cms/server": "^0.10.1"
+    "@refract-cms/core": "^0.10.2",
+    "@refract-cms/server": "^0.10.2"
   }
 }

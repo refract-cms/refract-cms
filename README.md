@@ -25,13 +25,101 @@ The CMS exposes a GraphQL endpoint, with rich filtering that you can use to quer
 
 Property editors for each property on the entity model are added to the schema in code, allowing you to choose between some of the in-built editors (TextBox, Select, Image) or to write your own using React.
 
-## Docs
+## Getting Started
 
-View the docs: <https://refract-cms.com/docs>
+### Create Refract-CMS config
+
+Create file: `config.ts`
+
+```ts
+import {
+  configure,
+  composeSchema,
+  createTextEditor,
+  createMarkdownRteEditor,
+  createDatePickerEditor,
+} from "@refract-cms/core";
+
+const ArticleSchema = composeSchema({
+  options: { alias: "Article" },
+  properties: {
+    title: {
+      type: String,
+      editorComponent: createTextEditor(),
+    },
+    body: {
+      type: String,
+      editorComponent: createMarkdownRteEditor(),
+    },
+    date: {
+      type: Date,
+      editorComponent: createDatePickerEditor(),
+    },
+  },
+});
+
+export const config = configure({
+  schema: [ArticleSchema],
+});
+```
+
+### Server
+
+```tsx
+import express from "express";
+import { refractCmsHandler } from "@refract-cms/server";
+import { config } from "../config";
+
+const app = express();
+
+app.use(
+  ...refractCmsHandler({
+    serverConfig: {
+      rootPath: "/cms",
+      config,
+      mongoConnectionString: process.env.MONGO_URI,
+      auth: {
+        adminCredentials: {
+          username: process.env.ADMIN_USERNAME,
+          password: process.env.ADMIN_PASSWORD,
+        },
+        jwt: {
+          issuer: "my-app",
+          secret: process.env.JWT_SECRET,
+        },
+      },
+    },
+  })
+);
+
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
+```
+
+### Client
+
+```tsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { config } from "../config";
+import { createDashboard } from "@refract-cms/dashboard";
+
+const serverUrl = "http://localhost:4000/cms/";
+
+const Dashboard = createDashboard({
+  config,
+  serverUrl,
+});
+
+ReactDOM.render(<Dashboard />, document.getElementById("app"));
+```
 
 ## Hosting
 
 You are responsible for:
 
-- Serving an express app using the Refract-CMS express middleware.
-- React editor dashboard.
+- Serving an node app using the Refract-CMS express middleware.
+- React editor dashboard. E.g. be create-react-app.
