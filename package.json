@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build": "lerna run build",
+    "build": "lerna run build --scope @refract-cms/*",
     "bump-version": "lerna version --no-push --no-git-tag-version",
     "prettier": "prettier --write .",
     "prettier:test": "prettier --check .",
