@@ -30,7 +30,8 @@ export function create(args: { name: string }) {
   fs.copySync(templateDir, targetDir);
   console.log(chalk.green(`Successfully created app`));
   npmInstall().then(() => {
-    console.log('Installed npm dependencies');
+    spinner.stop();
+    console.log(`Installed npm dependencies`);
     console.log(`cd ./${name}`);
     console.log(`docker-compose up -d`);
     console.log(`npm start`);

@@ -1,7 +1,7 @@
 {
   "name": "refract-cms-template",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.11.0",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,9 +16,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@refract-cms/core": "^0.10.2",
-    "@refract-cms/dashboard": "^0.10.2",
-    "@refract-cms/server": "^0.10.2",
+    "@refract-cms/core": "^0.11.0",
+    "@refract-cms/dashboard": "^0.11.0",
+    "@refract-cms/server": "^0.11.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
