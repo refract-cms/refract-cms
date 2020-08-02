@@ -17,6 +17,7 @@
       [
         "@pika/plugin-build-node"
       ],
+      ["@pika/plugin-copy-assets", {}],
       [
         "@pika/plugin-simple-bin",
         {
