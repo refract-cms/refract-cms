@@ -3,13 +3,14 @@
   "private": true,
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server:build": "parcel build --target node --no-minify ./src/server/index.ts",
+    "server:build": "parcel build --target node  --no-minify ./src/server/index.ts",
     "server:build:watch": "parcel watch --target node ./src/server/index.ts",
     "server:start": "node ./dist/index.js",
     "server:run:watch": "nodemon --watch dist ./dist/index.js",
+    "client:build": "parcel build --target node --no-minify ./src/client/index.ts",
+    "client:build:watch": "parcel watch --target node ./src/client/index.ts",
     "dev": "npm run server:build && npm-run-all -p server:run:watch server:build:watch"
   },
   "author": "",

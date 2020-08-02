@@ -23,3 +23,10 @@ npm start
 | GraphiQL           | <http://localhost:3000/cms/graphql>            |
 | GraphQL Playground | <http://localhost:3000/cms/graphql-playground> |
 | Mongo Express      | <http://localhost:8081>                        |
+
+## Run in production
+
+```
+npm run build
+npm start
+```

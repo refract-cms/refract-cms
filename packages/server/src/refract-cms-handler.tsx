@@ -16,6 +16,7 @@ import { RefractGraphQLContext } from './graphql/refract-graphql-context';
 import { singleRefPlugin } from './plugins/single-ref-plugin';
 import { multipleRefPlugin } from './plugins/multiple-ref-plugin';
 import { buildServerOptions } from './config/create-server-options';
+import chalk from 'chalk';
 
 const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => {
   const { config } = serverConfig;
@@ -36,9 +37,13 @@ const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => 
   });
 
   if (mongoose.connection.readyState !== 1) {
-    mongoose.connect(serverConfig.mongoConnectionString, {
-      useNewUrlParser: true,
-    });
+    mongoose
+      .connect(serverConfig.mongoConnectionString, {
+        useNewUrlParser: true,
+      })
+      .then(() => {
+        console.log(chalk.green('Connected to MongoDB'));
+      });
   }
 
   const serverOptions = buildServerOptions(serverConfig);

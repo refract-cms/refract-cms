@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
 import program from 'commander';
-import { createApp } from './create-app';
+// import { createApp } from './create-app';
+import { create } from './create';
 
 function run(args: any) {
   return new Promise((resolve) => {
@@ -40,7 +41,7 @@ function run(args: any) {
           // sampleSchema: program.sampleSchema,
           ...promptAnswers,
         };
-        createApp(answers);
+        create(answers);
       });
 
     resolve();
