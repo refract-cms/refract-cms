@@ -17,7 +17,10 @@
       [
         "@pika/plugin-build-node"
       ],
-      ["@pika/plugin-copy-assets", {}],
+      [
+        "@pika/plugin-copy-assets",
+        {}
+      ],
       [
         "@pika/plugin-simple-bin",
         {
@@ -31,7 +34,8 @@
   "dependencies": {
     "commander": "^5.0.0",
     "fs-extra": "^9.0.1",
-    "inquirer": "^7.1.0"
+    "inquirer": "^7.1.0",
+    "ora": "^4.0.5"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.1",
