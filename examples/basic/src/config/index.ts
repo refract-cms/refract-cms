@@ -4,10 +4,12 @@ import {
   createTextEditor,
   createMarkdownRteEditor,
   createDatePickerEditor,
-} from '@refract-cms/core';
+} from '../../../../packages/core/src';
 
 const ArticleSchema = composeSchema({
-  options: { alias: 'article' },
+  options: {
+    alias: 'article',
+  },
   properties: {
     title: {
       type: String,

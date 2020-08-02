@@ -1,5 +1,5 @@
 import express from 'express';
-import { refractCmsHandler } from '@refract-cms/server';
+import { refractCmsHandler } from '../../../../packages/server/src';
 import { config } from '../config';
 
 const app = express();
