@@ -4,7 +4,6 @@ import { config } from '../config';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
 import path from 'path';
-import { ServerConfig } from '../../../server/src/config/server-config';
 
 dotenv.config();
 
