@@ -1,10 +1,4 @@
-// import { composeSchema, createTextEditor, createMarkdownRteEditor, createDatePickerEditor } from '@refract-cms/core';
-import {
-  composeSchema,
-  createTextEditor,
-  createMarkdownRteEditor,
-  createDatePickerEditor,
-} from '../../../../../packages/core';
+import { composeSchema, createTextEditor, createMarkdownRteEditor, createDatePickerEditor } from '@refract-cms/core';
 
 export const ArticleSchema = composeSchema({
   options: {
