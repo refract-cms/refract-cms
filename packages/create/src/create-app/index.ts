@@ -1,6 +1,8 @@
+import fs from 'fs-extra';
+
 export interface CreateAppOptions {
   name: string;
-  template: 'blog' | 'default';
+  // template: 'blog' | 'default';
 }
 
 export function createApp(options: CreateAppOptions) {
