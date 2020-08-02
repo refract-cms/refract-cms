@@ -1,15 +1,17 @@
 import express from 'express';
-import { refractCmsHandler } from '@refract-cms/server';
+import { refractCmsHandler, ServerConfig } from '@refract-cms/server';
 import { config } from '../config';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
+import path from 'path';
 import { ServerConfig } from '../../../server/src/config/server-config';
 
 dotenv.config();
 
 const app = express();
 
-app.use(express.static('public'));
+app.use('/client', express.static(path.resolve(__dirname, 'client')));
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 const serverConfig: ServerConfig = {
   rootPath: '/cms',
