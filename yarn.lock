@@ -3027,12 +3027,6 @@
     "@types/connect" "*"
     "@types/node" "*"
 
-"@types/bson@*":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@types/bson/-/bson-4.0.2.tgz#7accb85942fc39bbdb7515d4de437c04f698115f"
-  dependencies:
-    "@types/node" "*"
-
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -3114,20 +3108,6 @@
 "@types/minimist@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.0.tgz#69a23a3ad29caf0097f06eda59b361ee2f0639f6"
-
-"@types/mongodb@*":
-  version "3.5.25"
-  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.5.25.tgz#ab187db04d79f8e3f15af236327dc9139d9d4736"
-  dependencies:
-    "@types/bson" "*"
-    "@types/node" "*"
-
-"@types/mongoose@^5.7.34":
-  version "5.7.34"
-  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.7.34.tgz#37d226fbb00b91319ca70014d0240d09a7164187"
-  dependencies:
-    "@types/mongodb" "*"
-    "@types/node" "*"
 
 "@types/multer@^1.4.2":
   version "1.4.2"
