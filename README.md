@@ -17,21 +17,25 @@ This approach has some advantages:
 - Your schema can be deployed to multiple environments without requiring you to do duplicate work in a GUI or database imports, You just deploy the code and start editing.
 - Clean database, Refract-CMS only creates one mongo collection per schema, as it doesn't have to store schema information in there.
 
-## GraphQL
+## Quick start
 
-The CMS exposes a GraphQL endpoint, with rich filtering that you can use to query data for your frontend apps.
+### Bootstrap
 
-## Customization
+```bash
+npx @refract-cms/create --dir myapp
+```
 
-Property editors for each property on the entity model are added to the schema in code, allowing you to choose between some of the in-built editors (TextBox, Select, Image) or to write your own using React.
+### Develop locally
 
-## Getting Started
+```bash
+cd ./myapp
+docker-compose up -d
+npm start
+```
 
-### Create Refract-CMS config
+### Create a schema
 
-Create file: `config.ts`
-
-```ts
+```tsx
 import {
   configure,
   composeSchema,
@@ -57,69 +61,43 @@ const ArticleSchema = composeSchema({
     },
   },
 });
-
-export const config = configure({
-  schema: [ArticleSchema],
-});
 ```
 
-### Server
+### Add new schema to config
 
-```tsx
-import express from "express";
-import { refractCmsHandler } from "@refract-cms/server";
-import { config } from "../config";
+## GraphQL
 
-const app = express();
+The CMS exposes a GraphQL endpoint, with rich filtering that you can use to query data for your frontend apps.
 
-app.use(
-  ...refractCmsHandler({
-    serverConfig: {
-      rootPath: "/cms",
-      config,
-      mongoConnectionString: process.env.MONGO_URI,
-      auth: {
-        adminCredentials: {
-          username: process.env.ADMIN_USERNAME,
-          password: process.env.ADMIN_PASSWORD,
-        },
-        jwt: {
-          issuer: "my-app",
-          secret: process.env.JWT_SECRET,
-        },
-      },
-    },
-  })
-);
+## Customization
 
-const PORT = process.env.PORT || 4000;
+Property editors for each property on the entity model are added to the schema in code, allowing you to choose between some of the in-built editors (TextBox, Select, Image) or to write your own using React.
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+## Running in production
+
+An Refract-CMS app is a standard NodeJS app that can be run anywhere that supports NodeJS or docker.
+
+E.g
+
+- Digital Ocean
+- Azure
+- AWS
+- Kubernetes
+
+### Environment variables
+
+The .env file is for local development. When deploying to production we recommend ommitting the .env file from the deployment & using environment variables.
+
+Ensure the following environment varibles are set in your production environment:
+
+- MONGO_URI
+- ADMIN_USERNAME
+- ADMIN_PASSWORD
+- JWT_SECRET
+
+### Build and run
+
+```bash
+npm run build
+npm start
 ```
-
-### Client
-
-```tsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { config } from "../config";
-import { createDashboard } from "@refract-cms/dashboard";
-
-const serverUrl = "http://localhost:4000/cms/";
-
-const Dashboard = createDashboard({
-  config,
-  serverUrl,
-});
-
-ReactDOM.render(<Dashboard />, document.getElementById("app"));
-```
-
-## Hosting
-
-You are responsible for:
-
-- Serving an node app using the Refract-CMS express middleware.
-- React editor dashboard. E.g. be create-react-app.
