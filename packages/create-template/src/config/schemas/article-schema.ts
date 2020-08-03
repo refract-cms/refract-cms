@@ -1,4 +1,5 @@
 import { composeSchema, createTextEditor, createMarkdownRteEditor, createDatePickerEditor } from '@refract-cms/core';
+import { CustomTextEditor } from '../editor-components/custom-text-editor';
 
 export const ArticleSchema = composeSchema({
   options: {
@@ -13,6 +14,11 @@ export const ArticleSchema = composeSchema({
       type: String,
       displayName: 'Title',
       editorComponent: createTextEditor(),
+    },
+    description: {
+      type: String,
+      displayName: 'Description',
+      editorComponent: CustomTextEditor,
     },
     body: {
       type: String,
