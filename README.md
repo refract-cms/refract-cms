@@ -47,6 +47,7 @@ import {
 const Product = composeSchema({
   options: {
     alias: "product",
+    displayName: "Product",
     instanceDisplayProps: (product) => ({
       primaryText: product.title,
     }),
@@ -54,10 +55,12 @@ const Product = composeSchema({
   properties: {
     title: {
       type: String,
+      displayName: "Title",
       editorComponent: createTextEditor(),
     },
     active: {
       type: Boolean,
+      displayName: "Active",
       editorComponent: createBooleanEditor(),
     },
   },
