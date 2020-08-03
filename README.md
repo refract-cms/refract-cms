@@ -35,35 +35,50 @@ npm start
 
 ### Create a schema
 
+Create a `ts` file inside directory: `./src/config/schemas`, e.g. `product-schema.ts`
+
 ```tsx
 import {
-  configure,
   composeSchema,
   createTextEditor,
-  createMarkdownRteEditor,
-  createDatePickerEditor,
+  createBooleanEditor,
 } from "@refract-cms/core";
 
-const ArticleSchema = composeSchema({
-  options: { alias: "Article" },
+const Product = composeSchema({
+  options: {
+    alias: "product",
+    instanceDisplayProps: (product) => ({
+      primaryText: product.title,
+    }),
+  },
   properties: {
     title: {
       type: String,
       editorComponent: createTextEditor(),
     },
-    body: {
-      type: String,
-      editorComponent: createMarkdownRteEditor(),
-    },
-    date: {
-      type: Date,
-      editorComponent: createDatePickerEditor(),
+    active: {
+      type: Boolean,
+      editorComponent: createBooleanEditor(),
     },
   },
 });
 ```
 
 ### Add new schema to config
+
+Edit file `./src/config/index.ts`
+
+```tsx
+import { configure } from "@refract-cms/core";
+import { ProductSchema } from "./schemas/product-schema";
+
+export const config = configure({
+  schema: [
+    ProductSchema,
+    // The rest of the schemas
+  ],
+});
+```
 
 ## GraphQL
 
