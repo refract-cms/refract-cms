@@ -11,3 +11,7 @@ const Dashboard = createDashboard({
 });
 
 ReactDOM.render(<Dashboard />, document.getElementById('app'));
+
+if (module.hot) {
+  module.hot.accept();
+}
