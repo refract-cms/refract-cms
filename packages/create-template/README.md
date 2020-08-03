@@ -12,7 +12,7 @@ docker-compose up -d
 
 ```
 npm install
-npm start
+npm run dev
 ```
 
 ## Development links
