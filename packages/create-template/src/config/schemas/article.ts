@@ -1,13 +1,9 @@
-import {
-  configure,
-  composeSchema,
-  createTextEditor,
-  createMarkdownRteEditor,
-  createDatePickerEditor,
-} from '@refract-cms/core';
+import { composeSchema, createTextEditor, createMarkdownRteEditor, createDatePickerEditor } from '@refract-cms/core';
 
-const ArticleSchema = composeSchema({
-  options: { alias: 'Article' },
+export const ArticleSchema = composeSchema({
+  options: {
+    alias: 'article',
+  },
   properties: {
     title: {
       type: String,
@@ -22,8 +18,4 @@ const ArticleSchema = composeSchema({
       editorComponent: createDatePickerEditor(),
     },
   },
-});
-
-export const config = configure({
-  schema: [ArticleSchema],
 });

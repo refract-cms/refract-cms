@@ -26,7 +26,7 @@ jobs:
         run: |
           npm set //registry.npmjs.org/:_authToken $NPM_TOKEN
           npm config set access public
-          npx lerna publish from-package --yes --contents pkg
+          npx lerna publish --scope @refract-cms/* from-package --yes --contents pkg
 
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

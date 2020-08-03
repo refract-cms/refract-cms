@@ -1,9 +1,9 @@
 {
   "name": "@refract-cms/plugin-code-gen",
-  "version": "0.10.2",
+  "version": "0.11.0",
   "description": "",
-  "main": "index.js",
-  "types": "src/index.ts",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pika build"
@@ -26,7 +26,7 @@
     "@graphql-codegen/typescript": "1.4.0",
     "@graphql-codegen/typescript-operations": "1.4.0",
     "@graphql-codegen/typescript-react-apollo": "1.4.0",
-    "@refract-cms/core": "^0.10.2",
-    "@refract-cms/server": "^0.10.2"
+    "@refract-cms/core": "^0.11.0",
+    "@refract-cms/server": "^0.11.0"
   }
 }
