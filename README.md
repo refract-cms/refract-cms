@@ -17,6 +17,69 @@ This approach has some advantages:
 - Your schema can be deployed to multiple environments without requiring you to do duplicate work in a GUI or database imports, You just deploy the code and start editing.
 - Clean database, Refract-CMS only creates one mongo collection per schema, as it doesn't have to store schema information in there.
 
+## Quick start
+
+### Bootstrap
+
+```bash
+npx @refract-cms/create --dir myapp
+```
+
+### Develop locally
+
+```bash
+cd ./myapp
+docker-compose up -d
+npm start
+```
+
+### Create a schema
+
+Create a `ts` file inside directory: `./src/config/schemas`, e.g. `product-schema.ts`
+
+```tsx
+import {
+  composeSchema,
+  createTextEditor,
+  createBooleanEditor,
+} from "@refract-cms/core";
+
+const Product = composeSchema({
+  options: {
+    alias: "product",
+    instanceDisplayProps: (product) => ({
+      primaryText: product.title,
+    }),
+  },
+  properties: {
+    title: {
+      type: String,
+      editorComponent: createTextEditor(),
+    },
+    active: {
+      type: Boolean,
+      editorComponent: createBooleanEditor(),
+    },
+  },
+});
+```
+
+### Add new schema to config
+
+Edit file `./src/config/index.ts`
+
+```tsx
+import { configure } from "@refract-cms/core";
+import { ProductSchema } from "./schemas/product-schema";
+
+export const config = configure({
+  schema: [
+    ProductSchema,
+    // The rest of the schemas
+  ],
+});
+```
+
 ## GraphQL
 
 The CMS exposes a GraphQL endpoint, with rich filtering that you can use to query data for your frontend apps.
@@ -25,101 +88,31 @@ The CMS exposes a GraphQL endpoint, with rich filtering that you can use to quer
 
 Property editors for each property on the entity model are added to the schema in code, allowing you to choose between some of the in-built editors (TextBox, Select, Image) or to write your own using React.
 
-## Getting Started
+## Running in production
 
-### Create Refract-CMS config
+An Refract-CMS app is a standard NodeJS app that can be run anywhere that supports NodeJS or docker.
 
-Create file: `config.ts`
+E.g
 
-```ts
-import {
-  configure,
-  composeSchema,
-  createTextEditor,
-  createMarkdownRteEditor,
-  createDatePickerEditor,
-} from "@refract-cms/core";
+- Digital Ocean
+- Azure
+- AWS
+- Kubernetes
 
-const ArticleSchema = composeSchema({
-  options: { alias: "Article" },
-  properties: {
-    title: {
-      type: String,
-      editorComponent: createTextEditor(),
-    },
-    body: {
-      type: String,
-      editorComponent: createMarkdownRteEditor(),
-    },
-    date: {
-      type: Date,
-      editorComponent: createDatePickerEditor(),
-    },
-  },
-});
+### Environment variables
 
-export const config = configure({
-  schema: [ArticleSchema],
-});
+The .env file is for local development. When deploying to production we recommend ommitting the .env file from the deployment & using environment variables.
+
+Ensure the following environment varibles are set in your production environment:
+
+- MONGO_URI
+- ADMIN_USERNAME
+- ADMIN_PASSWORD
+- JWT_SECRET
+
+### Build and run
+
+```bash
+npm run build
+npm start
 ```
-
-### Server
-
-```tsx
-import express from "express";
-import { refractCmsHandler } from "@refract-cms/server";
-import { config } from "../config";
-
-const app = express();
-
-app.use(
-  ...refractCmsHandler({
-    serverConfig: {
-      rootPath: "/cms",
-      config,
-      mongoConnectionString: process.env.MONGO_URI,
-      auth: {
-        adminCredentials: {
-          username: process.env.ADMIN_USERNAME,
-          password: process.env.ADMIN_PASSWORD,
-        },
-        jwt: {
-          issuer: "my-app",
-          secret: process.env.JWT_SECRET,
-        },
-      },
-    },
-  })
-);
-
-const PORT = process.env.PORT || 4000;
-
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
-```
-
-### Client
-
-```tsx
-import React from "react";
-import ReactDOM from "react-dom";
-import { config } from "../config";
-import { createDashboard } from "@refract-cms/dashboard";
-
-const serverUrl = "http://localhost:4000/cms/";
-
-const Dashboard = createDashboard({
-  config,
-  serverUrl,
-});
-
-ReactDOM.render(<Dashboard />, document.getElementById("app"));
-```
-
-## Hosting
-
-You are responsible for:
-
-- Serving an node app using the Refract-CMS express middleware.
-- React editor dashboard. E.g. be create-react-app.

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { config } from '../config';
 import { createDashboard } from '@refract-cms/dashboard';
 
-const serverUrl = '/cms/';
+const serverUrl = '/cms';
 
 const Dashboard = createDashboard({
   config,

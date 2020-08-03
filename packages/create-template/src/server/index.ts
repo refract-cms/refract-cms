@@ -9,9 +9,6 @@ dotenv.config();
 
 const app = express();
 
-app.use('/client', express.static(path.resolve(__dirname, 'client')));
-app.use(express.static(path.resolve(__dirname, '../public')));
-
 const serverConfig: ServerConfig = {
   rootPath: '/cms',
   config,
@@ -30,6 +27,14 @@ const serverConfig: ServerConfig = {
 };
 
 app.use(...refractCmsHandler({ serverConfig }));
+
+app.use('/client', express.static(path.resolve(__dirname, 'client')));
+
+app.use(express.static(path.resolve(__dirname, '../public')));
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../public/index.html'));
+});
 
 const PORT = process.env.PORT || 4000;
 
