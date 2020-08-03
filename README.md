@@ -91,6 +91,55 @@ The CMS exposes a GraphQL endpoint, with rich filtering that you can use to quer
 
 Property editors for each property on the entity model are added to the schema in code, allowing you to choose between some of the in-built editors (TextBox, Select, Image) or to write your own using React.
 
+### Editor component
+
+#### Write component
+
+This is just a standard React component,
+you can do whatever you want in here including async calls to API's. You receive the current value & a setValue function as props.
+
+The props are typed based on what the target type for this editor is e.g. `PropertyEditorProps<string>` or `PropertyEditorProps<Date>`.
+
+To apply styles is to utilize JSS `useStyles` hook from material-ui.
+
+```tsx
+import React from "react";
+import { PropertyEditorProps } from "@refract-cms/core";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  paragraph: {
+    color: theme.palette.primary.main,
+    marginBottom: theme.spacing(),
+  },
+}));
+
+export function CustomTextEditor(props: PropertyEditorProps<string>) {
+  const classes = useStyles(props);
+  const { value, setValue } = props;
+  return (
+    <div>
+      <p className={classes.paragraph}>
+        This is an example of a basic custom editor component
+      </p>
+      <input value={value} onChange={(e) => setValue(e.target.value)} />
+    </div>
+  );
+}
+```
+
+#### Add custom editor to schema
+
+Add a reference to the custom editor component for the desired property in your schema:
+
+```tsx
+myProperty: {
+  type: String,
+  displayName: 'My Property',
+  editorComponent: CustomTextEditor,
+},
+```
+
 ## Running in production
 
 An Refract-CMS app is a standard NodeJS app that can be run anywhere that supports NodeJS or docker.
