@@ -26,9 +26,9 @@ export function create(args: { name: string }) {
 
   console.log(`Creating refract-cms app in ${targetDir}`);
   fs.ensureDirSync(targetDir);
-  const templateDir = path.resolve(dirname, '../assets/create-template');
+  const templateDir = path.resolve(dirname, '../assets/create-template-razzle');
   fs.copySync(templateDir, targetDir);
-  fs.renameSync(path.resolve(targetDir, '.npmignore'), path.resolve(targetDir, '.gitignore')))
+  fs.renameSync(path.resolve(targetDir, '.npmignore'), path.resolve(targetDir, '.gitignore'));
   console.log(chalk.green(`Successfully created app`));
   npmInstall().then(() => {
     spinner.stop();
