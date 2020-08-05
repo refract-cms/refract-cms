@@ -6,7 +6,6 @@ import { renderToString } from 'react-dom/server';
 import { refractCmsHandler, ServerConfig } from '@refract-cms/server';
 import { serverConfig } from './server-config';
 import chalk from 'chalk';
-
 import path from 'path';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
@@ -17,19 +16,8 @@ server
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .use(...refractCmsHandler({ serverConfig }))
   .get('/*', (req, res) => {
-    const context: any = {};
-    const markup = '';
-    // renderToString(
-    //   <StaticRouter context={context} location={req.url}>
-    //     <App />
-    //   </StaticRouter>
-    // );
-
-    if (context.url) {
-      res.redirect(context.url);
-    } else {
-      res.status(200).send(
-        `<!doctype html>
+    res.status(200).send(
+      `<!doctype html>
     <html lang="">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -48,45 +36,19 @@ server
         />
     </head>
     <body>
-        <div id="root">${markup}</div>
+        <div id="root"></div>
     </body>
 </html>`
-      );
-    }
+    );
   });
 
+const PORT = 3000;
+console.log(chalk.magenta(`GraphQL endpoint: http://localhost:${PORT}${serverConfig.rootPath}/graphql`));
+console.log(chalk.blue(`CMS Dashboard: http://localhost:${PORT}`));
+if (process.env.NODE_ENV === 'development') {
+  console.log(
+    `CMS Dashboard credentials: ${serverConfig.auth.adminCredentials.username} / ${serverConfig.auth.adminCredentials.password}`
+  );
+}
+
 export default server;
-
-// import express from 'express';
-// import { refractCmsHandler, ServerConfig } from '@refract-cms/server';
-// import { config } from '../config';
-// import dotenv from 'dotenv';
-// import chalk from 'chalk';
-// import path from 'path';
-
-// dotenv.config();
-
-// const app = express();
-
-// app.use(...refractCmsHandler({ serverConfig }));
-
-// app.use('/client', express.static(path.resolve(__dirname, 'client')));
-
-// app.use(express.static(path.resolve(__dirname, '../public')));
-
-// app.get('/*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, '../public/index.html'));
-// });
-
-// const PORT = process.env.PORT || 4000;
-
-// app.listen(PORT, () => {
-//   console.log(`Server listening on port ${PORT}`);
-//   console.log(chalk.magenta(`GraphQL endpoint: http://localhost:${PORT}${serverConfig.rootPath}/graphql`));
-//   console.log(chalk.blue(`CMS Dashboard: http://localhost:${PORT}`));
-//   if (process.env.NODE_ENV === 'development') {
-//     console.log(
-//       `CMS Dashboard credentials: ${serverConfig.auth.adminCredentials.username} / ${serverConfig.auth.adminCredentials.password}`
-//     );
-//   }
-// });
