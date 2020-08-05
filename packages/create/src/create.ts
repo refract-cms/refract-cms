@@ -28,6 +28,7 @@ export function create(args: { name: string }) {
   fs.ensureDirSync(targetDir);
   const templateDir = path.resolve(dirname, '../assets/create-template');
   fs.copySync(templateDir, targetDir);
+  fs.renameSync(path.resolve(targetDir, '.npmignore'), path.resolve(targetDir, '.gitignore')))
   console.log(chalk.green(`Successfully created app`));
   npmInstall().then(() => {
     spinner.stop();
