@@ -1,5 +1,6 @@
 import { composeSchema, createTextEditor, createMarkdownRteEditor, createDatePickerEditor } from '@refract-cms/core';
 import { CustomTextEditor } from '../editor-components/custom-text-editor';
+import DescriptionIcon from '@material-ui/icons/Description';
 
 export const ArticleSchema = composeSchema({
   options: {
@@ -8,6 +9,7 @@ export const ArticleSchema = composeSchema({
     instanceDisplayProps: (article) => ({
       primaryText: article.title,
     }),
+    icon: DescriptionIcon,
   },
   properties: {
     title: {
