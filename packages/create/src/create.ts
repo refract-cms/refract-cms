@@ -24,6 +24,11 @@ export function create(args: { name: string }) {
     });
   };
 
+  if (fs.existsSync(targetDir)) {
+    console.log(chalk.red(`Path ${targetDir} already exists!`));
+    process.exit();
+  }
+
   console.log(`Creating refract-cms app in ${targetDir}`);
   fs.ensureDirSync(targetDir);
   const templateDir = path.resolve(dirname, '../assets/create-template-razzle');

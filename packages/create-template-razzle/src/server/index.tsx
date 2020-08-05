@@ -1,12 +1,7 @@
-// import App from './App';
-import React from 'react';
-import { StaticRouter } from 'react-router-dom';
 import express from 'express';
-import { renderToString } from 'react-dom/server';
-import { refractCmsHandler, ServerConfig } from '@refract-cms/server';
+import { refractCmsHandler } from '@refract-cms/server';
 import { serverConfig } from './server-config';
 import chalk from 'chalk';
-import path from 'path';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -42,7 +37,7 @@ server
     );
   });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 console.log(chalk.magenta(`GraphQL endpoint: http://localhost:${PORT}${serverConfig.rootPath}/graphql`));
 console.log(chalk.blue(`CMS Dashboard: http://localhost:${PORT}`));
 if (process.env.NODE_ENV === 'development') {
