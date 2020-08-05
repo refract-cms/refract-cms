@@ -2,7 +2,7 @@ import { EntitySchema } from '../entities/entity-schema';
 import { PropertyOptions } from './property-options';
 import { createSingleEntityPickerEditor, createMultipleEntityPickerEditor } from '..';
 
-function singleReference(
+function singleSchemaPicker(
   schema: EntitySchema,
   options?: Pick<PropertyOptions<any, String>, 'displayName' | 'defaultValue'>
 ): PropertyOptions<any, StringConstructor> {
@@ -19,7 +19,7 @@ function singleReference(
   };
 }
 
-function multipleReferences(
+function multipleSchemaPicker(
   schema: EntitySchema,
   options?: Pick<PropertyOptions<any, String>, 'displayName' | 'defaultValue'> & { max?: number }
 ): PropertyOptions<any, StringConstructor[]> {
@@ -38,6 +38,6 @@ function multipleReferences(
 }
 
 export const propertyBuilder = {
-  singleReference,
-  multipleReferences,
+  singleSchemaPicker,
+  multipleSchemaPicker,
 };
