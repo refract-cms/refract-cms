@@ -1,0 +1,26 @@
+{
+  "name": "my-refract-cms-app",
+  "version": "0.12.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "razzle start",
+    "build": "razzle build",
+    "test": "razzle test --env=jsdom",
+    "start:prod": "NODE_ENV=production node build/server.js"
+  },
+  "dependencies": {
+    "@refract-cms/core": "^0.12.0",
+    "@refract-cms/dashboard": "^0.12.0",
+    "@refract-cms/server": "^0.12.0",
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "razzle": "^3.1.6",
+    "razzle-plugin-typescript": "^3.1.6",
+    "typescript": "^3.9.7",
+    "webpack-merge": "^5.1.1"
+  }
+}

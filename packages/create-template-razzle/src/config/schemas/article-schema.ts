@@ -1,6 +1,13 @@
-import { composeSchema, createTextEditor, createMarkdownRteEditor, createDatePickerEditor } from '@refract-cms/core';
+import {
+  composeSchema,
+  createTextEditor,
+  createMarkdownRteEditor,
+  createDatePickerEditor,
+  propertyBuilder,
+} from '@refract-cms/core';
 import { CustomTextEditor } from '../editor-components/custom-text-editor';
 import DescriptionIcon from '@material-ui/icons/Description';
+import { ArticleCategorySchema } from './article-category-schema';
 
 export const ArticleSchema = composeSchema({
   options: {
@@ -32,5 +39,8 @@ export const ArticleSchema = composeSchema({
       displayName: 'Date',
       editorComponent: createDatePickerEditor(),
     },
+    category: propertyBuilder.singleReference(ArticleCategorySchema, {
+      displayName: 'Category',
+    }),
   },
 });

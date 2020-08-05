@@ -8,10 +8,17 @@
     "prettier:test": "prettier --check .",
     "test": "yarn run prettier:test"
   },
-  "workspaces": [
-    "packages/*",
-    "consumer"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "consumer"
+    ],
+    "nohoist": [
+      "**/razzle",
+      "**/razzle-dev-utils",
+      "**/webpack-merge"
+    ]
+  },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-react": "^7.9.4",
