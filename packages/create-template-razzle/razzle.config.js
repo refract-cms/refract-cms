@@ -1,4 +1,5 @@
 const { merge } = require("webpack-merge");
+const path = require("path");
 
 module.exports = {
   plugins: [
@@ -26,6 +27,7 @@ module.exports = {
           {
             test: /\.(js|jsx|ts|tsx)$/,
             loader: "ts-loader",
+            exclude: path.resolve(__dirname, "src"),
             options: {
               transpileOnly: true,
             },
