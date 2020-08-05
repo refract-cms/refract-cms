@@ -15,7 +15,8 @@
     ],
     "nohoist": [
       "**/razzle",
-      "**/razzle-dev-utils"
+      "**/razzle-dev-utils",
+      "**/webpack-merge"
     ]
   },
   "devDependencies": {

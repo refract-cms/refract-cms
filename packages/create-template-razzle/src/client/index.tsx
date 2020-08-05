@@ -10,7 +10,7 @@ const Dashboard = createDashboard({
   serverUrl,
 });
 
-ReactDOM.render(<Dashboard />, document.getElementById('app'));
+ReactDOM.render(<Dashboard />, document.getElementById('root'));
 
 if (module.hot) {
   module.hot.accept();

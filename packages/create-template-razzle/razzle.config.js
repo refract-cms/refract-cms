@@ -1,3 +1,5 @@
+const { merge } = require("webpack-merge");
+
 module.exports = {
   plugins: [
     {
@@ -17,4 +19,19 @@ module.exports = {
       },
     },
   ],
+  modify(config, args, webpack) {
+    return merge(config, {
+      module: {
+        rules: [
+          {
+            test: /\.(js|jsx|ts|tsx)$/,
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+      },
+    });
+  },
 };
