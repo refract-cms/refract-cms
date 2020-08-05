@@ -166,5 +166,5 @@ Ensure the following environment varibles are set in your production environment
 
 ```bash
 npm run build
-npm start
+npm run start:prod
 ```
