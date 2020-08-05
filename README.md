@@ -30,7 +30,7 @@ npx @refract-cms/create --dir myapp
 ```bash
 cd ./myapp
 docker-compose up -d
-npm run dev
+npm start
 ```
 
 ### Create a schema
