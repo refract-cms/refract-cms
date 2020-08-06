@@ -44,7 +44,7 @@ import {
   createBooleanEditor,
 } from "@refract-cms/core";
 
-const ProductSchema = composeSchema({
+export const ProductSchema = composeSchema({
   options: {
     alias: "product",
     displayName: "Product",
