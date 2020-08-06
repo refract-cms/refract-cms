@@ -3,6 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import { spawn } from 'child_process';
 import ora from 'ora';
+import os from 'os';
 
 const spinner = ora({
   text: 'Installing dependencies',
@@ -11,7 +12,23 @@ const spinner = ora({
 
 export function create(args: { name: string }) {
   const { name } = args;
-  const dirname = `/${path.dirname(import.meta.url.substring(8))}`;
+  let slash = '';
+
+  switch (os.platform()) {
+    case 'win32': {
+      slash = '';
+      break;
+    }
+    case 'darwin': {
+      slash = '/';
+      break;
+    }
+    default: {
+      slash = '';
+      break;
+    }
+  }
+  const dirname = `${slash}${path.dirname(import.meta.url.substring(8))}`;
   const targetDir = path.resolve(process.cwd(), name);
 
   const npmInstall = () => {
