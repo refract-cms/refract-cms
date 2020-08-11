@@ -1,5 +1,5 @@
 {
-  "name": "@refract-cms/plugin-active-directory-auth",
+  "name": "@refract-cms/plugin-file-system-image-server",
   "version": "0.13.2",
   "description": "",
   "main": "./src/index.ts",
@@ -28,6 +28,7 @@
   "license": "ISC",
   "dependencies": {
     "@refract-cms/core": "^0.13.2",
+    "@refract-cms/plugin-file-system-image": "^0.13.2",
     "@refract-cms/server": "^0.13.2"
   }
 }
