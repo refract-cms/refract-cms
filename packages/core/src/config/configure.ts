@@ -13,6 +13,6 @@ const defaultExtensionConfig: PluginConfig = {
   schema: [],
 };
 
-export const configure = (config: Config, ...extensions: PluginConfig[]) => {
-  return mergeWith(config, defaultExtensionConfig, ...extensions, customizer);
+export const configure = (config: Config, plugins: PluginConfig[]) => {
+  return mergeWith(config, defaultExtensionConfig, ...plugins, customizer);
 };
