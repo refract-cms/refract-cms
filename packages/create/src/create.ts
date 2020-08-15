@@ -19,7 +19,8 @@ export function create(args: { name: string }) {
       slash = '';
       break;
     }
-    case 'darwin': {
+    case 'darwin':
+    case 'linux': {
       slash = '/';
       break;
     }
