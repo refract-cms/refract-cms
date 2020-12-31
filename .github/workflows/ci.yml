@@ -13,7 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: deno run --allow-run --allow-env ./check-version.ts
+      - run: |
+          curl -fsSL https://deno.land/x/install/install.sh | sh
+        name: "Install deno"
+        if: github.event_name == 'pull_request'
+
+      - run: |
+          deno run --allow-run --allow-env ./check-version.ts
         name: "Check version"
         if: github.event_name == 'pull_request'
 
