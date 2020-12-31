@@ -26,15 +26,15 @@ interface GitVersionResponse {
   'next-version': string;
 }
 
-const sourceGitVersionResponse = parse(
-  await getFileContents({ file: 'GitVersion.yml', branch: sourceBranch })
+const sourceGitVersionResponse = JSON.parse(
+  await getFileContents({ file: 'lerna.json', branch: sourceBranch })
 ) as GitVersionResponse;
-const targetGitVersionResponse = parse(
-  await getFileContents({ file: 'GitVersion.yml', branch: targetBranch })
+const targetGitVersionResponse = JSON.parse(
+  await getFileContents({ file: 'lerna.json', branch: targetBranch })
 ) as GitVersionResponse;
 
-const sourceVersion = sourceGitVersionResponse['next-version'];
-const targetVersion = targetGitVersionResponse['next-version'];
+const sourceVersion = sourceGitVersionResponse['version'];
+const targetVersion = targetGitVersionResponse['version'];
 
 console.log({ sourceVersion, targetVersion });
 
