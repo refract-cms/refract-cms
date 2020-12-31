@@ -29,19 +29,34 @@ interface LernaJson {
   version: string;
 }
 
-const sourceGitVersionResponse = JSON.parse(await getFileContents({ file: 'lerna.json', branch: 'HEAD' })) as LernaJson;
-const targetGitVersionResponse = JSON.parse(
-  await getFileContents({ file: 'lerna.json', branch: 'origin/master' })
-) as LernaJson;
+let failed = false;
 
-const sourceVersion = sourceGitVersionResponse.version;
-const targetVersion = targetGitVersionResponse.version;
+async function compareVersion(file: string) {
+  const sourceGitVersionResponse = JSON.parse(await getFileContents({ file, branch: 'HEAD' })) as LernaJson;
+  const targetGitVersionResponse = JSON.parse(await getFileContents({ file, branch: 'origin/master' })) as LernaJson;
 
-console.log({ sourceVersion, targetVersion });
+  const sourceVersion = sourceGitVersionResponse.version;
+  const targetVersion = targetGitVersionResponse.version;
 
-if (semver.gt(sourceVersion, targetVersion)) {
-  console.log(colors.green(`Version updated to ${sourceVersion}`));
-} else {
-  console.log(colors.red(`Must update next-version in GitVersion.yml to a version higher than ${targetVersion}`));
+  console.log({ sourceVersion, targetVersion });
+
+  if (semver.gt(sourceVersion, targetVersion)) {
+    console.log(colors.green(`Version updated to ${sourceVersion}`));
+  } else {
+    console.log(
+      colors.red(
+        `Must update version in ${file} to a version higher than ${targetVersion} - Run "yarn bump-version" & commit to fix.`
+      )
+    );
+    failed = true;
+  }
+}
+
+await compareVersion('lerna.json');
+await compareVersion('packages/core/package.json');
+await compareVersion('packages/dashboard/package.json');
+await compareVersion('packages/server/package.json');
+
+if (failed) {
   Deno.exit(1);
 }
