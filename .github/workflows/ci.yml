@@ -13,6 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      if: github.event_name == 'pull_request'
+      steps:
+        - run: deno run --allow-run --allow-env ./check-version.ts
+
       - name: Yarn install
         run: |
           yarn
