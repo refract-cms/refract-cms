@@ -19,6 +19,8 @@ jobs:
         name: "Install deno"
         if: github.event_name == 'pull_request'
 
+      - run: git --no-pager diff origin/master HEAD
+
       - run: |
           deno run --allow-run --allow-env --allow-read ./check-version.ts
         name: "Check version"
