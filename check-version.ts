@@ -4,8 +4,8 @@ import * as colors from 'https://deno.land/std/fmt/colors.ts';
 
 const config = Deno.env.toObject();
 console.log(config);
-const targetBranch = config['GITHUB_BASE_REF'].replace('refs/heads/', '');
-const sourceBranch = config['GITHUB_HEAD_REF'].replace('refs/heads/', '');
+// const targetBranch = config['GITHUB_BASE_REF'].replace('refs/heads/', '');
+// const sourceBranch = config['GITHUB_HEAD_REF'].replace('refs/heads/', '');
 
 async function getFileContents({ file, branch }: { file: string; branch: string }) {
   console.log(`origin/${branch}:${file}`);
@@ -39,9 +39,10 @@ interface LernaJson {
   version: string;
 }
 
-const sourceGitVersionResponse = JSON.parse(await getLocalFileContents('lerna.json')) as LernaJson;
+// const sourceGitVersionResponse = JSON.parse(await getLocalFileContents('lerna.json')) as LernaJson;
+const sourceGitVersionResponse = JSON.parse(await getFileContents({ file: 'lerna.json', branch: 'HEAD' })) as LernaJson;
 const targetGitVersionResponse = JSON.parse(
-  await getFileContents({ file: 'lerna.json', branch: targetBranch })
+  await getFileContents({ file: 'lerna.json', branch: 'master' })
 ) as LernaJson;
 
 const sourceVersion = sourceGitVersionResponse.version;
