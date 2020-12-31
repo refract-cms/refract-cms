@@ -3,9 +3,6 @@ import * as semver from 'https://deno.land/x/semver@v1.0.0/mod.ts';
 import * as colors from 'https://deno.land/std/fmt/colors.ts';
 
 const config = Deno.env.toObject();
-console.log(config);
-// const targetBranch = config['GITHUB_BASE_REF'].replace('refs/heads/', '');
-// const sourceBranch = config['GITHUB_HEAD_REF'].replace('refs/heads/', '');
 
 async function getFileContents({ file, branch }: { file: string; branch: string }) {
   console.log(`Reading ${branch}:${file}`);
