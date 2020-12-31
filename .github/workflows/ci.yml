@@ -20,7 +20,7 @@ jobs:
         if: github.event_name == 'pull_request'
 
       - run: |
-          deno run --allow-run --allow-env ./check-version.ts
+          deno run --allow-run --allow-env --allow-read ./check-version.ts
         name: "Check version"
         if: github.event_name == 'pull_request'
 
