@@ -31,9 +31,9 @@ interface LernaJson {
   version: string;
 }
 
-console.log(await getFileContents({ file: 'lerna.json', branch: sourceBranch }));
 const sourceGitVersionResponse = JSON.parse(
-  await getFileContents({ file: 'lerna.json', branch: sourceBranch })
+  //   await getFileContents({ file: 'lerna.json', branch: sourceBranch })
+  await Deno.readFile('lerna.json')
 ) as LernaJson;
 const targetGitVersionResponse = JSON.parse(
   await getFileContents({ file: 'lerna.json', branch: targetBranch })
