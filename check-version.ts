@@ -3,11 +3,12 @@ import * as semver from 'https://deno.land/x/semver@v1.0.0/mod.ts';
 import * as colors from 'https://deno.land/std/fmt/colors.ts';
 
 const config = Deno.env.toObject();
-
+console.log(config);
 const targetBranch = config['GITHUB_BASE_REF'].replace('refs/heads/', '');
 const sourceBranch = config['GITHUB_HEAD_REF'].replace('refs/heads/', '');
 
 async function getFileContents({ file, branch }: { file: string; branch: string }) {
+  console.log(`origin/${branch}:${file}`);
   const cmd = Deno.run({
     cmd: ['git', 'show', `origin/${branch}:${file}`],
     stdout: 'piped',
@@ -16,6 +17,7 @@ async function getFileContents({ file, branch }: { file: string; branch: string 
 
   const output = await cmd.output(); // "piped" must be set
   const outStr = new TextDecoder().decode(output);
+  console.log({ outStr });
 
   cmd.close();
 
@@ -26,6 +28,7 @@ interface LernaJson {
   version: string;
 }
 
+console.log(await getFileContents({ file: 'lerna.json', branch: sourceBranch }));
 const sourceGitVersionResponse = JSON.parse(
   await getFileContents({ file: 'lerna.json', branch: sourceBranch })
 ) as LernaJson;
