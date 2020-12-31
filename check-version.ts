@@ -15,7 +15,7 @@ async function getFileContents({ file, branch }: { file: string; branch: string 
     stderr: 'piped',
   });
   const cmd = Deno.run({
-    cmd: ['git', 'show', `origin/${branch}:${file}`],
+    cmd: ['git', 'show', `${branch}:${file}`],
     stdout: 'piped',
     stderr: 'piped',
   });
@@ -42,7 +42,7 @@ interface LernaJson {
 // const sourceGitVersionResponse = JSON.parse(await getLocalFileContents('lerna.json')) as LernaJson;
 const sourceGitVersionResponse = JSON.parse(await getFileContents({ file: 'lerna.json', branch: 'HEAD' })) as LernaJson;
 const targetGitVersionResponse = JSON.parse(
-  await getFileContents({ file: 'lerna.json', branch: 'master' })
+  await getFileContents({ file: 'lerna.json', branch: 'origin/master' })
 ) as LernaJson;
 
 const sourceVersion = sourceGitVersionResponse.version;
