@@ -22,24 +22,16 @@ async function getFileContents({ file, branch }: { file: string; branch: string 
 
   const output = await cmd.output(); // "piped" must be set
   const outStr = new TextDecoder().decode(output);
-  console.log({ outStr });
 
   cmd.close();
 
   return outStr;
 }
 
-async function getLocalFileContents(file: string) {
-  const decoder = new TextDecoder('utf-8');
-  const data = await Deno.readFile('lerna.json');
-  return decoder.decode(data);
-}
-
 interface LernaJson {
   version: string;
 }
 
-// const sourceGitVersionResponse = JSON.parse(await getLocalFileContents('lerna.json')) as LernaJson;
 const sourceGitVersionResponse = JSON.parse(await getFileContents({ file: 'lerna.json', branch: 'HEAD' })) as LernaJson;
 const targetGitVersionResponse = JSON.parse(
   await getFileContents({ file: 'lerna.json', branch: 'origin/master' })
