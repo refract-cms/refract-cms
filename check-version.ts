@@ -22,19 +22,19 @@ async function getFileContents({ file, branch }: { file: string; branch: string 
   return outStr;
 }
 
-interface GitVersionResponse {
-  'next-version': string;
+interface LernaJson {
+  version: string;
 }
 
 const sourceGitVersionResponse = JSON.parse(
   await getFileContents({ file: 'lerna.json', branch: sourceBranch })
-) as GitVersionResponse;
+) as LernaJson;
 const targetGitVersionResponse = JSON.parse(
   await getFileContents({ file: 'lerna.json', branch: targetBranch })
-) as GitVersionResponse;
+) as LernaJson;
 
-const sourceVersion = sourceGitVersionResponse['version'];
-const targetVersion = targetGitVersionResponse['version'];
+const sourceVersion = sourceGitVersionResponse.version;
+const targetVersion = targetGitVersionResponse.version;
 
 console.log({ sourceVersion, targetVersion });
 
