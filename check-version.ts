@@ -9,6 +9,9 @@ const sourceBranch = config['GITHUB_HEAD_REF'].replace('refs/heads/', '');
 
 async function getFileContents({ file, branch }: { file: string; branch: string }) {
   console.log(`origin/${branch}:${file}`);
+  Deno.run({
+    cmd: ['git', 'fetch', `origin ${branch}:${branch}`],
+  });
   const cmd = Deno.run({
     cmd: ['git', 'show', `origin/${branch}:${file}`],
     stdout: 'piped',

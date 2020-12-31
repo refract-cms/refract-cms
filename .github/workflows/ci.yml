@@ -19,8 +19,6 @@ jobs:
         name: "Install deno"
         if: github.event_name == 'pull_request'
 
-      - run: git show origin/feature/check-version:lerna.json
-
       - run: |
           deno run --allow-run --allow-env ./check-version.ts
         name: "Check version"
