@@ -10,7 +10,9 @@ const sourceBranch = config['GITHUB_HEAD_REF'].replace('refs/heads/', '');
 async function getFileContents({ file, branch }: { file: string; branch: string }) {
   console.log(`origin/${branch}:${file}`);
   Deno.run({
-    cmd: ['git', 'fetch', `origin ${branch}:${branch}`],
+    cmd: ['git', 'fetch', `origin`, `${branch}`],
+    stdout: 'piped',
+    stderr: 'piped',
   });
   const cmd = Deno.run({
     cmd: ['git', 'show', `origin/${branch}:${file}`],
@@ -27,14 +29,17 @@ async function getFileContents({ file, branch }: { file: string; branch: string 
   return outStr;
 }
 
+async function getLocalFileContents(file: string) {
+  const decoder = new TextDecoder('utf-8');
+  const data = await Deno.readFile('lerna.json');
+  return decoder.decode(data);
+}
+
 interface LernaJson {
   version: string;
 }
 
-const sourceGitVersionResponse = JSON.parse(
-  //   await getFileContents({ file: 'lerna.json', branch: sourceBranch })
-  await Deno.readFile('lerna.json')
-) as LernaJson;
+const sourceGitVersionResponse = JSON.parse(await getLocalFileContents('lerna.json')) as LernaJson;
 const targetGitVersionResponse = JSON.parse(
   await getFileContents({ file: 'lerna.json', branch: targetBranch })
 ) as LernaJson;
