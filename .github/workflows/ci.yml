@@ -13,6 +13,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - run: |
+          curl -fsSL https://deno.land/x/install/install.sh | sh
+          echo "${HOME}/.deno/bin" >> $GITHUB_PATH
+        name: "Install deno"
+        if: github.event_name == 'pull_request'
+
+      - run: |
+          git fetch origin master
+          git --no-pager diff origin/master HEAD
+
+      - run: |
+          deno run --allow-run --allow-env --allow-read ./check-version.ts
+        name: "Check version"
+        if: github.event_name == 'pull_request'
+
       - name: Yarn install
         run: |
           yarn
