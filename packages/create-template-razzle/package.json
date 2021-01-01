@@ -25,7 +25,7 @@
     "fork-ts-checker-webpack-plugin": "^5.0.14",
     "razzle": "^3.1.6",
     "ts-loader": "8.0.2",
-    "typescript": "^3.9.7",
+    "typescript": "^4.1.3",
     "webpack-merge": "^5.1.1"
   }
 }

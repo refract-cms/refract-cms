@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "target": "es5",
+    "module": "commonjs",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react"
+  },
+  "include": ["src/"],
+  "exclude": ["**/*test*"],
+  "files": ["./src/server/index.ts", "./src/client/index.ts"]
+}
