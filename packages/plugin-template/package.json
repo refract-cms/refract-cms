@@ -1,0 +1,16 @@
+{
+  "name": "@refract-cms/plugin-template",
+  "version": "0.15.2",
+  "description": "",
+  "main": "index.js",
+  "types": "index.ts",
+  "scripts": {
+    "build": "rollup --config ./rollup.config.js && tsc --emitDeclarationOnly && cp ./package.json ./dist/package.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rollup": "^2.35.1",
+    "typescript": "^4.1.3"
+  }
+}
