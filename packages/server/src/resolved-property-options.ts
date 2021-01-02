@@ -1,4 +1,4 @@
-import type { GraphQLFieldConfigArgumentMap } from 'graphql';
+import { GraphQLFieldConfigArgumentMap } from 'graphql';
 import { ActualType, Return, PropertyType } from '@refract-cms/core';
 import { RefractGraphQLContext } from './graphql/refract-graphql-context';
 
