@@ -449,6 +449,7 @@ export class SchemaBuilder {
             };
             if (addResolvers && propertyOptions.resolve) {
               acc[propertyKey].resolve = propertyOptions.resolve;
+              acc[propertyKey].args = propertyOptions.args;
               acc[propertyKey].dependencies = [];
             } else if (
               addResolvers &&
