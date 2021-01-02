@@ -7,7 +7,8 @@ export function createResolver<T>(
   resolvers: {
     [key: string]: {
       type: PropertyType;
-      resolve?: (source: ActualType<T>, args: GraphQLFieldConfigArgumentMap, context: RefractGraphQLContext) => any;
+      args?: GraphQLFieldConfigArgumentMap;
+      resolve?: (source: ActualType<T>, args: any | undefined, context: RefractGraphQLContext) => any;
     };
   }
 ) {
