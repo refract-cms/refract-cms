@@ -6,12 +6,13 @@
     "bump-version": "lerna version --no-push --no-git-tag-version",
     "prettier": "prettier --write .",
     "prettier:test": "prettier --check .",
-    "test": "yarn run prettier:test"
+    "test": "yarn run prettier:test",
+    "dev": "cd ./dev && yarn dev"
   },
   "workspaces": {
     "packages": [
       "packages/*",
-      "consumer"
+      "dev"
     ],
     "nohoist": [
       "**/razzle",
