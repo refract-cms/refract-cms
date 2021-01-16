@@ -7,12 +7,11 @@
     "prettier": "prettier --write .",
     "prettier:test": "prettier --check .",
     "test": "yarn run prettier:test",
-    "dev": "cd ./dev && yarn dev"
+    "dev": "cd ./packages/create-template-scripts && yarn dev"
   },
   "workspaces": {
     "packages": [
-      "packages/*",
-      "dev"
+      "packages/*"
     ],
     "nohoist": [
       "**/razzle",

@@ -1,0 +1,15 @@
+{
+  "name": "@refract-cms/create-template-scripts",
+  "version": "0.15.2",
+  "description": "",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --loader @k-foss/ts-esnode --experimental-specifier-resolution=node ../scripts/dev.ts dev"
+  },
+  "author": "Alex",
+  "license": "ISC",
+  "devDependencies": {
+    "@k-foss/ts-esnode": "^1.7.0"
+  }
+}
