@@ -6,20 +6,20 @@ export const ActiveDirectoryUserSchema = composeSchema({
     alias: 'adUser',
     displayName: 'Active Directory User',
     icon: PersonIcon,
-    instanceDisplayProps: author => ({
-      primaryText: `${author.lastName}, ${author.firstName}`
-    })
+    instanceDisplayProps: (author) => ({
+      primaryText: `${author.lastName}, ${author.firstName}`,
+    }),
   },
   properties: {
     firstName: {
       displayName: 'First name(s)',
       editorComponent: createTextEditor(),
-      type: String
+      type: String,
     },
     lastName: {
       displayName: 'Surname',
       editorComponent: createTextEditor(),
-      type: String
-    }
-  }
+      type: String,
+    },
+  },
 });
