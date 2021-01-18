@@ -3,8 +3,8 @@ module.exports = {
   mount: {
     public: { url: '/', static: true },
     src: { url: '/dist' },
-    '../../packages/core/src': { url: '/packages/core' },
-    '../../packages/dashboard/src': { url: '/packages/dashboard' },
+    '../../packages/core': { url: '/packages/core' },
+    '../../packages/dashboard': { url: '/packages/dashboard' },
   },
   plugins: [
     '@snowpack/plugin-react-refresh',
@@ -21,7 +21,11 @@ module.exports = {
   },
   packageOptions: {
     /* ... */
-    external: ['child_process'],
+    external: [
+      'child_process',
+      'typesafe-actions',
+      'typesafe-actions/dist/types',
+    ],
     polyfillNode: true,
   },
   devOptions: {

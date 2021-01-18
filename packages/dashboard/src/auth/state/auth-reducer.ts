@@ -1,5 +1,5 @@
-import { AnyAction } from 'redux';
-import { AuthState } from './auth-state';
+import type { AnyAction } from 'redux';
+import type { AuthState } from './auth-state';
 import { SET_ACTIVE_USER_TOKEN } from './auth-actions';
 import { authService } from '../auth-service';
 

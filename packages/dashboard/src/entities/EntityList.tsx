@@ -20,7 +20,7 @@ import {
 import { Entity, graphqlQueryHelper, EntityListItem, PropertyOptions } from '@refract-cms/core';
 import { RouteComponentProps, Link } from '@reach/router';
 import { connect } from 'react-redux';
-import { AppState } from '../state/app-state';
+import type { AppState } from '../state/app-state';
 import { combineContainers } from 'combine-containers';
 import Page from '../pages/Page';
 import Sort from '@material-ui/icons/Sort';

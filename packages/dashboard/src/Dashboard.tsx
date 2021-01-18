@@ -37,7 +37,7 @@ import { createApolloClient } from './graphql/create-apollo-client';
 import EntityList from './entities/EntityList';
 import { Router, Link } from '@reach/router';
 import { setBaseRoute } from './router/state/router-actions';
-import { AppState } from './state/app-state';
+import type { AppState } from './state/app-state';
 import { connect, Provider } from 'react-redux';
 import { combineContainers } from 'combine-containers';
 import { configure } from './config/state/config-actions';

@@ -1,14 +1,14 @@
 import React from 'react';
-import { RouteComponentProps } from '@reach/router';
+import type { RouteComponentProps } from '@reach/router';
 import gql from 'graphql-tag';
 import { Mutation, WithApolloClient, withApollo } from 'react-apollo';
 import EntityForm from './EntityForm';
 import { graphqlQueryHelper } from '@refract-cms/core';
 import { combineContainers } from 'combine-containers';
 import { connect } from 'react-redux';
-import { AppState } from '../state/app-state';
+import type { AppState } from '../state/app-state';
 import { graphql } from 'graphql';
-import ApolloClient from 'apollo-client';
+import type ApolloClient from 'apollo-client';
 import { buildEntityListQueryOptions } from './state/build-entity-list-query-options';
 
 export interface EditEntityProps extends RouteComponentProps<{ alias: string; id: string | 'new' }> {}

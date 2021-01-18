@@ -1,6 +1,6 @@
 import { action } from 'typesafe-actions';
-import { EntityListFilter } from '../models/entity-list-filter';
-import { EntitySchema } from '@refract-cms/core';
+import type { EntityListFilter } from '../models/entity-list-filter';
+import type { EntitySchema } from '@refract-cms/core';
 
 export const SET_ORDERBY = '@@CMS/ENTITIES/SET_ORDERBY';
 export const SET_ORDERBY_DIRECTION = '@@CMS/ENTITIES/SET_ORDERBY_DIRECTION';

@@ -15,12 +15,13 @@ import {
   Grid,
 } from '@material-ui/core';
 import { compose } from 'recompose';
-import { AppState } from '../../state/app-state';
+import type { AppState } from '../../state/app-state';
 import { connect } from 'react-redux';
 import Dialog, { DialogProps } from '@material-ui/core/Dialog';
 import { EntitySchema, isBasicPropertyType } from '@refract-cms/core';
 import * as EntityActions from '../state/entity-actions';
 import { operatorDescriptions } from './operater-descriptions';
+
 export interface EntityListFilterDialogProps extends Pick<DialogProps, 'open' | 'onClose'> {
   schema: EntitySchema<any>;
   setOpened: (opened: boolean) => void;

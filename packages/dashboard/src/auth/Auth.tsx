@@ -9,14 +9,14 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import { RouteComponentProps } from '@reach/router';
+import type { RouteComponentProps } from '@reach/router';
 import { createStyles, Theme } from '@material-ui/core';
 import gql from 'graphql-tag';
 import { Mutation, withApollo, WithApolloClient } from 'react-apollo';
 import { connect } from 'react-redux';
 import { combineContainers } from 'combine-containers';
 import { setActiveUserToken } from './state/auth-actions';
-import { AppState } from '../state/app-state';
+import type { AppState } from '../state/app-state';
 
 interface AuthProps extends RouteComponentProps {}
 

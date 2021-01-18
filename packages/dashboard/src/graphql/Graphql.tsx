@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core';
-import { RouteComponentProps } from '@reach/router';
+import type { RouteComponentProps } from '@reach/router';
 
 const styles = (theme: Theme) =>
   createStyles({
