@@ -24,7 +24,7 @@
       [
         "@pika/plugin-simple-bin",
         {
-          "bin": "create-refract-cms-app"
+          "bin": "refract-scripts"
         }
       ]
     ]

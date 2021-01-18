@@ -5,7 +5,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --loader @k-foss/ts-esnode --experimental-specifier-resolution=node ../scripts/dev.ts dev"
+    "dev2": "node --loader @k-foss/ts-esnode --experimental-specifier-resolution=node ../scripts/dev.ts dev",
+    "dev": "node ../packages/scripts/pkg/bin/"
   },
   "author": "Alex",
   "license": "ISC",
