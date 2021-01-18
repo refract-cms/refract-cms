@@ -11,7 +11,7 @@ export type ActualTypeFromPrototype<T> = T extends String
   : T extends Boolean
   ? boolean
   : T extends { [K in keyof T]: PropertyType }
-  ? { [K in keyof T]: ActualTypeFromPrototype<T[K]['prototype']> }
+  ? { [K in keyof T]: ActualTypeFromPrototype<T[K]> }
   : never;
 
 export type PropertyType = BasicPropertyType | ShapePropertyType;
