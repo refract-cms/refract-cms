@@ -1,7 +1,7 @@
-import { SvgIconProps } from '@material-ui/core/SvgIcon';
-import { CoreContextModel } from '../context/core-context';
+import type { SvgIconProps } from '@material-ui/core/SvgIcon';
+import type { CoreContextModel } from '../context/core-context';
 import { ActualType, ActualTypeFromPrototype } from '../properties/property-types';
-import { Return } from './entity-schema';
+import type { Return } from './entity-schema';
 
 export interface EntityOptions<TEntity = any> {
   alias: string;

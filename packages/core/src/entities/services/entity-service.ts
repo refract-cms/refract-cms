@@ -1,7 +1,6 @@
 import { pickBy, negate, merge } from 'lodash';
-import { EntitySchema } from '../entity-schema';
-import { Entity } from '../entity';
-import { CoreContextModel } from '../../context/core-context';
+import type { EntitySchema } from '../entity-schema';
+import type { CoreContextModel } from '../../context/core-context';
 
 class EntityService {
   instanceDisplayPropsOrDefault = (entitySchema: EntitySchema, context: CoreContextModel) => (entity: any) => {

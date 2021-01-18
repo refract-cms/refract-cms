@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { PropertyEditorProps } from '../properties/property-editor-props';
-import { Location } from '../location/location';
+import type { PropertyEditorProps } from '../properties/property-editor-props';
+import type { Location } from '../location/location';
 
 export default () => (props: PropertyEditorProps<Location>) => {
   const value: Location = props.value || {

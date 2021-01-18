@@ -1,8 +1,8 @@
 import composeSchema from './compose-schema';
-import { PropertyOptions } from '../properties/property-options';
-import { EntityOptions } from './entity-options';
-import { ActualType } from '../properties/property-types';
-import { Entity } from './entity';
+import type { PropertyOptions } from '../properties/property-options';
+import type { EntityOptions } from './entity-options';
+import type { ActualType } from '../properties/property-types';
+import type { Entity } from './entity';
 
 type ObjectWithConstructorTypes<T> = {
   [K in keyof T]: PropertyOptions<T, T[K]>;

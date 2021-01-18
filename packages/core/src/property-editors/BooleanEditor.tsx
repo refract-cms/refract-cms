@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropertyEditorProps } from '../properties/property-editor-props';
+import type { PropertyEditorProps } from '../properties/property-editor-props';
 import { Checkbox } from '@material-ui/core';
 
 export interface BooleanEditorOptions {

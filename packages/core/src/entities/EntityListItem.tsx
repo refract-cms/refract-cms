@@ -1,10 +1,10 @@
 import React from 'react';
 import { ListItem, ListItemText, ListItemSecondaryAction, ListItemAvatar, Avatar } from '@material-ui/core';
-import { EntitySchema } from './entity-schema';
-import { Entity } from './entity';
-import { ListItemProps } from '@material-ui/core/ListItem';
+import type { EntitySchema } from './entity-schema';
+import type { Entity } from './entity';
+import type { ListItemProps } from '@material-ui/core/ListItem';
 import { entityService } from './services/entity-service';
-import { WithCoreContextProps } from '../context/with-core-context-props';
+import type { WithCoreContextProps } from '../context/with-core-context-props';
 import { withCoreContext } from '../context/with-core-context';
 
 interface EntityListItemProps extends ListItemProps<any> {

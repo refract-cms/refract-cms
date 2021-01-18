@@ -1,8 +1,7 @@
 import React from 'react';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { PropertyEditorProps } from '../properties/property-editor-props';
+import type { PropertyEditorProps } from '../properties/property-editor-props';
 import MomentUtils from '@date-io/moment';
-import moment from 'moment';
 import { Theme, withStyles, WithStyles } from '@material-ui/core';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';

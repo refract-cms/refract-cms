@@ -16,7 +16,8 @@
     "baseUrl": "./",
     "paths": {
       "@refract-cms/*": ["./packages/*/src"]
-    }
+    },
+    "importsNotUsedAsValues": "error"
   },
   "exclude": ["**/pkg/**"]
 }

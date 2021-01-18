@@ -1,7 +1,7 @@
-import React from 'react';
-import { PropertyEditorProps } from './property-editor-props';
-import { PropertyType, ActualType } from './property-types';
-import { Return } from '../entities/entity-schema';
+import type React from 'react';
+import type { PropertyEditorProps } from './property-editor-props';
+import type { PropertyType, ActualType } from './property-types';
+import type { Return } from '../entities/entity-schema';
 
 export type PropertyOptions<T, TPropertyType extends PropertyType | any> = {
   displayName?: string;
