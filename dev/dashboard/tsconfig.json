@@ -13,7 +13,7 @@
       //     "*": [".snowpack/types/*"]
       // More info: https://www.snowpack.dev/guides/streaming-imports
     },
-    /* noEmit - Snowpack builds (emits) files, not tsc. */
+    /* noEmit - Snowpika-pack builds (emits) files, not tsc. */
     "noEmit": true,
     /* Additional Options */
     "strict": false,

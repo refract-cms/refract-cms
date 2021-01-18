@@ -1,4 +1,4 @@
-import { PluginConfig } from '@refract-cms/core';
+import type { PluginConfig } from '@refract-cms/core';
 import { FileSystemImageSchema } from './file-system-image-schema';
 export { FileService } from './file-service';
 

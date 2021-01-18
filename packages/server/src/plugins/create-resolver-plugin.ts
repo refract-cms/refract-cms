@@ -1,5 +1,5 @@
-import { PropertyType } from '@refract-cms/core';
-import { ResolverPlugin } from './resolver-plugin';
+import type { PropertyType } from '@refract-cms/core';
+import type { ResolverPlugin } from './resolver-plugin';
 
 export function createResolverPlugin<T extends PropertyType = any>(plugin: ResolverPlugin<T>) {
   return plugin;

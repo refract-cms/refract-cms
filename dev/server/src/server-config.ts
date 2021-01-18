@@ -1,4 +1,4 @@
-import { ServerConfig } from '@refract-cms/server';
+import type { ServerConfig } from '@refract-cms/server';
 import { config } from '@local/config';
 
 export const serverConfig: ServerConfig = {

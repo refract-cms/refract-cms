@@ -1,4 +1,4 @@
-import { EntitySchema } from '@refract-cms/core';
+import type { EntitySchema } from '@refract-cms/core';
 import mongoose, { SchemaTypeOpts, Schema, SchemaType, mongo } from 'mongoose';
 import { ServerConfig } from '../config/server-config';
 

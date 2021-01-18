@@ -1,5 +1,5 @@
 // import { ImageRef } from './image-ref';
-import { Crop } from './crop';
+import type { Crop } from './crop';
 import queryString from 'query-string';
 // import { FileModel } from './file';
 import url from 'url';

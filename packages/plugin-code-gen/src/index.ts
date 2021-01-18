@@ -1,6 +1,6 @@
-import { PluginConfig } from '@refract-cms/core';
+import type { PluginConfig } from '@refract-cms/core';
 
 export const codeGenPlugin: PluginConfig = {
   name: 'codeGenPlugin',
-  schema: []
+  schema: [],
 };

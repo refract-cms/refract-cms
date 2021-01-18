@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
-import { ServerConfig } from '../config/server-config';
-import { AuthToken } from '@refract-cms/core';
+import type { ServerConfig } from '../config/server-config';
+import type { AuthToken } from '@refract-cms/core';
 
 export const tokenService = {
   sign: ({ auth }: ServerConfig) => {

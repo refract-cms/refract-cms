@@ -1,10 +1,10 @@
 import { ResolvedPropertyOptions } from '../resolved-property-options';
-import { PropertyType } from '@refract-cms/core';
+import type { PropertyType } from '@refract-cms/core';
 import { ServerConfig } from '../config/server-config';
-import { GraphQLObjectType, GraphQLFieldConfig } from 'graphql';
-import { RefractGraphQLContext } from '../graphql/refract-graphql-context';
-import { SchemaBuilder } from '../graphql/schema-builder';
-import { ServerOptions } from '../config/server-options';
+import type { GraphQLObjectType, GraphQLFieldConfig } from 'graphql';
+import type { RefractGraphQLContext } from '../graphql/refract-graphql-context';
+import type { SchemaBuilder } from '../graphql/schema-builder';
+import type { ServerOptions } from '../config/server-options';
 
 export interface ResolverPlugin<T extends PropertyType = any> {
   alias: string;

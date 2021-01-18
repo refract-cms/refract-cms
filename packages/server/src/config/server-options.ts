@@ -1,8 +1,7 @@
-import { PropertyType, EntitySchema, Config } from '@refract-cms/core';
-import { ServerOptionsArgs } from './server-options-args';
-import { ResolverPlugin } from '../plugins/resolver-plugin';
-import { Events } from './events';
-import { Router } from 'express';
+import type { PropertyType, EntitySchema, Config } from '@refract-cms/core';
+import type { ResolverPlugin } from '../plugins/resolver-plugin';
+import type { Events } from './events';
+import type { Router } from 'express';
 
 export interface ServerOptions {
   config: Config;

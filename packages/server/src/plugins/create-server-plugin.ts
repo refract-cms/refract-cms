@@ -1,5 +1,5 @@
-import { PluginConfig } from '@refract-cms/core';
-import { ServerPlugin } from './server-plugin';
+import type { PluginConfig } from '@refract-cms/core';
+import type { ServerPlugin } from './server-plugin';
 
 export function createServerPlugin(
   pluginConfig: PluginConfig,

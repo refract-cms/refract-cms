@@ -1,8 +1,8 @@
-import { ServerOptions } from './server-options';
+import type { ServerOptions } from './server-options';
 import merge from 'lodash/merge';
 import produce from 'immer';
-import { ServerOptionsArgs } from './server-options-args';
-import { ServerConfig } from './server-config';
+import type { ServerOptionsArgs } from './server-options-args';
+import type { ServerConfig } from './server-config';
 import { EntitySchema } from '@refract-cms/core';
 import mergeWith from 'lodash/mergeWith';
 import isArray from 'lodash/isArray';

@@ -1,4 +1,4 @@
-import { EntitySchema } from '@refract-cms/core';
+import type { EntitySchema } from '@refract-cms/core';
 import { repositoryForSchema } from '../repository-for-schema';
 import { createResolverPlugin } from './create-resolver-plugin';
 import { GraphQLList } from 'graphql';

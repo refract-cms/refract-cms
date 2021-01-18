@@ -4,7 +4,7 @@ import program from 'commander';
 import { create } from './create';
 
 function run(args: any) {
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     // console.log('create app...', args);
     program.option('-d, --dir <type>', 'Project name and folder name');
     // .option('-s, --sample-schema <type>', 'Sample schema (default or blog)');

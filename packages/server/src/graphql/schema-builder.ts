@@ -1,4 +1,4 @@
-import { PropertyType, EntitySchema, PropertyOptions, Entity } from '@refract-cms/core';
+import type { PropertyType, EntitySchema, PropertyOptions, Entity } from '@refract-cms/core';
 import {
   GraphQLString,
   GraphQLFloat,
@@ -12,19 +12,19 @@ import {
   GraphQLInt,
   GraphQLScalarType,
 } from 'graphql';
-import mongoose from 'mongoose';
+import type mongoose from 'mongoose';
 // import { Properties, buildHelpers } from '../create-public-schema';
 import { repositoryForSchema } from '../repository-for-schema';
 import { getGraphQLQueryArgs, getMongoDbQueryResolver, getMongoDbFilter } from 'graphql-to-mongodb';
-import { Db, ObjectId } from 'mongodb';
+import type { Db, ObjectId } from 'mongodb';
 import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date';
 import chalk from 'chalk';
 import { MongoIdType } from './mongo-id-type';
-import { ResolvedPropertyOptions } from '../resolved-property-options';
+import type { ResolvedPropertyOptions } from '../resolved-property-options';
 import { singleRefPlugin } from '../plugins/single-ref-plugin';
 import { multipleRefPlugin } from '../plugins/multiple-ref-plugin';
 import produce from 'immer';
-import { ServerOptions } from '../config/server-options';
+import type { ServerOptions } from '../config/server-options';
 
 export class SchemaBuilder {
   types: GraphQLObjectType[] = [];
