@@ -7,12 +7,13 @@
     "prettier": "prettier --write .",
     "prettier:test": "prettier --check .",
     "test": "yarn run prettier:test",
-    "dev": "cd ./dev && yarn dev"
+    "dev": "lerna run dev --stream --scope @local/*",
+    "predev": "yarn && lerna run pre --stream --scope @local/*"
   },
   "workspaces": {
     "packages": [
       "packages/*",
-      "dev"
+      "dev/*"
     ],
     "nohoist": [
       "**/razzle",
