@@ -118,8 +118,6 @@ export class SchemaBuilder {
         events.onSchemaBuilt(publicGraphQLSchema);
       });
 
-    // //emitGraphqlCodeGen(publicGraphQLSchema, this.serverOptions).catch(console.log);
-
     return {
       publicGraphQLSchema,
       internalGraphQLSchema,
