@@ -9,7 +9,12 @@ describe('schema tests', () => {
       options: {
         alias: 'test',
       },
-      properties: {},
+      properties: {
+        title: {
+          type: String,
+          displayName: 'Title',
+        },
+      },
     });
 
     const config: Config = {
@@ -141,12 +146,105 @@ enum SortType {
   DESC
 }
 
+"""Filter type for String scalar"""
+input StringFilter {
+  """$eq"""
+  EQ: String
+
+  """$gt"""
+  GT: String
+
+  """$gte"""
+  GTE: String
+
+  """$in"""
+  IN: [String]
+
+  """$all"""
+  ALL: [String]
+
+  """$lt"""
+  LT: String
+
+  """$lte"""
+  LTE: String
+
+  """$ne"""
+  NE: String
+
+  """$nin"""
+  NIN: [String]
+
+  """$regex"""
+  REGEX: String
+
+  """
+  $options. Modifiers for the $regex expression. Field is ignored on its own
+  """
+  OPTIONS: String
+
+  """$not"""
+  NOT: StringNotFilter
+
+  """DEPRECATED: Switched to the more intuitive operator fields"""
+  opr: Opr
+
+  """DEPRECATED: Switched to the more intuitive operator fields"""
+  value: String
+
+  """DEPRECATED: Switched to the more intuitive operator fields"""
+  values: [String]
+
+  """DEPRECATED: use NE"""
+  NEQ: String
+}
+
+"""Filter type for $not of String scalar"""
+input StringNotFilter {
+  """$eq"""
+  EQ: String
+
+  """$gt"""
+  GT: String
+
+  """$gte"""
+  GTE: String
+
+  """$in"""
+  IN: [String]
+
+  """$all"""
+  ALL: [String]
+
+  """$lt"""
+  LT: String
+
+  """$lte"""
+  LTE: String
+
+  """$ne"""
+  NE: String
+
+  """$nin"""
+  NIN: [String]
+
+  """$regex"""
+  REGEX: String
+
+  """
+  $options. Modifiers for the $regex expression. Field is ignored on its own
+  """
+  OPTIONS: String
+}
+
 type test {
   _id: MongoId
+  title: String
 }
 
 input testEntityFilterType {
   _id: MongoIdFilter
+  title: StringFilter
   OR: [testEntityFilterType]
   AND: [testEntityFilterType]
   NOR: [testEntityFilterType]
@@ -154,10 +252,12 @@ input testEntityFilterType {
 
 input testEntitySortType {
   _id: SortType
+  title: SortType
 }
 
 input testInput {
   _id: MongoId
+  title: String
 }
     `.trim();
     expect(expected).to.equal(printSchema(publicGraphQLSchema).trim());
@@ -303,12 +403,104 @@ enum SortType {
   DESC
 }
 
+"""Filter type for String scalar"""
+input StringFilter {
+  """$eq"""
+  EQ: String
+
+  """$gt"""
+  GT: String
+
+  """$gte"""
+  GTE: String
+
+  """$in"""
+  IN: [String]
+
+  """$all"""
+  ALL: [String]
+
+  """$lt"""
+  LT: String
+
+  """$lte"""
+  LTE: String
+
+  """$ne"""
+  NE: String
+
+  """$nin"""
+  NIN: [String]
+
+  """$regex"""
+  REGEX: String
+
+  """
+  $options. Modifiers for the $regex expression. Field is ignored on its own
+  """
+  OPTIONS: String
+
+  """$not"""
+  NOT: StringNotFilter
+
+  """DEPRECATED: Switched to the more intuitive operator fields"""
+  opr: Opr
+
+  """DEPRECATED: Switched to the more intuitive operator fields"""
+  value: String
+
+  """DEPRECATED: Switched to the more intuitive operator fields"""
+  values: [String]
+
+  """DEPRECATED: use NE"""
+  NEQ: String
+}
+
+"""Filter type for $not of String scalar"""
+input StringNotFilter {
+  """$eq"""
+  EQ: String
+
+  """$gt"""
+  GT: String
+
+  """$gte"""
+  GTE: String
+
+  """$in"""
+  IN: [String]
+
+  """$all"""
+  ALL: [String]
+
+  """$lt"""
+  LT: String
+
+  """$lte"""
+  LTE: String
+
+  """$ne"""
+  NE: String
+
+  """$nin"""
+  NIN: [String]
+
+  """$regex"""
+  REGEX: String
+
+  """
+  $options. Modifiers for the $regex expression. Field is ignored on its own
+  """
+  OPTIONS: String
+}
+
 type testEntity {
   _id: MongoId
 }
 
 input testEntityFilterType {
   _id: MongoIdFilter
+  title: StringFilter
   OR: [testEntityFilterType]
   AND: [testEntityFilterType]
   NOR: [testEntityFilterType]
@@ -316,6 +508,7 @@ input testEntityFilterType {
 
 input testEntitySortType {
   _id: SortType
+  title: SortType
 }
 
 input testInput {
