@@ -18,5 +18,5 @@ export interface ServerConfig extends ServerOptionsArgs {
       secret: string;
     };
   };
-  plugins?: ServerPlugin[];
+  plugins: ServerPlugin[];
 }

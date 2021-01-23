@@ -10,3 +10,4 @@ export { createResolverPlugin } from './plugins/create-resolver-plugin';
 // export { ServerPlugin } from './plugins/server-plugin';
 export { createServerPlugin } from './plugins/create-server-plugin';
 // export { codeGenServerPlugin, CodeGenServerP-uginOptions } from './plugins/code-gen-server-plugin';
+export { buildServerOptions } from './config/create-server-options';
