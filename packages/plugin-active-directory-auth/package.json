@@ -28,6 +28,12 @@
   "license": "ISC",
   "dependencies": {
     "@refract-cms/core": "^0.16.0",
-    "@refract-cms/server": "^0.16.0"
+    "@refract-cms/server": "^0.16.0",
+    "passport": "^0.4.1",
+    "passport-azure-ad": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/passport": "^1.0.5",
+    "@types/passport-azure-ad": "^4.0.8"
   }
 }
