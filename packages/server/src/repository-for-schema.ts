@@ -1,4 +1,4 @@
-import { Entity, EntitySchema } from '@refract-cms/core';
+import type { Entity, EntitySchema } from '@refract-cms/core';
 import mongoose from 'mongoose';
 
 export function repositoryForSchema<T>(schema: EntitySchema<T>) {

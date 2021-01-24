@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { Config } from '@refract-cms/core';
+import type { Config } from '@refract-cms/core';
 
 export const CONFIGURE = '@@CMS/CONFIGURE';
 

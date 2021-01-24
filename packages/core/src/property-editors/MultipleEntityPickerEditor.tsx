@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PropertyEditorProps } from '../properties/property-editor-props';
+import type { PropertyEditorProps } from '../properties/property-editor-props';
 import {
   Theme,
   withStyles,
@@ -23,14 +23,14 @@ import {
 import { combineContainers } from 'combine-containers';
 import { graphql, DataProps } from 'react-apollo';
 import { graphqlQueryHelper } from '../graphql/graphql-query-helper';
-import { EntitySchema } from '../entities/entity-schema';
-import { Entity } from '../entities/entity';
+import type { EntitySchema } from '../entities/entity-schema';
+import type { Entity } from '../entities/entity';
 import EntityListItem from '../entities/EntityListItem';
 import { entityService } from '../entities/services/entity-service';
 import pluralize from 'pluralize';
 import AddCircle from '@material-ui/icons/AddCircle';
 import { withCoreContext } from '../context/with-core-context';
-import { WithCoreContextProps } from '../context/with-core-context-props';
+import type { WithCoreContextProps } from '../context/with-core-context-props';
 
 export interface MultipleEntityPickerOptions {
   schema: EntitySchema;

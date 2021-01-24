@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PropertyEditorProps } from '../properties/property-editor-props';
+import type { PropertyEditorProps } from '../properties/property-editor-props';
 import { TextField } from '@material-ui/core';
 
 type numberType = 'FLOAT' | 'NUMBER' | 'INT';

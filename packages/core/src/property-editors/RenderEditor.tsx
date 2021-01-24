@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { PropertyOptions } from '../properties/property-options';
-import { PropertyEditorProps } from '../properties/property-editor-props';
+import type { PropertyOptions } from '../properties/property-options';
+import type { PropertyEditorProps } from '../properties/property-editor-props';
 
 export interface RenderEditorProps extends PropertyEditorProps<any> {
   propertyOptions: PropertyOptions<any, any>;

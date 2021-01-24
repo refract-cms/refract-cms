@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PropertyEditorProps } from '../properties/property-editor-props';
+import type { PropertyEditorProps } from '../properties/property-editor-props';
 import { TextField, Select, MenuItem, ListItemText, FormControl, InputLabel } from '@material-ui/core';
 
 export interface SingleDropdownEditorOptions {

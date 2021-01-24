@@ -12,7 +12,8 @@
     "moduleResolution": "node",
     "preserveSymlinks": true,
     "rootDir": "./",
-    "declaration": true
+    "declaration": true,
+    "importsNotUsedAsValues": "error"
   },
   "exclude": ["**/pkg/**"]
 }

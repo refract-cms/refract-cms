@@ -1,5 +1,5 @@
 import { createServerPlugin } from '@refract-cms/server';
-import { ASTNode } from 'graphql';
+import type { ASTNode } from 'graphql';
 import { emitGraphqlCodeGen } from './emit-graphql-codegen';
 import { codeGenPlugin } from './';
 
@@ -11,8 +11,8 @@ export interface CodeGenServerPluginOptions {
 export const codeGenServerPlugin = (options: CodeGenServerPluginOptions) =>
   createServerPlugin(codeGenPlugin, {
     events: {
-      onSchemaBuilt: schema => {
+      onSchemaBuilt: (schema) => {
         emitGraphqlCodeGen(schema, options);
-      }
-    }
+      },
+    },
   });

@@ -1,5 +1,5 @@
-import { AppAction } from '../../state/app-action';
-import { EntityState, EntityStateItem } from './entity-state';
+import type { AppAction } from '../../state/app-action';
+import type { EntityState, EntityStateItem } from './entity-state';
 import {
   SET_ORDERBY,
   SET_ORDERBY_DIRECTION,

@@ -10,7 +10,7 @@ server
   .listen(process.env.PORT || 3000, () => {
     console.log('🚀 started');
   })
-  .on('error', error => {
+  .on('error', (error) => {
     console.log(error);
   });
 

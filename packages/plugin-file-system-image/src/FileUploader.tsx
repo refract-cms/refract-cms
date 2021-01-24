@@ -1,9 +1,9 @@
 import React from 'react';
 import { LinearProgress, IconButton, Button, CircularProgress, Typography } from '@material-ui/core';
-import { withApollo, WithApolloClient } from 'react-apollo';
+import type { withApollo, WithApolloClient } from 'react-apollo';
 import { connect } from 'react-redux';
 import { combineContainers } from 'combine-containers';
-import { FileRef } from './file-ref';
+import type { FileRef } from './file-ref';
 import { withCoreContext, WithCoreContextProps } from '@refract-cms/core';
 
 interface State {

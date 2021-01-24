@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteComponentProps, Link } from '@reach/router';
+import type { RouteComponentProps, Link } from '@reach/router';
 import Page from '../pages/Page';
 import {
   Typography,
@@ -16,7 +16,7 @@ import {
   Button,
   Avatar,
 } from '@material-ui/core';
-import { AppState } from '../state/app-state';
+import type { AppState } from '../state/app-state';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import { Query } from 'react-apollo';

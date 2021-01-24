@@ -1,5 +1,5 @@
-import { RouterState } from './router-state';
-import { AppAction } from '../../state/app-action';
+import type { RouterState } from './router-state';
+import type { AppAction } from '../../state/app-action';
 import { SET_BASE_ROUTE } from './router-actions';
 
 const defaultState: RouterState = {

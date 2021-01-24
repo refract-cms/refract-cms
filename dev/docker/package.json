@@ -1,0 +1,13 @@
+{
+  "name": "@local/docker",
+  "version": "0.16.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "dev": "docker-compose up",
+    "down": "docker-compose down",
+    "pre": "docker-compose pull"
+  },
+  "author": "",
+  "license": "ISC"
+}

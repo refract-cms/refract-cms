@@ -1,6 +1,6 @@
 import React from 'react';
 import { PluginConfig } from '../plugins/plugin-config';
-import { AxiosInstance } from 'axios';
+import type { AxiosInstance } from 'axios';
 
 export interface CoreContextModel {
   serverUrl: string;

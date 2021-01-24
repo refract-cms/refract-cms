@@ -1,5 +1,5 @@
-import { AppAction } from '../../state/app-action';
-import { ConfigState } from './config-state';
+import type { AppAction } from '../../state/app-action';
+import type { ConfigState } from './config-state';
 import { CONFIGURE } from './config-actions';
 
 const defaultState: ConfigState = {

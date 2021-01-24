@@ -1,8 +1,8 @@
 import React from 'react';
 import Dashboard, { DashboardProps } from './Dashboard';
-import { RouteComponentProps as ReactRouterRouteComponentProps } from 'react-router-dom';
-import { RouteComponentProps as ReachRouterRouteComponentProps } from '@reach/router';
-import { Omit } from '@material-ui/core';
+import type { RouteComponentProps as ReactRouterRouteComponentProps } from 'react-router-dom';
+import type { RouteComponentProps as ReachRouterRouteComponentProps } from '@reach/router';
+import type { Omit } from '@material-ui/core';
 
 export interface ReachOrReactRouterProps
   extends Partial<Pick<ReachRouterRouteComponentProps, 'path'>>,

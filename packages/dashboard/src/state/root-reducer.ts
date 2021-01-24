@@ -1,5 +1,5 @@
 import { combineReducers, Reducer } from 'redux';
-import { AppState } from './app-state';
+import type { AppState } from './app-state';
 import { configReducer } from '../config/state/config-reducer';
 import { routesReducer } from '../router/state/router-reducer';
 import { authReducer } from '../auth/state/auth-reducer';

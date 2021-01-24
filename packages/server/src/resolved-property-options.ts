@@ -1,6 +1,6 @@
-import { GraphQLFieldConfigArgumentMap } from 'graphql';
-import { ActualType, Return, PropertyType } from '@refract-cms/core';
-import { RefractGraphQLContext } from './graphql/refract-graphql-context';
+import type { GraphQLFieldConfigArgumentMap } from 'graphql';
+import type { ActualType, Return, PropertyType } from '@refract-cms/core';
+import type { RefractGraphQLContext } from './graphql/refract-graphql-context';
 
 type Resolver<T, V> = (source: Return<T>, context: RefractGraphQLContext) => V | Promise<V>;
 

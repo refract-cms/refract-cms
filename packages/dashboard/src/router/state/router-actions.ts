@@ -1,6 +1,6 @@
-import { createStandardAction, action } from 'typesafe-actions';
-import { Routes } from '../routes';
-import { EntitySchema } from '@refract-cms/core';
+import { action } from 'typesafe-actions';
+import type { Routes } from '../routes';
+import type { EntitySchema } from '@refract-cms/core';
 
 export const SET_BASE_ROUTE = '@@CMS/SET_BASE_ROUTE';
 

@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
-import { Store } from 'redux';
-import { AppState } from './app-state';
+import type { Store } from 'redux';
+import type { AppState } from './app-state';
 import { rootReducer } from './root-reducer';
 // import throttle from 'lodash/throttle';
 

@@ -15,10 +15,10 @@ import {
   Button,
 } from '@material-ui/core';
 import { compose } from 'recompose';
-import { AppState } from '../state/app-state';
+import type { AppState } from '../state/app-state';
 import { connect } from 'react-redux';
-import { PropertyOptions, EntitySchema } from '@refract-cms/core';
-import { DialogProps } from '@material-ui/core/Dialog';
+import type { PropertyOptions, EntitySchema } from '@refract-cms/core';
+import type { DialogProps } from '@material-ui/core/Dialog';
 import * as EntityActions from './state/entity-actions';
 
 export interface EntityListSortDialogProps extends Pick<DialogProps, 'open' | 'onClose'> {

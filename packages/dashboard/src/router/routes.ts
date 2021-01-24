@@ -1,4 +1,4 @@
-import { EntitySchema } from '@refract-cms/core';
+import type { EntitySchema } from '@refract-cms/core';
 
 export interface Routes {
   root: {

@@ -1,7 +1,7 @@
 import mergeWith from 'lodash/mergeWith';
 import isArray from 'lodash/isArray';
-import { ServerOptionsArgs } from './server-options-args';
-import { ServerConfig } from './server-config';
+import type { ServerOptionsArgs } from './server-options-args';
+import type { ServerConfig } from './server-config';
 
 function customizer(objValue, srcValue) {
   if (isArray(objValue)) {

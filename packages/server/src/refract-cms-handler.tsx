@@ -1,7 +1,7 @@
 import * as express from 'express';
 import graphqlHTTP from 'express-graphql';
-import { ServerConfig } from './config/server-config';
-import { RequestHandlerParams } from 'express-serve-static-core';
+import type { ServerConfig } from './config/server-config';
+import type { RequestHandlerParams } from 'express-serve-static-core';
 import multer from 'multer';
 import jimp from 'jimp';
 import { authService } from './auth/auth-service';
@@ -12,7 +12,7 @@ import { schemaBuilder } from './graphql/schema-builder';
 import expressPlayground from 'graphql-playground-middleware-express';
 import bodyParser from 'body-parser';
 import { requireAuth } from './auth/require-auth-middleware';
-import { RefractGraphQLContext } from './graphql/refract-graphql-context';
+import type { RefractGraphQLContext } from './graphql/refract-graphql-context';
 import { singleRefPlugin } from './plugins/single-ref-plugin';
 import { multipleRefPlugin } from './plugins/multiple-ref-plugin';
 import { buildServerOptions } from './config/create-server-options';

@@ -1,5 +1,5 @@
-import { EntitySchema } from '../entities/entity-schema';
-import { PropertyOptions } from './property-options';
+import type { EntitySchema } from '../entities/entity-schema';
+import type { PropertyOptions } from './property-options';
 import { createSingleEntityPickerEditor, createMultipleEntityPickerEditor } from '..';
 
 function singleSchemaPicker(

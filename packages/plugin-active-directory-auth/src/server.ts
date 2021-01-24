@@ -3,6 +3,6 @@ import { activeDirectoryPluginConfig } from './';
 
 export const activeDirectoryServerPlugin = createServerPlugin(activeDirectoryPluginConfig, {
   events: {
-    onSchemaBuilt: () => console.log('hi from ad plugin')
-  }
+    onSchemaBuilt: () => console.log('hi from ad plugin'),
+  },
 });

@@ -1,5 +1,5 @@
-import { AppAction } from '../../state/app-action';
-import { NotificationState } from './notification-state';
+import type { AppAction } from '../../state/app-action';
+import type { NotificationState } from './notification-state';
 import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from './notification-actions';
 
 const defaultState: NotificationState = {

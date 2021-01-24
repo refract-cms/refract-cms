@@ -1,28 +1,28 @@
-export { Entity } from './entities/entity';
-export { Location } from './location/location';
-export { Config } from './config/config';
+export type { Entity } from './entities/entity';
+export type { Location } from './location/location';
+export type { Config } from './config/config';
 export { configure } from './config/configure';
 export { default as composeSchema } from './entities/compose-schema';
-export { PropertyType, ActualType } from './properties/property-types';
-export { EntitySchema, Return } from './entities/entity-schema';
+export type { PropertyType, ActualType } from './properties/property-types';
+export type { EntitySchema, Return } from './entities/entity-schema';
 export { graphqlQueryHelper } from './graphql/graphql-query-helper';
-export { PropertyOptions } from './properties/property-options';
+export type { PropertyOptions } from './properties/property-options';
 // export { ImageRef } from './files/image-ref';
 // export { Crop } from './files/crop';
-export { AuthToken } from './auth/auth-token';
+export type { AuthToken } from './auth/auth-token';
 // export { FileService } from './files/file.service';
 export { default as EntityListItem } from './entities/EntityListItem';
 export { CoreContext } from './context/core-context';
 export { withCoreContext } from './context/with-core-context';
-export { WithCoreContextProps } from './context/with-core-context-props';
+export type { WithCoreContextProps } from './context/with-core-context-props';
 // export { default as FileUploader } from './files/FileUploader';
 export { propertyBuilder } from './properties/property-builder';
 export { isBasicPropertyType } from './properties/is-basic-property-type';
 export { convertDateToSimpleDate } from './properties/convert-date-to-simple-date';
-export { PluginConfig } from './plugins/plugin-config';
+export type { PluginConfig } from './plugins/plugin-config';
 
 // Property Editors
-export { PropertyEditorProps } from './properties/property-editor-props';
+export type { PropertyEditorProps } from './properties/property-editor-props';
 export { default as RenderEditor } from './property-editors/RenderEditor';
 export { default as createTextEditor } from './property-editors/TextEditor';
 export { default as createLocationEditor } from './property-editors/LocationEditor';

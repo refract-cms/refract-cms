@@ -23,7 +23,7 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { combineContainers } from 'combine-containers';
-import { AppState } from '../state/app-state';
+import type { AppState } from '../state/app-state';
 import { Routes } from '../router/routes';
 import { RouteComponentProps } from '@reach/router';
 import { WithApolloClient, withApollo } from 'react-apollo';

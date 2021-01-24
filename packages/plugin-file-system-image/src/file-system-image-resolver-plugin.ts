@@ -1,7 +1,7 @@
 import { createResolverPlugin } from '@refract-cms/server';
 import { GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { FileService } from './file-service';
-import { FileModel } from './file';
+import type { FileModel } from './file';
 import url from 'url';
 
 // const fileSystemImageType = new GraphQLObjectType({

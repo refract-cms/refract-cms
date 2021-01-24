@@ -1,6 +1,6 @@
-import { EntitySchema } from '../entities/entity-schema';
+import type { EntitySchema } from '../entities/entity-schema';
 import gql from 'graphql-tag';
-import { PropertyType } from '../properties/property-types';
+import type { PropertyType } from '../properties/property-types';
 import { isBasicPropertyType } from '..';
 
 class GraphqlQueryHelper {

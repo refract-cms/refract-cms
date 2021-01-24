@@ -1,6 +1,6 @@
 import React from 'react';
 import { CoreContext } from './core-context';
-import { WithCoreContextProps } from './with-core-context-props';
+import type { WithCoreContextProps } from './with-core-context-props';
 
 export const withCoreContext = (Component: React.ComponentType<WithCoreContextProps & { [key: string]: any }>) => (
   props

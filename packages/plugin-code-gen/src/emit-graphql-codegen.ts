@@ -6,11 +6,11 @@ import { plugin as typescriptPlugin } from '@graphql-codegen/typescript';
 import { plugin as typescriptOperationsPlugin } from '@graphql-codegen/typescript-operations';
 import { plugin as apolloPlugin } from '@graphql-codegen/typescript-react-apollo';
 import { printSchema, parse, GraphQLSchema, print, printType, graphql, ASTNode } from 'graphql';
-import { CodeGenServerPluginOptions } from './server';
+import type { CodeGenServerPluginOptions } from './server';
 
 export async function emitGraphqlCodeGen(schema: GraphQLSchema, options: CodeGenServerPluginOptions) {
   const { outputPath, queries } = options;
-  await fs.mkdir(outputPath, { recursive: true }, err => {
+  await fs.mkdir(outputPath, { recursive: true }, (err) => {
     // if (err) console.log(err);
   });
 
@@ -22,25 +22,25 @@ export async function emitGraphqlCodeGen(schema: GraphQLSchema, options: CodeGen
     schema: schemaDocumentNode,
     pluginMap: {
       'fragment-matcher': {
-        plugin: fragmentMatcherPlugin
-      }
+        plugin: fragmentMatcherPlugin,
+      },
     },
     documents: [],
     plugins: [
       {
-        'fragment-matcher': {}
-      }
+        'fragment-matcher': {},
+      },
     ],
-    config: {}
+    config: {},
   });
 
   const outputIntrospectPath = path.resolve(outputPath, 'introspect.generated.json');
-  fs.writeFile(outputIntrospectPath, outputIntrospect, err => {
+  fs.writeFile(outputIntrospectPath, outputIntrospect, (err) => {
     console.log(err || 'Introspect Outputs generated!');
   });
 
   const queryASTNodes: ASTNode[] = queries || [];
-  const queriesToEmit = queryASTNodes.map(q => ({ filePath: '', content: parse(print(q)) }));
+  const queriesToEmit = queryASTNodes.map((q) => ({ filePath: '', content: parse(print(q)) }));
 
   // React Apollo TS types
   const apolloTs = await codegen({
@@ -49,39 +49,39 @@ export async function emitGraphqlCodeGen(schema: GraphQLSchema, options: CodeGen
     schemaAst: schema,
     pluginMap: {
       typescript: {
-        plugin: typescriptPlugin
+        plugin: typescriptPlugin,
       },
       'typescript-react-apollo': {
-        plugin: apolloPlugin
+        plugin: apolloPlugin,
       },
       'typescript-operations': {
-        plugin: typescriptOperationsPlugin
-      }
+        plugin: typescriptOperationsPlugin,
+      },
     },
     documents: [...queriesToEmit],
     plugins: [
       {
         'typescript-react-apollo': {
-          withHooks: true
-        }
+          withHooks: true,
+        },
       },
       {
         typescript: {
           scalars: {
             DateTime: 'Date',
-            MongoId: 'string'
-          }
-        }
+            MongoId: 'string',
+          },
+        },
       },
       {
-        'typescript-operations': {}
-      }
+        'typescript-operations': {},
+      },
     ],
-    config: {}
+    config: {},
   });
 
   const apolloTsPath = path.resolve(outputPath, 'index.tsx');
-  fs.writeFile(apolloTsPath, apolloTs, err => {
+  fs.writeFile(apolloTsPath, apolloTs, (err) => {
     console.log(err || 'TS Outputs generated!');
   });
 

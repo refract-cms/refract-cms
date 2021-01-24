@@ -1,0 +1,14 @@
+{
+  "name": "@local/dashboard",
+  "version": "0.16.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "10.0.5",
+    "next-transpile-modules": "^6.0.0"
+  }
+}

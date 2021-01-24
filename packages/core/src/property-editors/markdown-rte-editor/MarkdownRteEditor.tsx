@@ -5,7 +5,7 @@ import { stateFromMarkdown } from 'draft-js-import-markdown';
 import { stateToMarkdown } from 'draft-js-export-markdown';
 import RteToolbar from './RteToolbar';
 import classNames from 'classnames';
-import { PropertyEditorProps } from '../../properties/property-editor-props';
+import type { PropertyEditorProps } from '../../properties/property-editor-props';
 
 export interface MarkdownRteEditorOptions {}
 

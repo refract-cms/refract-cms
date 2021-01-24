@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-import { AppState } from '../state/app-state';
+import type { AppState } from '../state/app-state';
 import { addNotification, removeNotification } from './state/notification-actions';
 import { connect } from 'react-redux';
 import { combineContainers } from 'combine-containers';
