@@ -23,7 +23,7 @@ class AuthService {
     }
   }
 
-  findUserIdWithCredentials(username: string, password: string, { auth }: ServerConfig): string | null {
+  async findUserIdWithCredentials(username: string, password: string, { auth }: ServerConfig): Promise<string | null> {
     if (auth.adminCredentials.username === username && auth.adminCredentials.password === password) {
       return 'ADMIN';
     }

@@ -1,8 +1,8 @@
-import type { ServerConfig } from '@refract-cms/server';
+import type { ServerUserConfig } from '@refract-cms/server';
 import { config } from '@local/config';
 import { activeDirectoryServerPlugin } from '@refract-cms/plugin-active-directory-auth/src/server';
 
-export const serverConfig: ServerConfig = {
+export const serverConfig: ServerUserConfig = {
   rootPath: '/cms',
   config,
   mongoConnectionString: process.env.MONGO_URI,

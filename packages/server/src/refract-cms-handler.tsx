@@ -1,6 +1,6 @@
 import * as express from 'express';
 import graphqlHTTP from 'express-graphql';
-import type { ServerConfig } from './config/server-config';
+import type { ServerUserConfig } from './config/server-user-config';
 import type { RequestHandlerParams } from 'express-serve-static-core';
 import multer from 'multer';
 import jimp from 'jimp';
@@ -18,7 +18,7 @@ import { multipleRefPlugin } from './plugins/multiple-ref-plugin';
 import { buildServerOptions } from './config/create-server-options';
 import chalk from 'chalk';
 
-const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => {
+const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerUserConfig }) => {
   const { config } = serverConfig;
 
   const router = express.Router();
