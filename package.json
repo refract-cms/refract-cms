@@ -9,7 +9,8 @@
     "prettier": "prettier --write .",
     "prettier:test": "prettier --check .",
     "dev": "lerna run dev --stream --scope @local/*",
-    "predev": "yarn && lerna run pre --stream --scope @local/*"
+    "predev": "yarn && lerna run pre --stream --scope @local/*",
+    "down": "lerna run down --stream --scope @local/*"
   },
   "workspaces": {
     "packages": [
@@ -49,5 +50,9 @@
   "dependencies": {},
   "resolutions": {
     "typescript": "4.1.3"
+  },
+  "volta": {
+    "node": "14.15.4",
+    "yarn": "1.22.10"
   }
 }
