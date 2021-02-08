@@ -20,5 +20,13 @@ export interface ServerUserConfig {
   };
   plugins: ServerPluginConfig[];
   events?: Events;
+  resolvers: {
+    [key: string]: {
+      [key: string]: {
+        type: PropertyType;
+        resolve?: any;
+      };
+    };
+  };
   // config: PluginConfig | Config;
 }

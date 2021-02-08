@@ -1,10 +1,9 @@
 import type { Router } from 'express';
 import { ResolverPlugin } from './resolver-plugin';
-import { ServerOptions } from '../config/server-options';
-import type { ServerOptionsArgs } from '../config/server-options-args';
 import type { PluginConfig } from '@refract-cms/core';
+import type { ServerUserConfig } from '../config/server-user-config';
 
-export interface ServerPluginConfig extends ServerOptionsArgs {
+export interface ServerPluginConfig extends Pick<ServerUserConfig, 'events'> {
   // resolverPlugins: ResolverPlugin[];
   configureRouter?: (router: Router) => void;
   config: PluginConfig;

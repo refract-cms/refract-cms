@@ -4,17 +4,9 @@ import type { Events } from './events';
 import type { Router } from 'express';
 import type { ServerUserConfig } from './server-user-config';
 
-export interface ServerConfig extends Pick<ServerUserConfig, 'auth' | 'mongoConnectionString'> {
+export interface ServerConfig extends Pick<ServerUserConfig, 'auth' | 'mongoConnectionString' | 'resolvers'> {
   config: Config;
   resolverPlugins?: ResolverPlugin[];
-  resolvers: {
-    [key: string]: {
-      [key: string]: {
-        type: PropertyType;
-        resolve?: any;
-      };
-    };
-  };
   events: Events[];
   routers: {
     alias: string;
