@@ -1,5 +1,6 @@
 export type { Entity } from './entities/entity';
 export type { Location } from './location/location';
+export type { UserConfig } from './config/user-config';
 export type { Config } from './config/config';
 export { configure } from './config/configure';
 export { default as composeSchema } from './entities/compose-schema';

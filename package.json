@@ -2,8 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "mocha -r ts-node-test-register __tests__/**/*test*.ts",
-    "test:watch": "mocha -r ts-node-test-register  __tests__/**/*test*.ts --watch-extensions ts --watch-files src, __tests__/**/*test*.ts --watch",
+    "test": "mocha -r ./babel-register.js __tests__/**/*test*.ts && tsc --noEmit",
+    "test:watch": "npm test -- --watch-extensions ts --watch-files src,__tests__/**/*test*.ts,packages/**/*.ts --watch",
     "build": "lerna run build --scope @refract-cms/*",
     "bump-version": "lerna version --no-push --no-git-tag-version",
     "prettier": "prettier --write .",
@@ -25,7 +25,10 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/preset-typescript": "^7.12.13",
+    "@babel/register": "^7.12.13",
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.9.2",
     "@pika/plugin-build-types": "^0.9.2",

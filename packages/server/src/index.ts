@@ -12,3 +12,4 @@ export { createServerPlugin } from './plugins/create-server-plugin';
 export { buildServerConfig } from './config/build-server-config';
 export type { ServerConfig } from './config/server-config';
 export type { ServerUserConfig } from './config/server-user-config';
+export type { ServerPluginConfig } from './plugins/server-plugin-config';

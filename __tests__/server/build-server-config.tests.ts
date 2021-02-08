@@ -1,18 +1,44 @@
-import type { Config } from '@refract-cms/core';
-import { ServerConfig, ServerUserConfig, buildServerConfig } from '@refract-cms/server';
+import { UserConfig, PluginConfig, composeSchema } from '@refract-cms/core';
+import { ServerConfig, ServerUserConfig, buildServerConfig, ServerPluginConfig } from '@refract-cms/server';
 import { expect } from 'chai';
+
+const ProductSchema = composeSchema({
+  options: {
+    alias: 'product',
+  },
+  properties: {},
+});
+
+const ActiveDirectoryUserSchema = composeSchema({
+  options: {
+    alias: 'activeDirectoryUser',
+  },
+  properties: {},
+});
 
 describe('buildServerConfig', () => {
   it('merges two configs', () => {
-    const config: Config = {
-      schema: [],
+    const adPluginConfig: PluginConfig = {
+      schema: [ActiveDirectoryUserSchema],
     };
 
-    const config1: ServerUserConfig = {
+    const adPluginServerConfig: ServerPluginConfig = {
+      config: adPluginConfig,
+      configureRouter: (router) => {
+        //
+      },
+    };
+
+    const config: UserConfig = {
+      schema: [ProductSchema],
+      plugins: [adPluginConfig],
+    };
+
+    const serverUserConfig: ServerUserConfig = {
       rootPath: '/cms',
       config,
       mongoConnectionString: '',
-      plugins: [],
+      plugins: [adPluginServerConfig],
       auth: {
         adminCredentials: {
           username: 'username',
@@ -24,23 +50,10 @@ describe('buildServerConfig', () => {
         },
       },
     };
-    const config2: ServerUserConfig = {
-      rootPath: '/cms',
-      config,
-      mongoConnectionString: '',
-      plugins: [],
-      auth: {
-        adminCredentials: {
-          username: 'username',
-          password: 'pw',
-        },
-        jwt: {
-          issuer: 'my-app',
-          secret: 'secret',
-        },
-      },
-    };
-    const serverConfig = buildServerConfig(config1, config2);
-    expect(serverConfig.events.length).to.equal(2);
+
+    const serverConfig = buildServerConfig(serverUserConfig);
+
+    // expect(serverConfig.events.length).to.equal(2);
+    expect(serverConfig.config.schema.length).to.equal(2);
   });
 });

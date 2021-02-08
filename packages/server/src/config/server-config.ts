@@ -2,10 +2,10 @@ import type { PropertyType, EntitySchema, Config } from '@refract-cms/core';
 import type { ResolverPlugin } from '../plugins/resolver-plugin';
 import type { Events } from './events';
 import type { Router } from 'express';
+import type { ServerUserConfig } from './server-user-config';
 
-export interface ServerConfig {
+export interface ServerConfig extends Pick<ServerUserConfig, 'auth' | 'mongoConnectionString'> {
   config: Config;
-  schemas: EntitySchema[];
   resolverPlugins?: ResolverPlugin[];
   resolvers: {
     [key: string]: {

@@ -2,12 +2,13 @@ import type { ServerOptions } from './server-options';
 import merge from 'lodash/merge';
 import produce from 'immer';
 import type { ServerOptionsArgs } from './server-options-args';
-import type { ServerConfig, ServerConfig2 } from './server-config';
+import type { ServerConfig } from './server-config';
 import { EntitySchema } from '@refract-cms/core';
 import mergeWith from 'lodash/mergeWith';
 import isArray from 'lodash/isArray';
 import express from 'express';
 import type { ServerUserConfig } from './server-user-config';
+import type { ServerPluginConfig } from '../plugins/server-plugin-config';
 
 function customizer(objValue, srcValue) {
   if (isArray(objValue)) {
@@ -15,7 +16,7 @@ function customizer(objValue, srcValue) {
   }
 }
 
-export function buildServerConfig(...serverUserConfigs: ServerUserConfig[]): ServerConfig {
+export function buildServerConfig(serverUserConfig: ServerUserConfig): ServerConfig {
   const configs = [serverUserConfig, ...serverUserConfig.plugins];
   const { resolverPlugins, resolvers, config }: ServerOptionsArgs = mergeWith(
     serverConfig,
