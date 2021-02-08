@@ -38,3 +38,5 @@ export { default as createMultipleEntityPickerEditor } from './property-editors/
 export { default as createNumberEditor } from './property-editors/NumberEditor';
 export { default as createBooleanEditor } from './property-editors/BooleanEditor';
 export { default as createMarkdownRteEditor } from './property-editors/markdown-rte-editor/MarkdownRteEditor';
+
+export * from './config/build-config';

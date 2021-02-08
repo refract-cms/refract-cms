@@ -1,11 +1,11 @@
-import type { UserConfig, PropertyType } from '@refract-cms/core';
+import type { UserConfig, PropertyType, Config } from '@refract-cms/core';
 import { ResolverPlugin } from '../plugins/resolver-plugin';
 import { ASTNode } from 'graphql';
 import type { ServerPluginConfig } from '../plugins/server-plugin-config';
-import type { Events } from './events';
+import type { Events } from '../events/events';
 
 export interface ServerUserConfig {
-  config: UserConfig;
+  config: Config;
   mongoConnectionString: string;
   rootPath: string;
   auth: {
@@ -20,7 +20,7 @@ export interface ServerUserConfig {
   };
   plugins: ServerPluginConfig[];
   events?: Events;
-  resolvers: {
+  resolvers?: {
     [key: string]: {
       [key: string]: {
         type: PropertyType;

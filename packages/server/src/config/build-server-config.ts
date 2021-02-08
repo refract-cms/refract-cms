@@ -8,7 +8,7 @@ import type { ServerPluginConfig } from '../plugins/server-plugin-config';
 export function buildServerConfig(serverUserConfig: ServerUserConfig): ServerConfig {
   const { auth, plugins, config, mongoConnectionString, rootPath, events, resolvers } = serverUserConfig;
   return {
-    events: [events],
+    events: [events, ...plugins.map((x) => x.events)].filter(Boolean),
     auth,
     config,
     mongoConnectionString,

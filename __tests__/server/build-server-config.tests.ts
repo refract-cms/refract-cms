@@ -1,5 +1,11 @@
-import { UserConfig, PluginConfig, composeSchema } from '@refract-cms/core';
-import { ServerConfig, ServerUserConfig, buildServerConfig, ServerPluginConfig } from '@refract-cms/server';
+import { UserConfig, PluginConfig, composeSchema, buildConfig } from '@refract-cms/core';
+import {
+  ServerConfig,
+  ServerUserConfig,
+  buildServerConfig,
+  ServerPluginConfig,
+  EventService,
+} from '@refract-cms/server';
 import { expect } from 'chai';
 
 const ProductSchema = composeSchema({
@@ -16,8 +22,8 @@ const ActiveDirectoryUserSchema = composeSchema({
   properties: {},
 });
 
-describe('buildServerConfig', () => {
-  it('merges two configs', () => {
+describe('buildServerConfig - with ad plugin', () => {
+  it('merges schemas', () => {
     const adPluginConfig: PluginConfig = {
       schema: [ActiveDirectoryUserSchema],
     };
@@ -29,10 +35,12 @@ describe('buildServerConfig', () => {
       },
     };
 
-    const config: UserConfig = {
+    const userConfig: UserConfig = {
       schema: [ProductSchema],
       plugins: [adPluginConfig],
     };
+
+    const config = buildConfig(userConfig);
 
     const serverUserConfig: ServerUserConfig = {
       rootPath: '/cms',
@@ -52,8 +60,64 @@ describe('buildServerConfig', () => {
     };
 
     const serverConfig = buildServerConfig(serverUserConfig);
-
-    // expect(serverConfig.events.length).to.equal(2);
     expect(serverConfig.config.schema.length).to.equal(2);
+  });
+
+  it('merges events', () => {
+    const adPluginConfig: PluginConfig = {
+      schema: [ActiveDirectoryUserSchema],
+    };
+
+    let adPluginOnSaveEventFired = false;
+
+    const adPluginServerConfig: ServerPluginConfig = {
+      config: adPluginConfig,
+      configureRouter: (router) => {
+        //
+      },
+      events: {
+        onSave: () => {
+          adPluginOnSaveEventFired = true;
+        },
+      },
+    };
+
+    const config: UserConfig = {
+      schema: [ProductSchema],
+      plugins: [adPluginConfig],
+    };
+
+    let serverUserConfigOnSaveEventFired = false;
+
+    const serverUserConfig: ServerUserConfig = {
+      rootPath: '/cms',
+      config,
+      mongoConnectionString: '',
+      plugins: [adPluginServerConfig],
+      auth: {
+        adminCredentials: {
+          username: 'username',
+          password: 'pw',
+        },
+        jwt: {
+          issuer: 'my-app',
+          secret: 'secret',
+        },
+      },
+      events: {
+        onSave: () => {
+          serverUserConfigOnSaveEventFired = true;
+        },
+      },
+    };
+
+    const serverConfig = buildServerConfig(serverUserConfig);
+    const eventService = new EventService(serverConfig);
+
+    eventService.onSave();
+
+    expect(serverConfig.events.length).to.equal(2);
+    expect(serverUserConfigOnSaveEventFired).to.be.true;
+    expect(adPluginOnSaveEventFired).to.be.true;
   });
 });
