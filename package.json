@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "mocha -r ./babel-register.js __tests__/**/*test*.ts ",
+    "test": "mocha -r ./babel-register.js __tests__/**/*test*.ts",
     "typecheck": "&& tsc --noEmit",
     "test:watch": "npm test -- --watch-extensions ts --watch-files src,__tests__/**/*test*.ts,packages/**/*.ts --watch",
     "build": "lerna run build --scope @refract-cms/*",

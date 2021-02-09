@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { composeSchema, Config } from '@refract-cms/core';
-import { SchemaBuilder, ServerConfig, buildServerOptions } from '@refract-cms/server';
+import { SchemaBuilder, ServerConfig, buildServerConfig, ServerUserConfig } from '@refract-cms/server';
 import { printType } from 'graphql';
 
 describe('GraphQL schema has correct properties', () => {
@@ -26,7 +26,7 @@ describe('GraphQL schema has correct properties', () => {
       schema: [TestSchema],
     };
 
-    const serverConfig: ServerConfig = {
+    const serverConfig: ServerUserConfig = {
       rootPath: '/',
       mongoConnectionString: '',
       auth: {
@@ -39,7 +39,7 @@ describe('GraphQL schema has correct properties', () => {
     };
 
     var schemaBuilder = new SchemaBuilder();
-    schemaBuilder.init(buildServerOptions(serverConfig));
+    schemaBuilder.init(buildServerConfig(serverConfig));
 
     const { publicGraphQLSchema } = schemaBuilder.buildSchema(config.schema);
 
