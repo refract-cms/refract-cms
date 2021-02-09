@@ -13,8 +13,6 @@ import expressPlayground from 'graphql-playground-middleware-express';
 import bodyParser from 'body-parser';
 import { requireAuth } from './auth/require-auth-middleware';
 import type { RefractGraphQLContext } from './graphql/refract-graphql-context';
-import { singleRefPlugin } from './plugins/single-ref-plugin';
-import { multipleRefPlugin } from './plugins/multiple-ref-plugin';
 import chalk from 'chalk';
 import type { ServerConfig } from './config/server-config';
 
