@@ -4,7 +4,7 @@ import { ASTNode } from 'graphql';
 import type { ServerPluginConfig } from '../plugins/server-plugin-config';
 import type { Events } from '../events/events';
 
-export interface ServerUserConfig {
+export interface UserServerConfig {
   config: Config;
   mongoConnectionString: string;
   auth: {

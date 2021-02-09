@@ -1,7 +1,7 @@
 import { UserConfig, PluginConfig, composeSchema, buildConfig } from '@refract-cms/core';
 import {
   ServerConfig,
-  ServerUserConfig,
+  UserServerConfig,
   buildServerConfig,
   ServerPluginConfig,
   EventService,
@@ -43,7 +43,7 @@ describe('buildServerConfig - with ad plugin', () => {
 
     const config = buildConfig(userConfig);
 
-    const serverUserConfig: ServerUserConfig = {
+    const UserServerConfig: UserServerConfig = {
       config,
       mongoConnectionString: '',
       plugins: [adPluginServerConfig],
@@ -59,7 +59,7 @@ describe('buildServerConfig - with ad plugin', () => {
       },
     };
 
-    const serverConfig = buildServerConfig(serverUserConfig);
+    const serverConfig = buildServerConfig(UserServerConfig);
     
     expect(serverConfig.config.schema.length).to.equal(2);
     expect(serverConfig.routers.length).to.equal(1);
@@ -90,9 +90,9 @@ describe('buildServerConfig - with ad plugin', () => {
       plugins: [adPluginConfig],
     };
 
-    let serverUserConfigOnSaveEventFired = false;
+    let UserServerConfigOnSaveEventFired = false;
 
-    const serverUserConfig: ServerUserConfig = {
+    const UserServerConfig: UserServerConfig = {
       config,
       mongoConnectionString: '',
       plugins: [adPluginServerConfig],
@@ -108,18 +108,18 @@ describe('buildServerConfig - with ad plugin', () => {
       },
       events: {
         onSave: () => {
-          serverUserConfigOnSaveEventFired = true;
+          UserServerConfigOnSaveEventFired = true;
         },
       },
     };
 
-    const serverConfig = buildServerConfig(serverUserConfig);
+    const serverConfig = buildServerConfig(UserServerConfig);
     const eventService = new EventService(serverConfig);
 
     eventService.onSave();
 
     expect(serverConfig.events.length).to.equal(2);
-    expect(serverUserConfigOnSaveEventFired).to.be.true;
+    expect(UserServerConfigOnSaveEventFired).to.be.true;
     expect(adPluginOnSaveEventFired).to.be.true;
   });
 });

@@ -1,6 +1,6 @@
 import * as express from 'express';
 import graphqlHTTP from 'express-graphql';
-import type { ServerUserConfig } from './config/server-user-config';
+import type { UserServerConfig } from './config/user-server-config';
 import type { RequestHandlerParams } from 'express-serve-static-core';
 import multer from 'multer';
 import jimp from 'jimp';

@@ -1,6 +1,6 @@
 import type { GraphQLSchema } from 'graphql';
 import type { ServerConfig } from '../config/server-config';
-import type { ServerUserConfig } from '../config/server-user-config';
+import type { UserServerConfig } from '../config/user-server-config';
 import type { Events } from './events';
 
 export class EventService implements Events {

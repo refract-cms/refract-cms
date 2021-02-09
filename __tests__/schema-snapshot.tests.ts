@@ -4,7 +4,7 @@ import {
   SchemaBuilder,
   ServerConfig,
   buildServerConfig,
-  ServerUserConfig,
+  UserServerConfig,
   ServerPluginConfig,
 } from '@refract-cms/server';
 import { printSchema } from 'graphql';
@@ -27,7 +27,7 @@ describe('schema tests', () => {
       schema: [TestSchema],
     };
 
-    const serverConfig: ServerUserConfig = {
+    const serverConfig: UserServerConfig = {
       rootPath: '/',
       mongoConnectionString: '',
       auth: {
@@ -280,7 +280,7 @@ input testInput {
       schema: [TestSchema],
     };
 
-    const serverConfig: ServerUserConfig = {
+    const serverConfig: UserServerConfig = {
       rootPath: '/',
       mongoConnectionString: '',
       auth: {
