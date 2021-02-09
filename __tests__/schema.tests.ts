@@ -27,7 +27,6 @@ describe('GraphQL schema has correct properties', () => {
     };
 
     const serverConfig: ServerUserConfig = {
-      rootPath: '/',
       mongoConnectionString: '',
       auth: {
         adminCredentials: { username: '', password: '' },
