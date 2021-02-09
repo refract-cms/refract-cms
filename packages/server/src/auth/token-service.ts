@@ -14,6 +14,10 @@ export const tokenService = {
     return jwt.sign(token, auth.jwt.secret);
   },
   verify: (token: string, { auth }: ServerConfig) => {
-    return jwt.verify(token, auth.jwt.secret) as AuthToken;
+    try {
+      return jwt.verify(token, auth.jwt.secret) as AuthToken;
+    } catch (error) {
+      return null;
+    }
   },
 };

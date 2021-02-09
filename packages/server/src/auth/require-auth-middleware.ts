@@ -17,7 +17,7 @@ export const requireAuth = (serverConfig: ServerConfig) => (req: Request, res: R
 
     const validMember = validateToken(req);
     if (!validMember) {
-      console.log('Request unauthorized');
+      console.log('Unauthorized jwt token');
       res.status(401).send('Unauthorized');
     } else {
       // console.log(`Serving verified user: ${validMember.nameid}`);
