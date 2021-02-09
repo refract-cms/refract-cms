@@ -8,11 +8,22 @@ import { singleRefPlugin } from '../plugins/single-ref-plugin';
 import { multipleRefPlugin } from '../plugins/multiple-ref-plugin';
 
 export function buildServerConfig(serverUserConfig: ServerUserConfig): ServerConfig {
-  const { auth, plugins, config, mongoConnectionString, rootPath, events, resolvers } = serverUserConfig;
+  const { auth, plugins, config, mongoConnectionString, events, resolvers } = serverUserConfig;
   const resolverPlugins: ServerPluginConfig['resolverPlugins'] = [singleRefPlugin, multipleRefPlugin];
   plugins.forEach((plugin) => {
     if (plugin.resolverPlugins) {
       resolverPlugins.push(...plugin.resolverPlugins);
+    }
+  });
+  const routers : ServerConfig['routers']= [];
+  plugins.forEach(plugin => {
+    if (plugin.configureRouter) {
+      const router = express.Router();
+      plugin.configureRouter(router);
+      routers.push({
+        alias: plugin.config.name,
+        router
+      })
     }
   });
   return {
@@ -21,7 +32,7 @@ export function buildServerConfig(serverUserConfig: ServerUserConfig): ServerCon
     config,
     mongoConnectionString,
     resolvers,
-    routers: [],
+    routers,
     resolverPlugins,
   };
 }

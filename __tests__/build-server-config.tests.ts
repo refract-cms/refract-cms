@@ -25,6 +25,7 @@ const ActiveDirectoryUserSchema = composeSchema({
 describe('buildServerConfig - with ad plugin', () => {
   it('merges schemas', () => {
     const adPluginConfig: PluginConfig = {
+      name: 'ad',
       schema: [ActiveDirectoryUserSchema],
     };
 
@@ -43,7 +44,6 @@ describe('buildServerConfig - with ad plugin', () => {
     const config = buildConfig(userConfig);
 
     const serverUserConfig: ServerUserConfig = {
-      rootPath: '/cms',
       config,
       mongoConnectionString: '',
       plugins: [adPluginServerConfig],
@@ -60,11 +60,14 @@ describe('buildServerConfig - with ad plugin', () => {
     };
 
     const serverConfig = buildServerConfig(serverUserConfig);
+    
     expect(serverConfig.config.schema.length).to.equal(2);
+    expect(serverConfig.routers.length).to.equal(1);
   });
 
   it('merges events', () => {
     const adPluginConfig: PluginConfig = {
+      name: 'ad',
       schema: [ActiveDirectoryUserSchema],
     };
 
@@ -90,7 +93,6 @@ describe('buildServerConfig - with ad plugin', () => {
     let serverUserConfigOnSaveEventFired = false;
 
     const serverUserConfig: ServerUserConfig = {
-      rootPath: '/cms',
       config,
       mongoConnectionString: '',
       plugins: [adPluginServerConfig],
