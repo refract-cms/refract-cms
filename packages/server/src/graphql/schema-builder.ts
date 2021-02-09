@@ -139,7 +139,7 @@ export class SchemaBuilder {
           entityType,
           async (filter, projection, options, obj, args, { db }: { db: Db }) => {
             return repository
-              .find(filter)
+              .find(filter as any)
               .sort(options.sort)
               .limit(options.limit || 100)
               .skip(options.skip || 0);
@@ -151,7 +151,7 @@ export class SchemaBuilder {
         args: {
           filter: args.filter,
         },
-        resolve: (_, { filter }) => repository.countDocuments(getMongoDbFilter(entityType, filter)),
+        resolve: (_, { filter }) => repository.countDocuments(getMongoDbFilter(entityType, filter) as any),
       },
       [`${entitySchema.options.alias}EntityFindById`]: {
         type: entityType,
@@ -185,7 +185,7 @@ export class SchemaBuilder {
         args: {
           filter: args.filter,
         },
-        resolve: (_, { filter }) => repository.count(getMongoDbFilter(entityType, filter)),
+        resolve: (_, { filter }) => repository.count(getMongoDbFilter(entityType, filter) as any),
       },
       [`${entitySchema.options.alias}List`]: {
         type: new GraphQLList(type),
@@ -194,7 +194,7 @@ export class SchemaBuilder {
           entityType,
           async (filter, projection, options, obj, args, { db }: { db: Db }) => {
             return repository
-              .find(filter)
+              .find(filter as any)
               .sort(options.sort)
               .limit(options.limit || 100)
               .skip(options.skip || 0);
@@ -245,7 +245,7 @@ export class SchemaBuilder {
             entityType,
             async (filter, projection, options, obj, args, { db }: { db: Db }) => {
               return repository
-                .findOne(filter)
+                .findOne(filter as any)
                 .sort(options.sort)
                 .limit(options.limit || 100)
                 .skip(options.skip || 0);

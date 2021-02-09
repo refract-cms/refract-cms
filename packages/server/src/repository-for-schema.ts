@@ -3,5 +3,5 @@ import mongoose from 'mongoose';
 
 export function repositoryForSchema<T>(schema: EntitySchema<T>) {
   type ModelType = mongoose.Document & EntitySchema<T>['prototypes'];
-  return mongoose.models[schema.options.alias] as mongoose.Model<ModelType>;
+  return mongoose.models[schema.options.alias] as mongoose.Model<ModelType | any>;
 }
