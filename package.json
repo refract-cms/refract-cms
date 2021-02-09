@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "test": "mocha -r ./babel-register.js __tests__/**/*test*.ts",
-    "typecheck": "&& tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "test:watch": "npm test -- --watch-extensions ts --watch-files src,__tests__/**/*test*.ts,packages/**/*.ts --watch",
     "build": "lerna run build --scope @refract-cms/*",
     "bump-version": "lerna version --no-push --no-git-tag-version",
