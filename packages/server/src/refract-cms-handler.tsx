@@ -90,8 +90,7 @@ const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => 
   );
 
   router.get('/graphql-playground', (req, res, next) => {
-    const endpoint = `${req.route}`;
-    // `${serverConfig.rootPath}/graphql`
+    const endpoint = `${req.baseUrl}/graphql`;
     return expressPlayground({ endpoint })(req, res, next);
   });
 

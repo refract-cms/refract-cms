@@ -7,7 +7,6 @@ import type { Events } from '../events/events';
 export interface ServerUserConfig {
   config: Config;
   mongoConnectionString: string;
-  rootPath: string;
   auth: {
     adminCredentials: {
       username: string;

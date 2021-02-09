@@ -52,7 +52,7 @@ const build = async () => {
   }
 };
 
-const watcher = watch(['src/**/*.ts', '../../packages/**/*.ts', '../config/**/*.ts*']);
+const watcher = watch(['src/**/*.ts*', '../../packages/**/*.ts*', '../config/**/*.ts*']);
 console.log('Watching files... \n');
 build();
 watcher.on('change', () => {
