@@ -16,7 +16,7 @@ import type { RefractGraphQLContext } from './graphql/refract-graphql-context';
 import chalk from 'chalk';
 import type { ServerConfig } from './config/server-config';
 
-const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => {
+export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerConfig }) => {
   const { config } = serverConfig;
 
   const router = express.Router();
@@ -127,4 +127,3 @@ const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => 
   return router;
 };
 
-export default refractCmsHandler;

@@ -1,4 +1,4 @@
-export { default as refractCmsHandler } from './refract-cms-handler';
+export * from './refract-cms-middleware';
 export { repositoryForSchema } from './repository-for-schema';
 export { createResolver } from './graphql/create-resolver';
 export { SchemaBuilder } from './graphql/schema-builder';
