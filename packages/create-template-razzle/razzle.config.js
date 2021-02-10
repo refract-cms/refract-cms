@@ -3,8 +3,8 @@ const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
-  modify(config, args, webpack) {
-    return merge(config, {
+  modifyWebpackConfig({ env, webpackConfig }) {
+    return merge(webpackConfig, {
       module: {
         rules: [
           {

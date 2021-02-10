@@ -44,7 +44,9 @@ console.log(chalk.magenta(`GraphQL endpoint: http://localhost:${PORT}${cmsRoute}
 console.log(chalk.blue(`CMS Dashboard: http://localhost:${PORT}`));
 if (process.env.NODE_ENV === 'development') {
   console.log(
-    `CMS Dashboard credentials: ${serverConfig.auth.adminCredentials.username} / ${serverConfig.auth.adminCredentials.password}`
+    chalk.yellow(
+      `CMS Dashboard credentials: ${serverConfig.auth.adminCredentials.username} / ${serverConfig.auth.adminCredentials.password}`
+    )
   );
 }
 
