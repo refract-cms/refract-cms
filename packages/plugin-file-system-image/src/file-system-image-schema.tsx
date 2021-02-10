@@ -11,7 +11,6 @@ export const FileSystemImageSchema = composeSchema({
     displayName: 'Image',
     icon: ImageIcon,
     instanceDisplayProps: (file, { context }) => {
-      console.log({ context });
       const fileService = new FileService(context.serverUrl);
       return {
         primaryText: file.name || file._id,

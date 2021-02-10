@@ -13,6 +13,11 @@ export class FileService {
     const cropQuery = pixelCrop ? `?${queryString.stringify(pixelCrop)}` : '';
     // return new url.URL(`/plugins/filesystemimage/files/${fileId}${cropQuery}`, this.serverUrl);
     // return url.resolve(this.serverUrl, `/plugins/filesystemimage/files/${fileId}${cropQuery}`);
+    // return url.format({
+    //   protocol:  context.req.protocol,
+    //   host: context.req.get('host'),
+    //   pathname: context.baseUrl,
+    // });
     return `${this.serverUrl}/plugins/filesystemimage/files/${fileId}${cropQuery}`;
   };
 

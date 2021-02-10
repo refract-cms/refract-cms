@@ -12,6 +12,7 @@ export default (options: FileUploaderEditorOptions) =>
   class FileUploaderEditor extends Component<Props> {
     render() {
       const { value } = this.props;
+      console.log({ value });
       return (
         <Fragment>
           {value && <Typography>{value.path}</Typography>}
