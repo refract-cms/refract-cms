@@ -40,13 +40,13 @@ jobs:
         run: |
           yarn typecheck
 
-      - name: Prettier
-        run: |
-          yarn prettier
-
       - name: Lint
         run: |
           yarn lint
+
+      - name: Prettier
+        run: |
+          yarn prettier
 
       - name: Yarn build
         run: |
