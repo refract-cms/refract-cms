@@ -6,3 +6,5 @@ export const fileSystemImagePluginConfig: PluginConfig = {
   name: 'fileSystemImage',
   schema: [FileSystemImageSchema],
 };
+
+export { FileSystemImageSchema } from './file-system-image-schema';

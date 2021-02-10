@@ -24,11 +24,10 @@ export default createResolverPlugin({
         // y: { type: GraphQLInt }
       },
       resolve: (source, args, context) => {
-        // const serverUrl = context.req.protocol + '://' + context.req.host + context.serverConfig.rootPath;
         const serverUrl = url.format({
           protocol: context.req.protocol,
           host: context.req.get('host'),
-          pathname: context.serverConfig.rootPath,
+          pathname: context.baseUrl,
         });
         const fileService = new FileService(serverUrl);
         const fileModel: FileModel & { _id: string } = source;

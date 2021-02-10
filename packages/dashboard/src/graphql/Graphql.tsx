@@ -1,16 +1,15 @@
 import React from 'react';
-import { withStyles, createStyles, Theme, WithStyles } from '@material-ui/core';
+import { withStyles, WithStyles } from '@material-ui/core';
 import type { RouteComponentProps } from '@reach/router';
 
-const styles = (theme: Theme) =>
-  createStyles({
-    iframe: {
-      width: '100%',
-      height: 'calc(100vh - 64px)',
-      border: 'none',
-      marginBottom: `-4px`,
-    },
-  });
+const styles = {
+  iframe: {
+    width: '100%',
+    height: 'calc(100vh - 64px)',
+    border: 'none',
+    marginBottom: `-4px`,
+  },
+};
 
 interface GraphqlProps extends RouteComponentProps {
   serverUrl: string;

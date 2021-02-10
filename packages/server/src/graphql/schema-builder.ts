@@ -24,21 +24,25 @@ import type { ResolvedPropertyOptions } from '../resolved-property-options';
 import { singleRefPlugin } from '../plugins/single-ref-plugin';
 import { multipleRefPlugin } from '../plugins/multiple-ref-plugin';
 import produce from 'immer';
-import type { ServerOptions } from '../config/server-options';
+import type { ServerConfig } from '../config/server-config';
+import { EventService } from '../events/event-service';
 
 export class SchemaBuilder {
   types: GraphQLObjectType[] = [];
   inputTypes: GraphQLInputObjectType[] = [];
-  serverOptions: ServerOptions;
+  serverConfig: ServerConfig;
+  eventService: EventService;
 
-  init(serverOptions: ServerOptions) {
+  init(serverConfig: ServerConfig) {
     this.types = [];
     this.inputTypes = [];
-    this.serverOptions = produce(serverOptions, (newServerOptions) => {
-      newServerOptions.resolverPlugins = newServerOptions.resolverPlugins || [];
-      newServerOptions.resolverPlugins.push(singleRefPlugin);
-      newServerOptions.resolverPlugins.push(multipleRefPlugin);
-    });
+    this.serverConfig = serverConfig;
+    this.eventService = new EventService(serverConfig);
+    // this.serverConfig = produce(serverConfig, (newServerOptions) => {
+    //   newServerOptions.resolverPlugins = newServerOptions.resolverPlugins || [];
+    //   newServerOptions.resolverPlugins.push(singleRefPlugin);
+    //   newServerOptions.resolverPlugins.push(multipleRefPlugin);
+    // });
   }
 
   getTypeFromSchema<T>(entitySchema: EntitySchema<T>) {
@@ -112,11 +116,7 @@ export class SchemaBuilder {
 
     const internalGraphQLSchema = new GraphQLSchema({ query: internalQuery, mutation });
 
-    this.serverOptions.events
-      .filter((e) => Boolean(e.onSchemaBuilt))
-      .forEach((events) => {
-        events.onSchemaBuilt(publicGraphQLSchema);
-      });
+    this.eventService.onSchemaBuilt(publicGraphQLSchema);
 
     return {
       publicGraphQLSchema,
@@ -138,7 +138,7 @@ export class SchemaBuilder {
           entityType,
           async (filter, projection, options, obj, args, { db }: { db: Db }) => {
             return repository
-              .find(filter)
+              .find(filter as any)
               .sort(options.sort)
               .limit(options.limit || 100)
               .skip(options.skip || 0);
@@ -150,7 +150,7 @@ export class SchemaBuilder {
         args: {
           filter: args.filter,
         },
-        resolve: (_, { filter }) => repository.countDocuments(getMongoDbFilter(entityType, filter)),
+        resolve: (_, { filter }) => repository.countDocuments(getMongoDbFilter(entityType, filter) as any),
       },
       [`${entitySchema.options.alias}EntityFindById`]: {
         type: entityType,
@@ -184,7 +184,7 @@ export class SchemaBuilder {
         args: {
           filter: args.filter,
         },
-        resolve: (_, { filter }) => repository.count(getMongoDbFilter(entityType, filter)),
+        resolve: (_, { filter }) => repository.count(getMongoDbFilter(entityType, filter) as any),
       },
       [`${entitySchema.options.alias}List`]: {
         type: new GraphQLList(type),
@@ -193,7 +193,7 @@ export class SchemaBuilder {
           entityType,
           async (filter, projection, options, obj, args, { db }: { db: Db }) => {
             return repository
-              .find(filter)
+              .find(filter as any)
               .sort(options.sort)
               .limit(options.limit || 100)
               .skip(options.skip || 0);
@@ -244,7 +244,7 @@ export class SchemaBuilder {
             entityType,
             async (filter, projection, options, obj, args, { db }: { db: Db }) => {
               return repository
-                .findOne(filter)
+                .findOne(filter as any)
                 .sort(options.sort)
                 .limit(options.limit || 100)
                 .skip(options.skip || 0);
@@ -425,8 +425,7 @@ export class SchemaBuilder {
     if (existingType) {
       return existingType;
     }
-    const extraProperties =
-      this.serverOptions.resolvers && addResolvers ? this.serverOptions.resolvers[alias] || {} : {};
+    const extraProperties = this.serverConfig.resolvers && addResolvers ? this.serverConfig.resolvers[alias] || {} : {};
 
     const editableAndResolvedProperties = {
       ...properties,
@@ -452,15 +451,15 @@ export class SchemaBuilder {
             } else if (
               addResolvers &&
               propertyOptions.resolverPlugin &&
-              this.serverOptions.resolverPlugins.some((plugin) => plugin.alias === propertyOptions.resolverPlugin.alias)
+              this.serverConfig.resolverPlugins.some((plugin) => plugin.alias === propertyOptions.resolverPlugin.alias)
             ) {
-              const plugin = this.serverOptions.resolverPlugins.find(
+              const plugin = this.serverConfig.resolverPlugins.find(
                 (plugin) => plugin.alias === propertyOptions.resolverPlugin.alias
               );
               acc[propertyKey] = plugin.buildFieldConfig({
                 propertyKey,
                 meta: propertyOptions.resolverPlugin.meta,
-                serverOptions: this.serverOptions,
+                serverConfig: this.serverConfig,
                 schemaBuilder: this,
               });
             }

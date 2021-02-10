@@ -16,7 +16,7 @@ jobs:
       - run: |
           curl -fsSL https://deno.land/x/install/install.sh | sh
           echo "${HOME}/.deno/bin" >> $GITHUB_PATH
-        name: "Install deno"
+        name: 'Install deno'
         if: github.event_name == 'pull_request'
 
       - run: |
@@ -25,12 +25,28 @@ jobs:
 
       - run: |
           deno run --allow-run --allow-env --allow-read ./check-version.ts
-        name: "Check version"
+        name: 'Check version'
         if: github.event_name == 'pull_request'
 
       - name: Yarn install
         run: |
           yarn
+
+      - name: Test
+        run: |
+          yarn test
+
+      - name: Typecheck
+        run: |
+          yarn typecheck
+
+      - name: Prettier
+        run: |
+          yarn prettier
+
+      - name: Lint
+        run: |
+          yarn lint
 
       - name: Yarn build
         run: |

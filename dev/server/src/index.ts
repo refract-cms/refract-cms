@@ -1,8 +1,5 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import express from 'express';
-import { refractCmsHandler } from '@refract-cms/server';
+import { refractCmsMiddleware } from '@refract-cms/server';
 import { serverConfig } from './server-config';
 import cors from 'cors';
 import chalk from 'chalk';
@@ -11,7 +8,7 @@ const app = express();
 
 app.use(cors());
 
-app.use(...refractCmsHandler({ serverConfig }));
+app.use('/cms', refractCmsMiddleware({ serverConfig }));
 
 app.listen(4100, () => {
   console.log(`API listening on port 4100`);

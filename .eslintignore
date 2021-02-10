@@ -1,0 +1,7 @@
+
+node_modules/
+**/*test*
+**/pkg/**
+**/*.d.ts
+**/check-version.ts
+dev/server/lib/**

@@ -1,12 +1,12 @@
-const path = require("path");
+const path = require('path');
 
-const withTM = require("next-transpile-modules")([
-  "@refract-cms/core",
-  "@refract-cms/dashboard",
-  "@local/config",
-  "@refract-cms/plugin-active-directory-auth",
-  "@refract-cms/plugin-code-gen",
-  "@refract-cms/plugin-file-system-image",
+const withTM = require('next-transpile-modules')([
+  '@refract-cms/core',
+  '@refract-cms/dashboard',
+  '@local/config',
+  '@refract-cms/plugin-active-directory-auth',
+  '@refract-cms/plugin-code-gen',
+  '@refract-cms/plugin-file-system-image',
 ]);
 
 module.exports = withTM({});

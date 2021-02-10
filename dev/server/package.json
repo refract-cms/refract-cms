@@ -1,18 +1,23 @@
 {
   "name": "@local/server",
-  "version": "0.16.2",
+  "version": "0.17.0",
   "description": "",
   "private": true,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --watch src ./src/index.ts"
+    "dev": "npm-run-all -p run watch",
+    "run": "nodemon --watch lib ./lib/index.js",
+    "watch": "ts-node-script ./dev.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.9",
-    "cross-env": "^7.0.3"
+    "chokidar": "^3.5.1",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.8.43",
+    "ts-node": "^9.1.1"
   },
   "dependencies": {
     "cors": "^2.8.5"

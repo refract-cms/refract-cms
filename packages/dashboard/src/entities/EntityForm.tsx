@@ -113,13 +113,13 @@ class EntityForm extends Component<Props, State> {
         <Page
           title={schema.options.displayName || schema.options.alias}
           actionComponents={[
-            <IconButton onClick={this.back}>
+            <IconButton key="back" onClick={this.back}>
               <ArrowBack />
             </IconButton>,
-            <IconButton onClick={this.delete}>
+            <IconButton key="delete" onClick={this.delete}>
               <Delete />
             </IconButton>,
-            <Button color="primary" variant="contained" onClick={this.save}>
+            <Button key="save" color="primary" variant="contained" onClick={this.save}>
               Save
             </Button>,
           ]}

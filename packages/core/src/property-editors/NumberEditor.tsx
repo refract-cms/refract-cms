@@ -2,12 +2,12 @@ import * as React from 'react';
 import type { PropertyEditorProps } from '../properties/property-editor-props';
 import { TextField } from '@material-ui/core';
 
-type numberType = 'FLOAT' | 'NUMBER' | 'INT';
+type NumberType = 'FLOAT' | 'NUMBER' | 'INT';
 
 export interface TextEditorOptions {
   maxLength?: number;
   multiline?: boolean;
-  numberType: numberType;
+  numberType: NumberType;
 }
 
 const defaultOptions: TextEditorOptions = { numberType: 'NUMBER' };

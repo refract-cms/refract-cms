@@ -1,7 +1,8 @@
 import type { ServerConfig } from '../config/server-config';
-import type express from 'express';
+import type { Request } from 'express';
 
 export interface RefractGraphQLContext {
   serverConfig: ServerConfig;
-  req: express.Request;
+  req: Request;
+  baseUrl: string;
 }

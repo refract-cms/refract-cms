@@ -4,10 +4,12 @@ import {
   createMarkdownRteEditor,
   createDatePickerEditor,
   propertyBuilder,
+  createSingleEntityPickerEditor,
 } from '@refract-cms/core';
 import { CustomTextEditor } from '../editor-components/custom-text-editor';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { ArticleCategorySchema } from './article-category-schema';
+import { FileSystemImageSchema } from '@refract-cms/plugin-file-system-image';
 
 export const ArticleSchema = composeSchema({
   options: {
@@ -39,6 +41,9 @@ export const ArticleSchema = composeSchema({
       displayName: 'Date',
       editorComponent: createDatePickerEditor(),
     },
+    image: propertyBuilder.singleSchemaPicker(FileSystemImageSchema, {
+      displayName: 'Image',
+    }),
     category: propertyBuilder.singleSchemaPicker(ArticleCategorySchema, {
       displayName: 'Category',
     }),

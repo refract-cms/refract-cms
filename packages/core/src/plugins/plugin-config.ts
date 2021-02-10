@@ -1,5 +1,5 @@
-import type { Config } from '../config/config';
+import type { UserConfig } from '../config/user-config';
 
-export interface PluginConfig extends Pick<Config, 'schema'> {
-  name?: string;
+export interface PluginConfig extends Pick<UserConfig, 'schema'> {
+  name: string;
 }

@@ -1,7 +1,7 @@
 export type { Entity } from './entities/entity';
 export type { Location } from './location/location';
+export type { UserConfig } from './config/user-config';
 export type { Config } from './config/config';
-export { configure } from './config/configure';
 export { default as composeSchema } from './entities/compose-schema';
 export type { PropertyType, ActualType } from './properties/property-types';
 export type { EntitySchema, Return } from './entities/entity-schema';
@@ -37,3 +37,5 @@ export { default as createMultipleEntityPickerEditor } from './property-editors/
 export { default as createNumberEditor } from './property-editors/NumberEditor';
 export { default as createBooleanEditor } from './property-editors/BooleanEditor';
 export { default as createMarkdownRteEditor } from './property-editors/markdown-rte-editor/MarkdownRteEditor';
+
+export * from './config/build-config';

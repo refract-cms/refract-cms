@@ -1,6 +1,6 @@
-import { configure } from '@refract-cms/core';
+import { buildConfig } from '@refract-cms/core';
 import { ArticleSchema } from './schemas/article-schema';
 
-export const config = configure({
+export const config = buildConfig({
   schema: [ArticleSchema],
 });

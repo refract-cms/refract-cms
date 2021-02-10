@@ -4,7 +4,7 @@ import { createResolverPlugin } from './create-resolver-plugin';
 
 export const singleRefPlugin = createResolverPlugin({
   alias: 'singleRef',
-  buildFieldConfig: ({ propertyKey, meta, serverOptions, schemaBuilder }) => {
+  buildFieldConfig: ({ propertyKey, meta, serverConfig, schemaBuilder }) => {
     const refSchema: EntitySchema = meta.schema;
     return {
       type: schemaBuilder.getTypeFromSchema(refSchema),

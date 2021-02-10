@@ -1,10 +1,10 @@
 import type { PluginConfig } from '@refract-cms/core';
-import type { ServerPlugin } from './server-plugin';
+import type { PluginServerConfig } from './plugin-server-config';
 
 export function createServerPlugin(
   pluginConfig: PluginConfig,
-  serverPlugin: Omit<ServerPlugin, 'config'>
-): ServerPlugin {
+  serverPlugin: Omit<PluginServerConfig, 'config'>
+): PluginServerConfig {
   return {
     config: pluginConfig,
     ...serverPlugin,

@@ -1,8 +1,7 @@
-import { ServerConfig } from '@refract-cms/server';
+import { buildServerConfig } from '@refract-cms/server';
 import { config } from '../config';
 
-export const serverConfig: ServerConfig = {
-  rootPath: '/cms',
+export const serverConfig = buildServerConfig({
   config,
   mongoConnectionString: process.env.MONGO_URI,
   plugins: [],
@@ -16,4 +15,4 @@ export const serverConfig: ServerConfig = {
       secret: process.env.JWT_SECRET,
     },
   },
-};
+});

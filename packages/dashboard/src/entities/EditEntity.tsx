@@ -88,6 +88,7 @@ function mapStateToProps(state: AppState, ownProps: EditEntityProps) {
   };
 }
 
-export default combineContainers(connect(mapStateToProps), withApollo)(EditEntity) as React.ComponentType<
-  EditEntityProps
->;
+export default combineContainers(
+  connect(mapStateToProps),
+  withApollo
+)(EditEntity) as React.ComponentType<EditEntityProps>;

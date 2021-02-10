@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropertyEditorProps } from '@refract-cms/core';
+import type { PropertyEditorProps } from '@refract-cms/core';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({

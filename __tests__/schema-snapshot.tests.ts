@@ -1,6 +1,12 @@
 import { expect } from 'chai';
 import { composeSchema, Config } from '@refract-cms/core';
-import { SchemaBuilder, ServerConfig, buildServerOptions } from '@refract-cms/server';
+import {
+  SchemaBuilder,
+  ServerConfig,
+  buildServerConfig,
+  UserServerConfig,
+  PluginServerConfig,
+} from '@refract-cms/server';
 import { printSchema } from 'graphql';
 
 describe('schema tests', () => {
@@ -21,8 +27,7 @@ describe('schema tests', () => {
       schema: [TestSchema],
     };
 
-    const serverConfig: ServerConfig = {
-      rootPath: '/',
+    const serverConfig: UserServerConfig = {
       mongoConnectionString: '',
       auth: {
         adminCredentials: { username: '', password: '' },
@@ -34,7 +39,7 @@ describe('schema tests', () => {
     };
 
     var schemaBuilder = new SchemaBuilder();
-    schemaBuilder.init(buildServerOptions(serverConfig));
+    schemaBuilder.init(buildServerConfig(serverConfig));
 
     const { publicGraphQLSchema } = schemaBuilder.buildSchema(config.schema);
 
@@ -274,8 +279,7 @@ input testInput {
       schema: [TestSchema],
     };
 
-    const serverConfig: ServerConfig = {
-      rootPath: '/',
+    const serverConfig: UserServerConfig = {
       mongoConnectionString: '',
       auth: {
         adminCredentials: { username: '', password: '' },
@@ -287,7 +291,7 @@ input testInput {
     };
 
     var schemaBuilder = new SchemaBuilder();
-    schemaBuilder.init(buildServerOptions(serverConfig));
+    schemaBuilder.init(buildServerConfig(serverConfig));
 
     const { internalGraphQLSchema } = schemaBuilder.buildSchema(config.schema);
 

@@ -1,6 +1,6 @@
 import * as express from 'express';
 import graphqlHTTP from 'express-graphql';
-import type { ServerConfig } from './config/server-config';
+import type { UserServerConfig } from './config/user-server-config';
 import type { RequestHandlerParams } from 'express-serve-static-core';
 import multer from 'multer';
 import jimp from 'jimp';
@@ -13,12 +13,10 @@ import expressPlayground from 'graphql-playground-middleware-express';
 import bodyParser from 'body-parser';
 import { requireAuth } from './auth/require-auth-middleware';
 import type { RefractGraphQLContext } from './graphql/refract-graphql-context';
-import { singleRefPlugin } from './plugins/single-ref-plugin';
-import { multipleRefPlugin } from './plugins/multiple-ref-plugin';
-import { buildServerOptions } from './config/create-server-options';
 import chalk from 'chalk';
+import type { ServerConfig } from './config/server-config';
 
-const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => {
+export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerConfig }) => {
   const { config } = serverConfig;
 
   const router = express.Router();
@@ -46,14 +44,14 @@ const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => 
       });
   }
 
-  const serverOptions = buildServerOptions(serverConfig);
+  // const serverOptions = buildServerOptions(serverConfig);
   const mongooseSchemaBuilder = new MongooseSchemaBuilder();
-  mongooseSchemaBuilder.buildSchema(serverOptions.schemas);
+  mongooseSchemaBuilder.buildSchema(serverConfig.config.schema);
 
-  schemaBuilder.init(serverOptions);
-  const { publicGraphQLSchema, internalGraphQLSchema } = schemaBuilder.buildSchema(serverOptions.schemas);
+  schemaBuilder.init(serverConfig);
+  const { publicGraphQLSchema, internalGraphQLSchema } = schemaBuilder.buildSchema(serverConfig.config.schema);
 
-  serverOptions.routers.forEach((routerDef) => {
+  serverConfig.routers.forEach((routerDef) => {
     router.use(`/plugins/${routerDef.alias.toLowerCase()}`, routerDef.router);
   });
 
@@ -63,6 +61,7 @@ const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => 
       const context: RefractGraphQLContext = {
         req,
         serverConfig,
+        baseUrl: req.baseUrl.replace('/graphql', ''),
       };
       return {
         schema: publicGraphQLSchema,
@@ -91,7 +90,10 @@ const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => 
     })
   );
 
-  router.get('/graphql-playground', expressPlayground({ endpoint: `${serverConfig.rootPath}/graphql` }));
+  router.get('/graphql-playground', (req, res, next) => {
+    const endpoint = `${req.baseUrl}/graphql`;
+    return expressPlayground({ endpoint })(req, res, next);
+  });
 
   // const filesRepository = new MongoRepository<FileModel>('files', db!);
 
@@ -122,7 +124,6 @@ const refractCmsHandler = ({ serverConfig }: { serverConfig: ServerConfig }) => 
   //   res.send(req.file);
   // });
 
-  return [serverConfig.rootPath || '', router] as RequestHandlerParams[];
+  // return [serverConfig.rootPath || '', router] as RequestHandlerParams[];
+  return router;
 };
-
-export default refractCmsHandler;
