@@ -3,11 +3,11 @@ import type { ResolverPlugin } from '../plugins/resolver-plugin';
 import type { Events } from '../events/events';
 import type { Router } from 'express';
 import type { UserServerConfig } from './user-server-config';
-import type { ServerPluginConfig } from '../plugins/server-plugin-config';
+import type { PluginServerConfig } from '../plugins/plugin-server-config';
 
 export interface ServerConfig {
   config: UserServerConfig['config'];
-  resolverPlugins: Required<ServerPluginConfig['resolverPlugins']>;
+  resolverPlugins: Required<PluginServerConfig['resolverPlugins']>;
   events: Events[];
   routers: {
     alias: string;

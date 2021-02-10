@@ -1,7 +1,7 @@
 import type { UserConfig, PropertyType, Config } from '@refract-cms/core';
 import { ResolverPlugin } from '../plugins/resolver-plugin';
 import { ASTNode } from 'graphql';
-import type { ServerPluginConfig } from '../plugins/server-plugin-config';
+import type { PluginServerConfig } from '../plugins/plugin-server-config';
 import type { Events } from '../events/events';
 
 export interface UserServerConfig {
@@ -17,7 +17,7 @@ export interface UserServerConfig {
       secret: string;
     };
   };
-  plugins: ServerPluginConfig[];
+  plugins: PluginServerConfig[];
   events?: Events;
   resolvers?: {
     [key: string]: {

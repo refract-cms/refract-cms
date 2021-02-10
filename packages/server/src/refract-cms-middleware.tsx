@@ -61,6 +61,7 @@ export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerCon
       const context: RefractGraphQLContext = {
         req,
         serverConfig,
+        baseUrl: req.baseUrl.replace('/graphql', ''),
       };
       return {
         schema: publicGraphQLSchema,
@@ -126,4 +127,3 @@ export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerCon
   // return [serverConfig.rootPath || '', router] as RequestHandlerParams[];
   return router;
 };
-

@@ -1,4 +1,3 @@
-import type React from 'react';
 import type { PropertyEditorProps } from './property-editor-props';
 import type { PropertyType, ActualType } from './property-types';
 import type { Return } from '../entities/entity-schema';

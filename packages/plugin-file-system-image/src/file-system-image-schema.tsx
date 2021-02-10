@@ -7,10 +7,11 @@ import { FileService } from './file-service';
 
 export const FileSystemImageSchema = composeSchema({
   options: {
-    alias: 'file',
+    alias: 'image',
     displayName: 'Image',
     icon: ImageIcon,
     instanceDisplayProps: (file, { context }) => {
+      console.log({ context });
       const fileService = new FileService(context.serverUrl);
       return {
         primaryText: file.name || file._id,

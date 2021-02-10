@@ -11,7 +11,9 @@ export class FileService {
 
   buildImageUrl = ({ fileId, pixelCrop }: { fileId: string; pixelCrop?: Crop['pixelCrop'] }) => {
     const cropQuery = pixelCrop ? `?${queryString.stringify(pixelCrop)}` : '';
-    return url.resolve(this.serverUrl, `/plugins/filesystemimage/files/${fileId}${cropQuery}`);
+    // return new url.URL(`/plugins/filesystemimage/files/${fileId}${cropQuery}`, this.serverUrl);
+    // return url.resolve(this.serverUrl, `/plugins/filesystemimage/files/${fileId}${cropQuery}`);
+    return `${this.serverUrl}/plugins/filesystemimage/files/${fileId}${cropQuery}`;
   };
 
   // upload = (file: File) => {
