@@ -1,16 +1,16 @@
-require("@babel/register")({
+require('@babel/register')({
   cache: false,
-  extensions: [".ts", ".tsx"],
+  extensions: ['.ts', '.tsx'],
   presets: [
     [
-      "@babel/preset-env",
+      '@babel/preset-env',
       {
         targets: {
-          node: "current",
+          node: 'current',
         },
       },
     ],
-    "@babel/preset-typescript",
-    "@babel/preset-react",
+    '@babel/preset-typescript',
+    '@babel/preset-react',
   ],
 });

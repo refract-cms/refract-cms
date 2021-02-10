@@ -1,4 +1,4 @@
 export default {
-  title: "Refract CMS Docs",
+  title: 'Refract CMS Docs',
   typescript: true,
 };

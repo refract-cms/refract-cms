@@ -38,16 +38,12 @@ npm start
 Create a `ts` file inside directory: `./src/config/schemas`, e.g. `product-schema.ts`
 
 ```tsx
-import {
-  composeSchema,
-  createTextEditor,
-  createBooleanEditor,
-} from "@refract-cms/core";
+import { composeSchema, createTextEditor, createBooleanEditor } from '@refract-cms/core';
 
 export const ProductSchema = composeSchema({
   options: {
-    alias: "product",
-    displayName: "Product",
+    alias: 'product',
+    displayName: 'Product',
     instanceDisplayProps: (product) => ({
       primaryText: product.title,
     }),
@@ -55,12 +51,12 @@ export const ProductSchema = composeSchema({
   properties: {
     title: {
       type: String,
-      displayName: "Title",
+      displayName: 'Title',
       editorComponent: createTextEditor(),
     },
     active: {
       type: Boolean,
-      displayName: "Active",
+      displayName: 'Active',
       editorComponent: createBooleanEditor(),
     },
   },
@@ -72,8 +68,8 @@ export const ProductSchema = composeSchema({
 Edit file `./src/config/index.ts`
 
 ```tsx
-import { configure } from "@refract-cms/core";
-import { ProductSchema } from "./schemas/product-schema";
+import { configure } from '@refract-cms/core';
+import { ProductSchema } from './schemas/product-schema';
 
 export const config = configure({
   schema: [
@@ -103,9 +99,9 @@ The props are typed based on what the target type for this editor is e.g. `Prope
 To apply styles is to utilize JSS `useStyles` hook from material-ui.
 
 ```tsx
-import React from "react";
-import { PropertyEditorProps } from "@refract-cms/core";
-import { makeStyles } from "@material-ui/core";
+import React from 'react';
+import { PropertyEditorProps } from '@refract-cms/core';
+import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   paragraph: {
@@ -119,9 +115,7 @@ export function CustomTextEditor(props: PropertyEditorProps<string>) {
   const { value, setValue } = props;
   return (
     <div>
-      <p className={classes.paragraph}>
-        This is an example of a basic custom editor component
-      </p>
+      <p className={classes.paragraph}>This is an example of a basic custom editor component</p>
       <input value={value} onChange={(e) => setValue(e.target.value)} />
     </div>
   );

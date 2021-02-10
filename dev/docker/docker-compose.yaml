@@ -1,9 +1,9 @@
-version: "3"
+version: '3'
 services:
   mongo:
     image: mongo
     ports:
-      - "27022:27017"
+      - '27022:27017'
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=hqXzNv2f5YC45veW
@@ -13,7 +13,7 @@ services:
   mongoexpress:
     image: mongo-express
     ports:
-      - "8081:8081"
+      - '8081:8081'
     environment:
       - ME_CONFIG_MONGODB_AUTH_USERNAME=root
       - ME_CONFIG_MONGODB_AUTH_PASSWORD=hqXzNv2f5YC45veW

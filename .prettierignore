@@ -1,3 +1,4 @@
 **/pkg/
 **/.next/
 **/create-template-razzle/build
+dev/server/lib/**
