@@ -68,10 +68,10 @@ export const ProductSchema = composeSchema({
 Edit file `./src/config/index.ts`
 
 ```tsx
-import { configure } from '@refract-cms/core';
+import { buildConfig } from '@refract-cms/core';
 import { ProductSchema } from './schemas/product-schema';
 
-export const config = configure({
+export const config = buildConfig({
   schema: [
     ProductSchema,
     // The rest of the schemas
@@ -162,3 +162,18 @@ Ensure the following environment varibles are set in your production environment
 npm run build
 npm run start:prod
 ```
+
+## Contributing
+
+```bash
+yarn
+yarn dev
+```
+
+### Urls for dev project
+
+Frontend: <http://localhost:3000>
+
+Admin Dashboard: <http://localhost:3000/admin> (Login with `admin / pw`)
+
+GraphQL: <http://localhost:4100/cms/graphql>
