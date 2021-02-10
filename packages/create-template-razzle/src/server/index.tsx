@@ -1,15 +1,17 @@
 import express from 'express';
-import { refractCmsHandler } from '@refract-cms/server';
+import { refractCmsMiddleware } from '@refract-cms/server';
 import { serverConfig } from './server-config';
 import chalk from 'chalk';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
+const cmsRoute = '/cms';
+
 const server = express();
 server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
-  .use(...refractCmsHandler({ serverConfig }))
+  .use(cmsRoute, refractCmsMiddleware({ serverConfig }))
   .get('/*', (req, res) => {
     res.status(200).send(
       `<!doctype html>
@@ -38,7 +40,7 @@ server
   });
 
 const PORT = process.env.PORT || 3000;
-console.log(chalk.magenta(`GraphQL endpoint: http://localhost:${PORT}${serverConfig.rootPath}/graphql`));
+console.log(chalk.magenta(`GraphQL endpoint: http://localhost:${PORT}${cmsRoute}/graphql`));
 console.log(chalk.blue(`CMS Dashboard: http://localhost:${PORT}`));
 if (process.env.NODE_ENV === 'development') {
   console.log(

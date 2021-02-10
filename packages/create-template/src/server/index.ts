@@ -1,5 +1,5 @@
 import express from 'express';
-import { refractCmsHandler, ServerConfig } from '@refract-cms/server';
+import { refractCmsMiddleware, buildServerConfig } from '@refract-cms/server';
 import { config } from '../config';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
@@ -9,8 +9,7 @@ dotenv.config();
 
 const app = express();
 
-const serverConfig: ServerConfig = {
-  rootPath: '/cms',
+const serverConfig = buildServerConfig({
   config,
   mongoConnectionString: process.env.MONGO_URI,
   plugins: [],
@@ -24,9 +23,11 @@ const serverConfig: ServerConfig = {
       secret: process.env.JWT_SECRET,
     },
   },
-};
+});
 
-app.use(...refractCmsHandler({ serverConfig }));
+const cmsRoute = '/cms';
+
+app.use(cmsRoute, refractCmsMiddleware({ serverConfig }));
 
 app.use('/client', express.static(path.resolve(__dirname, 'client')));
 
@@ -40,7 +41,7 @@ const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
-  console.log(chalk.magenta(`GraphQL endpoint: http://localhost:${PORT}${serverConfig.rootPath}/graphql`));
+  console.log(chalk.magenta(`GraphQL endpoint: http://localhost:${PORT}${cmsRoute}/graphql`));
   console.log(chalk.blue(`CMS Dashboard: http://localhost:${PORT}`));
   if (process.env.NODE_ENV === 'development') {
     console.log(
