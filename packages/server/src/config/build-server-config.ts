@@ -3,7 +3,7 @@ import type { ServerConfig } from './server-config';
 import { EntitySchema } from '@refract-cms/core';
 import express from 'express';
 import type { UserServerConfig } from './user-server-config';
-import type { PluginServerConfig} from '../plugins/plugin-server-config';
+import type { PluginServerConfig } from '../plugins/plugin-server-config';
 import { singleRefPlugin } from '../plugins/single-ref-plugin';
 import { multipleRefPlugin } from '../plugins/multiple-ref-plugin';
 
@@ -15,15 +15,15 @@ export function buildServerConfig(userServerConfig: UserServerConfig): ServerCon
       resolverPlugins.push(...plugin.resolverPlugins);
     }
   });
-  const routers : ServerConfig['routers']= [];
-  plugins.forEach(plugin => {
+  const routers: ServerConfig['routers'] = [];
+  plugins.forEach((plugin) => {
     if (plugin.configureRouter) {
       const router = express.Router();
       plugin.configureRouter(router);
       routers.push({
         alias: plugin.config.name,
-        router
-      })
+        router,
+      });
     }
   });
   return {

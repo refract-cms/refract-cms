@@ -1,5 +1,5 @@
 import express from 'express';
-import { refractCmsMiddleware} from '@refract-cms/server';
+import { refractCmsMiddleware } from '@refract-cms/server';
 import { serverConfig } from './server-config';
 import cors from 'cors';
 import chalk from 'chalk';
