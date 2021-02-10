@@ -5,7 +5,7 @@ import {
   ServerConfig,
   buildServerConfig,
   UserServerConfig,
-  ServerPluginConfig,
+  PluginServerConfig,
 } from '@refract-cms/server';
 import { printSchema } from 'graphql';
 
