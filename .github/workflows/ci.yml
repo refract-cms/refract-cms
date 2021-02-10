@@ -32,11 +32,20 @@ jobs:
         run: |
           yarn
 
-      - name: Yarn test
+      - name: Test
         run: |
-          yarn test 
+          yarn test
+
+      - name: Typecheck
+        run: |
           yarn typecheck
+
+      - name: Prettier
+        run: |
           yarn prettier
+
+      - name: Lint
+        run: |
           yarn lint
 
       - name: Yarn build
