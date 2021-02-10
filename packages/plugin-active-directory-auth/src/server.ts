@@ -8,13 +8,13 @@ export const activeDirectoryServerPlugin = createServerPlugin(activeDirectoryPlu
     onSchemaBuilt: () => console.log('hi from ad plugin'),
   },
   configureRouter: (router) => {
-    const tenantId = '';
-    const clientId = '';
-    const clientSecret = '';
+    // const tenantId = '';
+    // const clientId = '';
+    // const clientSecret = '';
     passport.use(
       new OIDCStrategy(
         {
-          redirectUrl: 'http://localhost:4100/cms/graphql',
+          redirectUrl: 'http://localhost:7071/cms/graphql',
           allowHttpForRedirectUrl: true,
           clientID: clientId,
           clientSecret: clientSecret,
