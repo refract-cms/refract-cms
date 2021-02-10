@@ -2,9 +2,10 @@ const { merge } = require('webpack-merge');
 const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
+// https://razzlejs.org/docs/customization
 module.exports = {
-  modify(config, args, webpack) {
-    return merge(config, {
+  modifyWebpackConfig({ env, webpackConfig }) {
+    return merge(webpackConfig, {
       module: {
         rules: [
           {
