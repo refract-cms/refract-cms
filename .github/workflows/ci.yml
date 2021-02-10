@@ -36,6 +36,8 @@ jobs:
         run: |
           yarn test 
           yarn typecheck
+          yarn prettier
+          yarn lint
 
       - name: Yarn build
         run: |

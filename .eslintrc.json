@@ -27,9 +27,9 @@
     "browser": true,
     "node": true
   },
-  "plugins": ["@typescript-eslint", "prettier", "react", "unicorn"],
+  "plugins": ["@typescript-eslint", "prettier", "react", "unicorn", "import"],
   "rules": {
-    "import/no-default-export": 2,
+    "import/no-default-export": 1,
     "prettier/prettier": ["error"],
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/naming-convention": [
