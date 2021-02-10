@@ -3,13 +3,13 @@ import type { ServerConfig } from './server-config';
 import { EntitySchema } from '@refract-cms/core';
 import express from 'express';
 import type { UserServerConfig } from './user-server-config';
-import type { ServerPluginConfig } from '../plugins/server-plugin-config';
+import type { PluginServerConfig} from '../plugins/plugin-server-config';
 import { singleRefPlugin } from '../plugins/single-ref-plugin';
 import { multipleRefPlugin } from '../plugins/multiple-ref-plugin';
 
-export function buildServerConfig(UserServerConfig: UserServerConfig): ServerConfig {
-  const { auth, plugins, config, mongoConnectionString, events, resolvers } = UserServerConfig;
-  const resolverPlugins: ServerPluginConfig['resolverPlugins'] = [singleRefPlugin, multipleRefPlugin];
+export function buildServerConfig(userServerConfig: UserServerConfig): ServerConfig {
+  const { auth, plugins, config, mongoConnectionString, events, resolvers } = userServerConfig;
+  const resolverPlugins: PluginServerConfig['resolverPlugins'] = [singleRefPlugin, multipleRefPlugin];
   plugins.forEach((plugin) => {
     if (plugin.resolverPlugins) {
       resolverPlugins.push(...plugin.resolverPlugins);

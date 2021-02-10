@@ -25,16 +25,19 @@ import { singleRefPlugin } from '../plugins/single-ref-plugin';
 import { multipleRefPlugin } from '../plugins/multiple-ref-plugin';
 import produce from 'immer';
 import type { ServerConfig } from '../config/server-config';
+import { EventService } from '../events/event-service';
 
 export class SchemaBuilder {
   types: GraphQLObjectType[] = [];
   inputTypes: GraphQLInputObjectType[] = [];
   serverConfig: ServerConfig;
+  eventService: EventService;
 
   init(serverConfig: ServerConfig) {
     this.types = [];
     this.inputTypes = [];
     this.serverConfig = serverConfig;
+    this.eventService = new EventService(serverConfig);
     // this.serverConfig = produce(serverConfig, (newServerOptions) => {
     //   newServerOptions.resolverPlugins = newServerOptions.resolverPlugins || [];
     //   newServerOptions.resolverPlugins.push(singleRefPlugin);
@@ -113,11 +116,7 @@ export class SchemaBuilder {
 
     const internalGraphQLSchema = new GraphQLSchema({ query: internalQuery, mutation });
 
-    this.serverConfig.events
-      .filter((e) => Boolean(e.onSchemaBuilt))
-      .forEach((events) => {
-        events.onSchemaBuilt(publicGraphQLSchema);
-      });
+    this.eventService.onSchemaBuilt(publicGraphQLSchema);
 
     return {
       publicGraphQLSchema,

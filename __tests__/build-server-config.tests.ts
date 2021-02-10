@@ -3,7 +3,7 @@ import {
   ServerConfig,
   UserServerConfig,
   buildServerConfig,
-  ServerPluginConfig,
+  PluginServerConfig,
   EventService,
 } from '@refract-cms/server';
 import { expect } from 'chai';
@@ -29,7 +29,7 @@ describe('buildServerConfig - with ad plugin', () => {
       schema: [ActiveDirectoryUserSchema],
     };
 
-    const adPluginServerConfig: ServerPluginConfig = {
+    const adPluginServerConfig: PluginServerConfig = {
       config: adPluginConfig,
       configureRouter: (router) => {
         //
@@ -43,7 +43,7 @@ describe('buildServerConfig - with ad plugin', () => {
 
     const config = buildConfig(userConfig);
 
-    const UserServerConfig: UserServerConfig = {
+    const userServerConfig: UserServerConfig = {
       config,
       mongoConnectionString: '',
       plugins: [adPluginServerConfig],
@@ -59,8 +59,8 @@ describe('buildServerConfig - with ad plugin', () => {
       },
     };
 
-    const serverConfig = buildServerConfig(UserServerConfig);
-    
+    const serverConfig = buildServerConfig(userServerConfig);
+
     expect(serverConfig.config.schema.length).to.equal(2);
     expect(serverConfig.routers.length).to.equal(1);
   });
@@ -73,7 +73,7 @@ describe('buildServerConfig - with ad plugin', () => {
 
     let adPluginOnSaveEventFired = false;
 
-    const adPluginServerConfig: ServerPluginConfig = {
+    const adPluginServerConfig: PluginServerConfig = {
       config: adPluginConfig,
       configureRouter: (router) => {
         //
@@ -92,7 +92,7 @@ describe('buildServerConfig - with ad plugin', () => {
 
     let UserServerConfigOnSaveEventFired = false;
 
-    const UserServerConfig: UserServerConfig = {
+    const userServerConfig: UserServerConfig = {
       config,
       mongoConnectionString: '',
       plugins: [adPluginServerConfig],
@@ -113,7 +113,7 @@ describe('buildServerConfig - with ad plugin', () => {
       },
     };
 
-    const serverConfig = buildServerConfig(UserServerConfig);
+    const serverConfig = buildServerConfig(userServerConfig);
     const eventService = new EventService(serverConfig);
 
     eventService.onSave();

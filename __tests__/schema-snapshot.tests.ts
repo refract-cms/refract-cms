@@ -28,7 +28,6 @@ describe('schema tests', () => {
     };
 
     const serverConfig: UserServerConfig = {
-      rootPath: '/',
       mongoConnectionString: '',
       auth: {
         adminCredentials: { username: '', password: '' },
@@ -281,7 +280,6 @@ input testInput {
     };
 
     const serverConfig: UserServerConfig = {
-      rootPath: '/',
       mongoConnectionString: '',
       auth: {
         adminCredentials: { username: '', password: '' },
