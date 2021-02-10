@@ -95,17 +95,17 @@ class EntitiesList extends Component<Props, State> {
                 actionComponents={
                   !entitySchema.options.maxOne
                     ? [
-                        <IconButton disabled={loading} onClick={() => refetch(variables)}>
+                        <IconButton key="refresh" disabled={loading} onClick={() => refetch(variables)}>
                           <Refresh />
                         </IconButton>,
-                        <IconButton onClick={() => this.setState({ sortDialogOpen: true })}>
+                        <IconButton key="sort" onClick={() => this.setState({ sortDialogOpen: true })}>
                           <Tooltip title="Sort">
                             <Badge variant="dot" badgeContent={entityItemState.orderByField ? 1 : 0} color="secondary">
                               <Sort />
                             </Badge>
                           </Tooltip>
                         </IconButton>,
-                        <IconButton onClick={() => this.setState({ filterDialogOpen: true })}>
+                        <IconButton key="filter" onClick={() => this.setState({ filterDialogOpen: true })}>
                           <Tooltip title="Filters">
                             <Badge badgeContent={entityItemState.filters.length} color="secondary">
                               <Filter />
@@ -113,6 +113,7 @@ class EntitiesList extends Component<Props, State> {
                           </Tooltip>
                         </IconButton>,
                         <Button
+                          key="new"
                           variant="contained"
                           color="primary"
                           component={createLinkComponent(

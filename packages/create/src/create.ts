@@ -34,7 +34,7 @@ export function create(args: { name: string }) {
 
   const npmInstall = () => {
     return new Promise<void>((resolve, reject) => {
-      var process = spawn('npm install', { shell: true, cwd: targetDir });
+      const process = spawn('npm install', { shell: true, cwd: targetDir });
       spinner.start();
       process.on('exit', () => {
         resolve();
