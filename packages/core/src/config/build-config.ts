@@ -12,5 +12,6 @@ export function buildConfig(config: UserConfig): Config {
   }
   return {
     schema,
+    languages: config.languages,
   };
 }

@@ -11,6 +11,12 @@ import {
   GraphQLInputType,
   GraphQLInt,
   GraphQLScalarType,
+  GraphQLEnumType,
+  GraphQLEnumValueConfig,
+  GraphQLEnumValueConfigMap,
+  GraphQLObjectTypeConfig,
+  Thunk,
+  GraphQLFieldConfigMap,
 } from 'graphql';
 import type mongoose from 'mongoose';
 // import { Properties, buildHelpers } from '../create-public-schema';
@@ -32,17 +38,23 @@ export class SchemaBuilder {
   inputTypes: GraphQLInputObjectType[] = [];
   serverConfig: ServerConfig;
   eventService: EventService;
+  languageType: any;
 
   init(serverConfig: ServerConfig) {
     this.types = [];
     this.inputTypes = [];
     this.serverConfig = serverConfig;
     this.eventService = new EventService(serverConfig);
-    // this.serverConfig = produce(serverConfig, (newServerOptions) => {
-    //   newServerOptions.resolverPlugins = newServerOptions.resolverPlugins || [];
-    //   newServerOptions.resolverPlugins.push(singleRefPlugin);
-    //   newServerOptions.resolverPlugins.push(multipleRefPlugin);
-    // });
+    const languageTypeValues: GraphQLEnumValueConfigMap = serverConfig.config.languages.reduce((acc, language) => {
+      acc[language] = {
+        value: language,
+      } as GraphQLEnumValueConfig;
+      return acc;
+    }, {});
+    this.languageType = new GraphQLEnumType({
+      name: 'Language',
+      values: languageTypeValues,
+    });
   }
 
   getTypeFromSchema<T>(entitySchema: EntitySchema<T>) {
@@ -61,7 +73,7 @@ export class SchemaBuilder {
   }
 
   buildSchema(schema: EntitySchema[]) {
-    let publicQueryFields = {};
+    let publicQueryFields: Thunk<GraphQLFieldConfigMap<any, any, any>> = {};
     schema.forEach((entitySchema) => {
       const type = this.buildGraphQLObjectFromSchema({
         entitySchema,
@@ -85,7 +97,7 @@ export class SchemaBuilder {
 
     const publicGraphQLSchema = new GraphQLSchema({ query: publicQuery });
 
-    let internalQueryFields = {};
+    let internalQueryFields: Thunk<GraphQLFieldConfigMap<any, any, any>> = {};
     schema.forEach((entitySchema) => {
       const repository = repositoryForSchema(entitySchema);
       internalQueryFields = {
@@ -169,7 +181,7 @@ export class SchemaBuilder {
     entitySchema: EntitySchema<TEntity>,
     repository: mongoose.Model<TEntity>,
     type: GraphQLObjectType
-  ) {
+  ): Thunk<GraphQLFieldConfigMap<any, any, any>> {
     const entityType = this.buildGraphQLObjectFromSchema({
       entitySchema,
       prefixName: '',
@@ -178,7 +190,7 @@ export class SchemaBuilder {
     });
     const inputType = this.buildInput(`${entitySchema.options.alias}Input`, entitySchema.properties);
     const args = getGraphQLQueryArgs(entityType);
-    const resolvers = {
+    const resolvers: Thunk<GraphQLFieldConfigMap<any, any, any>> = {
       [`${entitySchema.options.alias}Count`]: {
         type: GraphQLInt,
         args: {
@@ -203,15 +215,15 @@ export class SchemaBuilder {
           }
         ),
       },
-      [`${entitySchema.options.alias}Preview`]: {
-        type,
-        args: {
-          record: { type: inputType },
-        },
-        resolve: (_, { record }, { userId }) => {
-          return record;
-        },
-      },
+      // [`${entitySchema.options.alias}Preview`]: {
+      //   type,
+      //   args: {
+      //     record: { type: inputType },
+      //   },
+      //   resolve: (_, { record }, { userId }) => {
+      //     return record;
+      //   },
+      // },
     };
 
     if (entitySchema.options.maxOne) {

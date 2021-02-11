@@ -8,4 +8,6 @@ import { fileSystemImagePluginConfig } from '@refract-cms/plugin-file-system-ima
 export const config = buildConfig({
   schema: [ArticleSchema, ArticleCategorySchema],
   plugins: [activeDirectoryPluginConfig, fileSystemImagePluginConfig],
+  languages: ['en', 'dk'],
+  defaultLanguage: 'en',
 });
