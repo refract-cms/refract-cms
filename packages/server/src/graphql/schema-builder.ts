@@ -38,7 +38,7 @@ export class SchemaBuilder {
   inputTypes: GraphQLInputObjectType[] = [];
   serverConfig: ServerConfig;
   eventService: EventService;
-  languageType: any;
+  languageEnumType: GraphQLEnumType;
 
   init(serverConfig: ServerConfig) {
     this.types = [];
@@ -51,7 +51,7 @@ export class SchemaBuilder {
       } as GraphQLEnumValueConfig;
       return acc;
     }, {});
-    this.languageType = new GraphQLEnumType({
+    this.languageEnumType = new GraphQLEnumType({
       name: 'Language',
       values: languageTypeValues,
     });
@@ -73,7 +73,16 @@ export class SchemaBuilder {
   }
 
   buildSchema(schema: EntitySchema[]) {
-    let publicQueryFields: Thunk<GraphQLFieldConfigMap<any, any, any>> = {};
+    let publicQueryFields: Thunk<GraphQLFieldConfigMap<any, any, any>> = {
+      getLanguages: {
+        type: new GraphQLList(this.languageEnumType),
+        resolve: () => this.serverConfig.config.languages,
+      },
+      defaultLanguage: {
+        type: this.languageEnumType,
+        resolve: () => this.serverConfig.config.defaultLanguage,
+      },
+    };
     schema.forEach((entitySchema) => {
       const type = this.buildGraphQLObjectFromSchema({
         entitySchema,
@@ -97,7 +106,16 @@ export class SchemaBuilder {
 
     const publicGraphQLSchema = new GraphQLSchema({ query: publicQuery });
 
-    let internalQueryFields: Thunk<GraphQLFieldConfigMap<any, any, any>> = {};
+    let internalQueryFields: Thunk<GraphQLFieldConfigMap<any, any, any>> = {
+      getLanguages: {
+        type: new GraphQLList(this.languageEnumType),
+        resolve: () => this.serverConfig.config.languages,
+      },
+      defaultLanguage: {
+        type: this.languageEnumType,
+        resolve: () => this.serverConfig.config.defaultLanguage,
+      },
+    };
     schema.forEach((entitySchema) => {
       const repository = repositoryForSchema(entitySchema);
       internalQueryFields = {
@@ -215,15 +233,15 @@ export class SchemaBuilder {
           }
         ),
       },
-      // [`${entitySchema.options.alias}Preview`]: {
-      //   type,
-      //   args: {
-      //     record: { type: inputType },
-      //   },
-      //   resolve: (_, { record }, { userId }) => {
-      //     return record;
-      //   },
-      // },
+      [`${entitySchema.options.alias}Preview`]: {
+        type,
+        args: {
+          record: { type: inputType },
+        },
+        resolve: (_, { record }, { userId }) => {
+          return record;
+        },
+      },
     };
 
     if (entitySchema.options.maxOne) {
@@ -396,7 +414,7 @@ export class SchemaBuilder {
       [key: string]: PropertyOptions<any, any>;
     }
   ) {
-    const existingType = this.types.find((t) => t.name === alias);
+    const existingType = this.inputTypes.find((t) => t.name === alias);
 
     if (existingType) {
       return existingType;
