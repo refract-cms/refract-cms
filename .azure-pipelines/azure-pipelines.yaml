@@ -3,53 +3,84 @@ trigger:
 
 variables:
   - group: docker
-  # - name: DOCKER_BUILDKIT
-  #   value: 1
-  # - name: DOCKER_CLI_EXPERIMENTAL
-  #   value: enabled
+  - group: Secrets
   - name: tag
-    value: "0.1.$(Build.BuildId)"
+    value: '0.1.$(Build.BuildId)'
   - name: cache_tag
     value: cache-master
 
-jobs:
-  - job: Build
+stages:
+  - stage: Build
     pool:
       vmImage: ubuntu-20.04
-    steps:
-      # - script: sudo service docker restart
+    jobs:
+      - job: Pulumi
+        steps:
+          - script: |
+              curl -fsSL https://get.pulumi.com | sh
+              export PATH=$PATH:/home/vsts/.pulumi/bin
+              echo '##vso[task.prependpath]/home/vsts/.pulumi/bin'
+            displayName: Install Pulumi
 
-      - script: |
-          helm template ./iac/helm-charts/refract-cms-web --set env=$(Build.SourceBranchName) --set tag=$(tag) --set dockerUsername=$(dockerUsername)
-        displayName: Template helm chart
+          - script: |
+              npm install
+              pulumi preview --stack master
+            workingDirectory: iac/pulumi
+            displayName: Pulumi preview
 
-      - script: docker login -u $(dockerUsername) -p "$(dockerPassword)"
+      - job: Build
+        steps:
+          - script: |
+              helm template ./iac/helm-charts/refract-cms-web --set env=$(Build.SourceBranchName) --set tag=$(tag) --set dockerUsername=$(dockerUsername)
+            displayName: Template helm chart
 
-      - script: |
-          docker version
-          docker buildx ls
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-          docker buildx create --name builder --driver docker-container --use
-          docker buildx inspect --bootstrap
-          docker buildx ls
+          - script: docker login -u $(dockerUsername) -p "$(dockerPassword)"
 
-      - script: |
-          image=$(dockerUsername)/refract-cms-website
-          docker buildx build \
-            -t "${image}:$(tag)" \
-            --platform linux/arm64,linux/amd64 \
-            --push \
-            --progress=plain \
-            -f ./iac/dockerfiles/website.Dockerfile .
-        displayName: "Build website"
+          - script: |
+              docker version
+              docker buildx ls
+              docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+              docker buildx create --name builder --driver docker-container --use
+              docker buildx inspect --bootstrap
+              docker buildx ls
 
-  - job: Deploy
+          - script: |
+              image=$(dockerUsername)/refract-cms-website
+              docker buildx build \
+                -t "${image}:$(tag)" \
+                --platform linux/arm64,linux/amd64 \
+                --push \
+                --progress=plain \
+                -f ./iac/dockerfiles/website.Dockerfile .
+            displayName: 'Build website'
+
+  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  - stage: Deploy
+    displayName: Deploy
     dependsOn:
       - Build
-    # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    pool:
-      name: Default
-      demands:
-        - ARM_CLUSTER
-    steps:
-      - script: helm upgrade refract-cms-website --install --namespace refract-cms-$(Build.SourceBranchName) --create-namespace ./iac/helm-charts/refract-cms-web --set env=$(Build.SourceBranchName) --set tag=$(tag) --set dockerUsername=$(dockerUsername)
+    jobs:
+      - job: Deploy_Pulumi
+        displayName: Deploy Pulumi
+        pool:
+          vmImage: ubuntu-20.04
+        steps:
+          - script: |
+              curl -fsSL https://get.pulumi.com | sh
+              export PATH=$PATH:/home/vsts/.pulumi/bin
+              echo '##vso[task.prependpath]/home/vsts/.pulumi/bin'
+            displayName: Install Pulumi
+
+          - script: |
+              npm install
+              pulumi up --stack master
+            workingDirectory: iac/pulumi
+            displayName: Pulumi up
+
+      - job: Deploy
+        pool:
+          name: Default
+          demands:
+            - ARM_CLUSTER
+        steps:
+          - script: helm upgrade refract-cms-website --install --namespace refract-cms-$(Build.SourceBranchName) --create-namespace ./iac/helm-charts/refract-cms-web --set env=$(Build.SourceBranchName) --set tag=$(tag) --set dockerUsername=$(dockerUsername)
