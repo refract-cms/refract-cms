@@ -19,6 +19,10 @@ jobs:
     steps:
       # - script: sudo service docker restart
 
+      - script: |
+          helm template ./iac/helm-charts/refract-cms-web --set env=$(Build.SourceBranchName) --set tag=$(tag) --set dockerUsername=$(dockerUsername)
+        displayName: Template helm chart
+
       - script: docker login -u $(dockerUsername) -p "$(dockerPassword)"
 
       - script: |
@@ -33,7 +37,7 @@ jobs:
           image=$(dockerUsername)/refract-cms-website
           docker buildx build \
             -t "${image}:$(tag)" \
-            --platform linux/arm64 \
+            --platform linux/arm64,linux/amd64 \
             --push \
             --progress=plain \
             -f ./iac/dockerfiles/website.Dockerfile .
@@ -48,4 +52,4 @@ jobs:
       demands:
         - ARM_CLUSTER
     steps:
-      - script: helm upgrade refract-cms-website --install --namespace refract-cms-$(Build.SourceBranchName) --create-namespace ./iac/helm-charts/refract-cms-web --set tag=$(tag) --set dockerUsername=$(dockerUsername)
+      - script: helm upgrade refract-cms-website --install --namespace refract-cms-$(Build.SourceBranchName) --create-namespace ./iac/helm-charts/refract-cms-web --set env=$(Build.SourceBranchName) --set tag=$(tag) --set dockerUsername=$(dockerUsername)
