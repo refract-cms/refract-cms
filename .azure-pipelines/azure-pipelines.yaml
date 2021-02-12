@@ -17,10 +17,6 @@ jobs:
     pool:
       vmImage: ubuntu-20.04
     steps:
-      - script: |
-          helm template ./iac/helm-charts/sample-app
-        displayName: Template helm chart
-
       # - script: sudo service docker restart
 
       - script: docker login -u $(dockerUsername) -p "$(dockerPassword)"
