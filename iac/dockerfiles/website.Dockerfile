@@ -11,7 +11,7 @@ COPY ./website/ ./website/
 WORKDIR /app/website/
 RUN yarn build
 
-FROM nginx:1.12-alpine
+FROM nginx
 
 COPY --from=builder /app/website/build /etc/nginx/html
 COPY --from=builder /app/website/nginx.conf /etc/nginx/nginx.conf
