@@ -42,21 +42,17 @@ jobs:
             --cache-to=type=registry,ref=${image}:$(cache_tag),mode=max \
             --push \
             --progress=plain \
-            ./website
+            -f ./iac/dockerfiles/website.Dockerfile \
+            .
         displayName: "Build website"
 
   - job: Deploy
     dependsOn:
       - Build
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     pool:
       name: Default
       demands:
         - ARM_CLUSTER
     steps:
-      - script: kubectl get pods --all-namespaces
-        displayName: "Run a one-line script"
-
-      - script: ls
-
       - script: helm upgrade refract-cms-website --install --namespace refract-cms-$(Build.SourceBranchName) --create-namespace ./iac/helm-charts/refract-cms-web --set tag=$(tag)
