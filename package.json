@@ -24,7 +24,9 @@
     "nohoist": [
       "**/razzle",
       "**/razzle-dev-utils",
-      "**/webpack-merge"
+      "**/webpack-merge",
+      "*/@docusaurus/*",
+      "**/html-minifier-terser"
     ]
   },
   "devDependencies": {
