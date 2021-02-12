@@ -3,10 +3,10 @@ trigger:
 
 variables:
   - group: docker
-  # - name: DOCKER_BUILDKIT
-  #   value: 1
-  # - name: DOCKER_CLI_EXPERIMENTAL
-  #   value: enabled
+  - name: DOCKER_BUILDKIT
+    value: 1
+  - name: DOCKER_CLI_EXPERIMENTAL
+    value: enabled
   - name: tag
     value: "0.1.$(Build.BuildId)"
   - name: cache_tag
@@ -17,7 +17,7 @@ jobs:
     pool:
       vmImage: ubuntu-20.04
     steps:
-      # - script: sudo service docker restart
+      - script: sudo service docker restart
 
       - script: docker login -u $(dockerUsername) -p "$(dockerPassword)"
 
