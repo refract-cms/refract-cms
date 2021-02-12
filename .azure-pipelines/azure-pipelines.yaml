@@ -15,6 +15,7 @@ stages:
       vmImage: ubuntu-20.04
     jobs:
       - job: Pulumi
+        displayName: Pulumi Preview
         steps:
           - script: |
               curl -fsSL https://get.pulumi.com | sh
@@ -24,11 +25,11 @@ stages:
 
           - script: |
               npm install
-              pulumi preview --stack master
+              pulumi preview --stack master --diff
             workingDirectory: iac/pulumi
             displayName: Pulumi preview
 
-      - job: Build
+      - job: Docker
         steps:
           - script: |
               helm template ./iac/helm-charts/refract-cms-web --set env=$(Build.SourceBranchName) --set tag=$(tag) --set dockerUsername=$(dockerUsername)
@@ -49,6 +50,8 @@ stages:
               docker buildx build \
                 -t "${image}:$(tag)" \
                 --platform linux/arm64,linux/amd64 \
+                --cache-from=type=registry,ref=${image}:$(cache_tag) \
+                --cache-to=type=registry,ref=${image}:$(cache_tag),mode=max \
                 --push \
                 --progress=plain \
                 -f ./iac/dockerfiles/website.Dockerfile .
@@ -60,8 +63,7 @@ stages:
     dependsOn:
       - Build
     jobs:
-      - job: Deploy_Pulumi
-        displayName: Deploy Pulumi
+      - job: Pulumi 
         pool:
           vmImage: ubuntu-20.04
         steps:
@@ -73,11 +75,11 @@ stages:
 
           - script: |
               npm install
-              pulumi up --stack master
+              pulumi up --stack master --yes
             workingDirectory: iac/pulumi
             displayName: Pulumi up
 
-      - job: Deploy
+      - job: Helm
         pool:
           name: Default
           demands:
