@@ -6,7 +6,8 @@ const domain = new digitalocean.Domain('domain', {
   ipAddress: '185.15.72.81',
 });
 
-new digitalocean.DnsRecord('dns', {
+new digitalocean.DnsRecord('wildcard', {
+  name: 'wildard',
   value: '*',
   domain: domain.name,
   type: 'A',
