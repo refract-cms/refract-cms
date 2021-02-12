@@ -57,9 +57,9 @@ stages:
                 -f ./iac/dockerfiles/website.Dockerfile .
             displayName: 'Build website'
 
-  # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   - stage: Deploy
     displayName: Deploy
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     dependsOn:
       - Build
     jobs:
