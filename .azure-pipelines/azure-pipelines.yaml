@@ -23,7 +23,7 @@ jobs:
 
       # - script: sudo service docker restart
 
-      - script: docker login -u alexbechmann -p "$(dockerPassword)"
+      - script: docker login -u $(dockerUsername) -p "$(dockerPassword)"
 
       - script: |
           docker version
@@ -34,7 +34,7 @@ jobs:
           docker buildx ls
 
       - script: |
-          image=alexbechmann/refract-cms-website
+          image=$(dockerUsername)/refract-cms-website
           docker buildx build \
             -t "${image}:$(tag)" \
             --platform linux/arm64 \
@@ -55,4 +55,4 @@ jobs:
       demands:
         - ARM_CLUSTER
     steps:
-      - script: helm upgrade refract-cms-website --install --namespace refract-cms-$(Build.SourceBranchName) --create-namespace ./iac/helm-charts/refract-cms-web --set tag=$(tag)
+      - script: helm upgrade refract-cms-website --install --namespace refract-cms-$(Build.SourceBranchName) --create-namespace ./iac/helm-charts/refract-cms-web --set tag=$(tag) --set dockerUsername=$(dockerUsername)
