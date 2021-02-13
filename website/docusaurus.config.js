@@ -6,14 +6,14 @@ module.exports = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'refract-cms', // Usually your GitHub org/user name.
+  projectName: 'refract-cms', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'Refract CMS',
       logo: {
         alt: 'Refract CMS Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       items: [
         {
