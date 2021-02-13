@@ -1,0 +1,89 @@
+trigger:
+  - master
+
+variables:
+  - group: docker
+  - group: secrets
+  - name: tag
+    value: '0.1.$(Build.BuildId)'
+  - name: cache_tag
+    value: cache-master
+
+stages:
+  - stage: Build
+    pool:
+      vmImage: ubuntu-20.04
+    jobs:
+      - job: Pulumi
+        displayName: Pulumi Preview
+        steps:
+          - script: |
+              curl -fsSL https://get.pulumi.com | sh
+              export PATH=$PATH:/home/vsts/.pulumi/bin
+              echo '##vso[task.prependpath]/home/vsts/.pulumi/bin'
+            displayName: Install Pulumi
+
+          - script: |
+              npm install
+              pulumi preview --stack master --diff
+            workingDirectory: iac/pulumi
+            displayName: Pulumi preview
+
+      - job: Docker
+        steps:
+          - script: |
+              helm template ./iac/helm-charts/refract-cms-web --set env=$(Build.SourceBranchName) --set tag=$(tag) --set dockerUsername=$(dockerUsername)
+            displayName: Template helm chart
+
+          - script: docker login -u $(dockerUsername) -p "$(dockerPassword)"
+
+          - script: |
+              docker version
+              docker buildx ls
+              docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+              docker buildx create --name builder --driver docker-container --use
+              docker buildx inspect --bootstrap
+              docker buildx ls
+
+          - script: |
+              image=$(dockerUsername)/refract-cms-website
+              docker buildx build \
+                -t "${image}:$(tag)" \
+                --platform linux/arm64,linux/amd64 \
+                --cache-from=type=registry,ref=${image}:$(cache_tag) \
+                --cache-to=type=registry,ref=${image}:$(cache_tag),mode=max \
+                --push \
+                --progress=plain \
+                -f ./iac/dockerfiles/website.Dockerfile .
+            displayName: 'Build website'
+
+  - stage: Deploy
+    displayName: Deploy
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    dependsOn:
+      - Build
+    jobs:
+      - job: Pulumi
+        pool:
+          vmImage: ubuntu-20.04
+        steps:
+          - script: |
+              curl -fsSL https://get.pulumi.com | sh
+              export PATH=$PATH:/home/vsts/.pulumi/bin
+              echo '##vso[task.prependpath]/home/vsts/.pulumi/bin'
+            displayName: Install Pulumi
+
+          - script: |
+              npm install
+              pulumi config set digitalocean:token $(DIGITALOCEAN_TOKEN) --secret
+              pulumi up --stack master --yes
+            workingDirectory: iac/pulumi
+            displayName: Pulumi up
+
+      - job: Helm
+        pool:
+          name: Default
+          demands:
+            - ARM_CLUSTER
+        steps:
+          - script: helm upgrade refract-cms-website --install --namespace refract-cms-$(Build.SourceBranchName) --create-namespace ./iac/helm-charts/refract-cms-web --set env=$(Build.SourceBranchName) --set tag=$(tag) --set dockerUsername=$(dockerUsername)

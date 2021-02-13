@@ -2,3 +2,4 @@
 **/.next/
 **/create-template-razzle/build
 dev/server/lib/**
+iac/**/templates/**/*.yaml
