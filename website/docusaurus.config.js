@@ -77,7 +77,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Refract CMS. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Refract CMS`,
     },
   },
   presets: [
