@@ -6,14 +6,14 @@ module.exports = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'refract-cms', // Usually your GitHub org/user name.
+  projectName: 'refract-cms', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'Refract CMS',
       logo: {
         alt: 'Refract CMS Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       items: [
         {
@@ -37,7 +37,7 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Bootstrap',
+              label: 'Quick start',
               to: 'docs/',
             },
           ],
@@ -77,7 +77,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Refract CMS. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Refract CMS`,
     },
   },
   presets: [

@@ -1,5 +1,7 @@
 module.exports = {
   someSidebar: {
-    'Getting Started': ['bootstrap'],
+    'Getting Started': ['quick-start', 'add-to-existing-project'],
+    Config: ['create-schema'],
+    Customization: ['create-editor-component'],
   },
 };

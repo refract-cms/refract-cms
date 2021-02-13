@@ -87,3 +87,4 @@ stages:
             - ARM_CLUSTER
         steps:
           - script: helm upgrade refract-cms-website --install --namespace refract-cms-$(Build.SourceBranchName) --create-namespace ./iac/helm-charts/refract-cms-web --set env=$(Build.SourceBranchName) --set tag=$(tag) --set dockerUsername=$(dockerUsername)
+            displayName: Install website helm chart

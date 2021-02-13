@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/create",
-  "version": "0.17.3",
+  "version": "0.17.4",
   "description": "",
   "main": "index.js",
   "types": "src/index.ts",
