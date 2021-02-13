@@ -29,12 +29,25 @@ spec:
                 name: website
                 port:
                   number: 80
+    - host: refract-cms.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: website
+                port:
+                  number: 80
     {{ end }}
   tls:
     {{ if eq .Values.env "master"}}
     - hosts:
         - www.refract-cms.com
       secretName: www.refract-cms.com-tls
+    - hosts:
+        - refract-cms.com
+      secretName: refract-cms.com-tls
     {{ end }}
     - hosts:
         - refract-cms-{{ .Values.env }}.alexbechmann.dev
