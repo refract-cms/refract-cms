@@ -24,7 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function CustomTextEditor(props: PropertyEditorProps<string>) {
+export interface CustomTextEditorProps extends PropertyEditorProps<string> {}
+
+export function CustomTextEditor(props: CustomTextEditorProps) {
   const classes = useStyles(props);
   const { value, setValue } = props;
   return (

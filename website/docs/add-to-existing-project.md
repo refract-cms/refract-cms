@@ -13,6 +13,20 @@ If you have these, you are ready to integrate Refract CMS into your app!
 
 **It is recommended to store the client and server code in the same git repo so you can reference the config in both places.**
 
+## Install dependencies
+
+### Server
+
+```bash
+npm install @refract-cms/core @refract-cms/server
+```
+
+### Client
+
+```bash
+npm install @refract-cms/core @refract-cms/dashboard
+```
+
 ## Main config
 
 Create file: `config.ts`
@@ -53,11 +67,13 @@ export const serverConfig = buildServerConfig({
 
 **Important!** JWT_SECRET should be set to a unique value per project and per environment. This will ensure that access tokens issued are only valid for that one environment.
 
-## Server
+## Setup
+
+### Server
 
 ```ts
 import express from 'express';
-import { refractCmsMiddleware } from '@refract-cms/server';
+import { refractCms } from '@refract-cms/server';
 // Change with path to your server-config.ts
 import { serverConfig } from './server-config.ts';
 import cors from 'cors';
@@ -67,7 +83,7 @@ const app = express();
 
 app.use(cors());
 
-app.use('/cms', refractCmsMiddleware({ serverConfig }));
+app.use('/cms', refractCms({ serverConfig }));
 
 app.listen(4100, () => {
   console.log(`API listening on port 4100`);
@@ -82,7 +98,7 @@ app.listen(4100, () => {
 });
 ```
 
-## Client
+### Client
 
 ```tsx
 import React from 'react';
