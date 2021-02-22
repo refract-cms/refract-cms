@@ -19,5 +19,5 @@
     },
     "importsNotUsedAsValues": "error"
   },
-  "exclude": ["**/pkg/**", "check-version.ts"]
+  "exclude": ["**/pkg/**", "check-version.ts", "**/iac/**"]
 }
