@@ -1,8 +1,9 @@
 import express from 'express';
-import { refractCmsMiddleware } from '@refract-cms/server';
+import { refractCmsMiddleware, ContentService } from '@refract-cms/server';
 import { serverConfig } from './server-config';
 import cors from 'cors';
 import chalk from 'chalk';
+import { ArticleSchema } from '@local/config/schemas/article-schema';
 
 const app = express();
 
@@ -20,4 +21,11 @@ app.listen(4100, () => {
       chalk.magenta(`GraphQL API running at http://localhost:4100/cms/graphql`)
     );
   }
+});
+
+app.get('/get-an-article', () => {
+  const articleContent = new ContentService(ArticleSchema, serverConfig);
+  articleContent.getById({ id: '', locale: 'dk' }).then((article) => {
+    console.log(article.date);
+  });
 });
