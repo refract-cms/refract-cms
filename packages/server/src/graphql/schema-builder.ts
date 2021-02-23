@@ -45,12 +45,15 @@ export class SchemaBuilder {
     this.inputTypes = [];
     this.serverConfig = serverConfig;
     this.eventService = new EventService(serverConfig);
-    const languageTypeValues: GraphQLEnumValueConfigMap = serverConfig.config.languages.reduce((acc, language) => {
-      acc[language] = {
-        value: language,
-      } as GraphQLEnumValueConfig;
-      return acc;
-    }, {});
+    const languageTypeValues: GraphQLEnumValueConfigMap = serverConfig.config.localization.languages.reduce(
+      (acc, language) => {
+        acc[language.name] = {
+          value: language.name,
+        } as GraphQLEnumValueConfig;
+        return acc;
+      },
+      {}
+    );
     this.languageEnumType = new GraphQLEnumType({
       name: 'Language',
       values: languageTypeValues,
@@ -76,11 +79,11 @@ export class SchemaBuilder {
     let publicQueryFields: Thunk<GraphQLFieldConfigMap<any, any, any>> = {
       getLanguages: {
         type: new GraphQLList(this.languageEnumType),
-        resolve: () => this.serverConfig.config.languages,
+        resolve: () => this.serverConfig.config.localization.languages.map((language) => language.name),
       },
       defaultLanguage: {
         type: this.languageEnumType,
-        resolve: () => this.serverConfig.config.defaultLanguage,
+        resolve: () => this.serverConfig.config.localization.defaultLanguage,
       },
     };
     schema.forEach((entitySchema) => {
@@ -109,11 +112,11 @@ export class SchemaBuilder {
     let internalQueryFields: Thunk<GraphQLFieldConfigMap<any, any, any>> = {
       getLanguages: {
         type: new GraphQLList(this.languageEnumType),
-        resolve: () => this.serverConfig.config.languages,
+        resolve: () => this.serverConfig.config.localization.languages,
       },
       defaultLanguage: {
         type: this.languageEnumType,
-        resolve: () => this.serverConfig.config.defaultLanguage,
+        resolve: () => this.serverConfig.config.localization.defaultLanguage,
       },
     };
     schema.forEach((entitySchema) => {
