@@ -6,9 +6,7 @@ import nodemon from 'nodemon';
 
 let nodemonInstance: typeof nodemon;
 
-process.on('SIGINT√', function () {
-  //handle your on exit code
-  console.log('Exiting, have a nice day');
+process.on('SIGINT', function () {
   if (nodemon) {
     nodemonInstance.reset();
   }
@@ -26,6 +24,7 @@ export function dev() {
   });
   nodemonInstance = nodemon({
     cwd: process.cwd(),
+    delay: 1,
     watch: ['dist'],
     script: 'dist/index.js',
   });

@@ -1,12 +1,3 @@
-import dotenv from 'dotenv';
-// dotenv.config({ path: require('find-config')('.env') });
-dotenv.config();
-import path from 'path';
-// dotenv.config({ path: path.resolve(process.cwd(), '.env') });
-//
-// console.log(path.resolve(process.cwd(), '.env'));
-console.log(process.env.MONGO_URI, 'root');
-
 import express from 'express';
 import { refractCmsMiddleware } from '@refract-cms/server';
 import { serverConfig } from './server-config';
