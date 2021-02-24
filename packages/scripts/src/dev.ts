@@ -1,4 +1,4 @@
-import { startService } from 'esbuild';
+import { Service, startService } from 'esbuild';
 import { watch } from 'chokidar';
 import chalk from 'chalk';
 import path from 'path';
@@ -49,9 +49,10 @@ const updateLine = (input: string, isBuiltInput: boolean = false) => {
 /**
  * Builds the code in no time
  */
+let service: Service;
 const build = async () => {
   //Start build service
-  const service = await startService();
+  service = await startService();
   try {
     // process.stdout.cursorTo(0, 2);
     // process.stdout.clearLine(0);
@@ -70,7 +71,7 @@ const build = async () => {
       platform: 'node',
       target: 'node14.15.0',
       logLevel: 'error',
-      // plugins: [esbuildNodeExternals()],
+      plugins: [esbuildNodeExternals()],
     });
     // Get time after build ends
     const timerEnd = Date.now();

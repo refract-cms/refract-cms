@@ -15,7 +15,7 @@ import { createWebpackDevConfig } from './webpack/webpack-dev-config';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerConfig }) => {
+export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: ServerConfig; app: express.Express }) => {
   const { config } = serverConfig;
 
   const router = express.Router();
@@ -25,14 +25,20 @@ export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerCon
   const webpackDevConfig = createWebpackDevConfig();
   const compiler = webpack(webpackDevConfig);
 
-  router.use(webpackDevMiddleware(compiler, {}));
-  router.use(webpackHotMiddleware(compiler));
+  app.use(webpackDevMiddleware(compiler, {}));
 
-  router.get('/', (req, res) => {
+  router.get('/*', (req, res) => {
     res.send(
-      `<head></head><body><script>window.serverUrl = "/cms";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script></body>`
+      `<head>
+        <title>Admin</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+       </head>
+       <body><script>window.serverUrl = "${req.baseUrl}";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script>
+       </body>`
     );
   });
+
+  app.use(webpackHotMiddleware(compiler));
 
   router.post('/login', async (req, res) => {
     const { username, password } = req.body as any;
@@ -137,5 +143,6 @@ export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerCon
   // });
 
   // return [serverConfig.rootPath || '', router] as RequestHandlerParams[];
+
   return router;
 };

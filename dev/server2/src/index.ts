@@ -8,16 +8,16 @@ const app = express();
 
 app.use(cors());
 
-app.use('/cms', refractCmsMiddleware({ serverConfig }));
+app.use('/cms', refractCmsMiddleware({ serverConfig, app }));
 
 app.listen(4100, () => {
   console.log(`API listening on port 4100`);
-  if (process.env.NODE_ENV === 'development') {
-    console.log(
-      chalk.magenta(
-        `Login to the dashboard with ${serverConfig.auth.adminCredentials.username} / ${serverConfig.auth.adminCredentials.password}`
-      ),
-      chalk.magenta(`GraphQL API running at http://localhost:4100/cms/graphql`)
-    );
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  console.log(
+    chalk.magenta(
+      `Login to the dashboard with ${serverConfig.auth.adminCredentials.username} / ${serverConfig.auth.adminCredentials.password}`
+    ),
+    chalk.magenta(`GraphQL API running at http://localhost:4100/cms/graphql`)
+  );
+  // }
 });

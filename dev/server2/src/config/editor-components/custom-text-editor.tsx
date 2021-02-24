@@ -14,7 +14,7 @@ export function CustomTextEditor(props: PropertyEditorProps<string>) {
   const { value, setValue } = props;
   return (
     <div>
-      <p className={classes.paragraph}>This is an example of a basic custom editor component</p>
+      <p className={classes.paragraph}>This is an example of a basic custom editor component8</p>
       <input value={value} onChange={(e) => setValue(e.target.value)} />
     </div>
   );

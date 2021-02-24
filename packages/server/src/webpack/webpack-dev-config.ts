@@ -5,6 +5,8 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 export function createWebpackDevConfig(): Configuration {
   return {
     output: {
+      // publicPath: '/cms/',
+      publicPath: '/cms/',
       path: '/',
       filename: '[name].js',
     },
@@ -16,7 +18,8 @@ export function createWebpackDevConfig(): Configuration {
       extensions: ['.ts', '.tsx', '.js'],
     },
     entry: {
-      main: ['webpack-hot-middleware/client?path=/cms/__webpack_hmr&reload=true', '@refract-cms/server/src/client'],
+      // main: ['webpack-hot-middleware/client?path=/cms/__webpack_hmr&reload=true', '@refract-cms/server/src/client'],
+      main: ['webpack-hot-middleware/client', '@refract-cms/server/src/client'],
       // main: [path.resolve(process.cwd(), 'src/client')],
       // main: ['@refract-cms/server/src/client'],
     },

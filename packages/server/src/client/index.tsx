@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Dashboard } from '@refract-cms/dashboard';
-// @ts-ignore
-import { config } from '@consumer/config';
+import { App } from './App';
 
-console.log('hi6', { config, Dashboard });
+ReactDOM.render(<App />, document.getElementById('root'));
 
-ReactDOM.render(
-  //   <p>hi</p>,
-  <Dashboard config={config} serverUrl={window.serverUrl} rootPath="/cms" homePageUrl="/" />,
-  document.getElementById('root')
-);
+if (module.hot) {
+  module.hot.accept();
+}

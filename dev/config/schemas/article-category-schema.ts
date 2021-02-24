@@ -13,7 +13,7 @@ export const ArticleCategorySchema = composeSchema({
   properties: {
     name: {
       type: String,
-      displayName: 'Title',
+      displayName: 'Title1z',
       editorComponent: createTextEditor(),
     },
   },
