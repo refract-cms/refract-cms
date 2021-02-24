@@ -1,7 +1,8 @@
 import type { Entity, EntitySchema } from '@refract-cms/core';
 import mongoose from 'mongoose';
 
+export type ModelType<T> = mongoose.Model<mongoose.Document & EntitySchema<T>['prototypes']>;
+
 export function repositoryForSchema<T>(schema: EntitySchema<T>) {
-  type ModelType = mongoose.Document & EntitySchema<T>['prototypes'];
-  return mongoose.models[schema.options.alias] as mongoose.Model<ModelType | any>;
+  return mongoose.models[schema.options.alias] as ModelType<T>;
 }

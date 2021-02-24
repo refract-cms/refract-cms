@@ -23,9 +23,8 @@ app.listen(4100, () => {
   }
 });
 
-app.get('/get-an-article', () => {
+app.get('/api/articles/:id', async (req, res) => {
   const articleContent = new ContentService(ArticleSchema, serverConfig);
-  articleContent.getById({ id: '', locale: 'dk' }).then((article) => {
-    console.log(article.date);
-  });
+  const article = await articleContent.getById({ id: req.params.id, locale: 'dk' });
+  res.send(article);
 });
