@@ -22,4 +22,5 @@ export const serverConfig = buildServerConfig({
       secret: env.JWT_SECRET,
     },
   },
+  dev: true,
 });

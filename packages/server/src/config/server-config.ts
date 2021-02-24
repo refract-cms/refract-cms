@@ -16,4 +16,5 @@ export interface ServerConfig {
   resolvers: Required<UserServerConfig['resolvers']>;
   auth: UserServerConfig['auth'];
   mongoConnectionString: UserServerConfig['mongoConnectionString'];
+  dev?: boolean;
 }

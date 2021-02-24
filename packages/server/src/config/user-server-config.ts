@@ -27,5 +27,6 @@ export interface UserServerConfig {
       };
     };
   };
+  dev?: boolean;
   // config: PluginConfig | Config;
 }

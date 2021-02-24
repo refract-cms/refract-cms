@@ -3,6 +3,7 @@ import { watch } from 'chokidar';
 import chalk from 'chalk';
 import path from 'path';
 import nodemon from 'nodemon';
+import esbuildNodeExternals from 'esbuild-node-externals';
 
 let nodemonInstance: typeof nodemon;
 
@@ -61,13 +62,15 @@ const build = async () => {
       color: true,
       entryPoints: [path.resolve(process.cwd(), 'src/index.ts')],
       outfile: path.resolve(process.cwd(), 'dist/index.js'),
-      external: ['mongoose'],
+      external: ['mongoose', 'webpack', 'fsevents'],
+      // external: [/^[a-z0-9-]/],
       bundle: true,
       sourcemap: false,
       tsconfig: path.resolve(process.cwd(), 'tsconfig.json'),
       platform: 'node',
       target: 'node14.15.0',
       logLevel: 'error',
+      // plugins: [esbuildNodeExternals()],
     });
     // Get time after build ends
     const timerEnd = Date.now();

@@ -10,6 +10,10 @@ import { requireAuth } from './auth/require-auth-middleware';
 import type { RefractGraphQLContext } from './graphql/refract-graphql-context';
 import chalk from 'chalk';
 import type { ServerConfig } from './config/server-config';
+import webpack from 'webpack';
+import { webpackDevConfig } from './webpack/webpack-dev-config';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
 export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerConfig }) => {
   const { config } = serverConfig;
@@ -17,6 +21,19 @@ export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerCon
   const router = express.Router();
 
   router.use(bodyParser.json());
+
+  const compiler = webpack(webpackDevConfig);
+  router.use(
+    webpackDevMiddleware(compiler, {
+      // publicPath: '/cms',
+    })
+  );
+
+  router.use(webpackHotMiddleware(compiler));
+
+  router.get('/', (req, res) => {
+    res.send(`<script src="${req.baseUrl}/main.js"></script>`);
+  });
 
   router.post('/login', async (req, res) => {
     const { username, password } = req.body as any;
