@@ -14,6 +14,7 @@ import webpack from 'webpack';
 import { createWebpackDevConfig } from './webpack/webpack-dev-config';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import { startServer, createConfiguration, SnowpackDevServer } from 'snowpack';
 
 export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: ServerConfig; app: express.Express }) => {
   const { config } = serverConfig;
@@ -132,6 +133,27 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
   // });
 
   // return [serverConfig.rootPath || '', router] as RequestHandlerParams[];
+
+  let server: SnowpackDevServer;
+  startServer({
+    config: createConfiguration({
+      mount: {
+        public: { url: '/', static: true },
+        src: { url: '/dist' },
+      },
+      plugins: ['@snowpack/plugin-react-refresh', '@snowpack/plugin-dotenv', '@snowpack/plugin-typescript'],
+    }),
+    lockfile: undefined,
+  }).then((s) => (server = s));
+
+  router.use(async (req, res, next) => {
+    try {
+      const buildResult = await server.loadUrl(req.url);
+      res.send(buildResult.contents);
+    } catch (err) {
+      next(err);
+    }
+  });
 
   router.get('/*', (req, res) => {
     res.send(
