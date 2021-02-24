@@ -11,7 +11,7 @@ import type { RefractGraphQLContext } from './graphql/refract-graphql-context';
 import chalk from 'chalk';
 import type { ServerConfig } from './config/server-config';
 import webpack from 'webpack';
-import { webpackDevConfig } from './webpack/webpack-dev-config';
+import { createWebpackDevConfig } from './webpack/webpack-dev-config';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
@@ -22,17 +22,14 @@ export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerCon
 
   router.use(bodyParser.json());
 
+  const webpackDevConfig = createWebpackDevConfig();
   const compiler = webpack(webpackDevConfig);
-  router.use(
-    webpackDevMiddleware(compiler, {
-      // publicPath: '/cms',
-    })
-  );
 
+  router.use(webpackDevMiddleware(compiler, {}));
   router.use(webpackHotMiddleware(compiler));
 
   router.get('/', (req, res) => {
-    res.send(`<script src="${req.baseUrl}/main.js"></script>`);
+    res.send(`<head></head><body><div id='root'></div><script src="${req.baseUrl}/main.js"></script></body>`);
   });
 
   router.post('/login', async (req, res) => {
