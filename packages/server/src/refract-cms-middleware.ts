@@ -29,7 +29,9 @@ export const refractCmsMiddleware = ({ serverConfig }: { serverConfig: ServerCon
   router.use(webpackHotMiddleware(compiler));
 
   router.get('/', (req, res) => {
-    res.send(`<head></head><body><div id='root'></div><script src="${req.baseUrl}/main.js"></script></body>`);
+    res.send(
+      `<head></head><body><script>window.serverUrl = "/cms";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script></body>`
+    );
   });
 
   router.post('/login', async (req, res) => {

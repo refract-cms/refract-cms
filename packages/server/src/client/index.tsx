@@ -8,6 +8,6 @@ console.log('hi6', { config, Dashboard });
 
 ReactDOM.render(
   //   <p>hi</p>,
-  <Dashboard config={config} serverUrl={window.serverUrl} rootPath="/admin" homePageUrl="/" />,
+  <Dashboard config={config} serverUrl={window.serverUrl} rootPath="/cms" homePageUrl="/" />,
   document.getElementById('root')
 );
