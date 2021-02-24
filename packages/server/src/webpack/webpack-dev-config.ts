@@ -1,6 +1,7 @@
 import webpack, { Configuration } from 'webpack';
 import path from 'path';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import WebpackBar from 'webpackbar';
 
 export function createWebpackDevConfig(): Configuration {
   return {
@@ -11,7 +12,6 @@ export function createWebpackDevConfig(): Configuration {
       filename: '[name].js',
     },
     mode: 'development',
-
     resolve: {
       mainFields: ['browser', 'main', 'module'],
       alias: { '@consumer/config': path.resolve(process.cwd(), 'src/config') },
@@ -42,8 +42,17 @@ export function createWebpackDevConfig(): Configuration {
       ],
     },
     plugins: [
+      // new WebpackBar({
+      //   name: 'client',
+      //   fancy: true,
+      // }),
       new webpack.HotModuleReplacementPlugin(),
-      // new ForkTsCheckerWebpackPlugin({ typescript: { configFile: path.resolve(process.cwd(), 'tsconfig.json') } }),
+      // new ForkTsCheckerWebpackPlugin({
+      //   typescript: {
+      //     configFile: path.resolve(process.cwd(), 'tsconfig.json'),
+      //     memoryLimit: 300000,
+      //   },
+      // }),
     ],
   };
 }

@@ -139,7 +139,8 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
         <title>Admin</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
        </head>
-       <body><script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script>
+       <body>
+        <script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script>
        </body>`
     );
   });
