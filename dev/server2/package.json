@@ -10,5 +10,8 @@
     "build": "ts-node --project ./tsconfig.cli.json ../../packages/scripts/dev.ts build"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "find-config": "^1.0.0"
+  }
 }

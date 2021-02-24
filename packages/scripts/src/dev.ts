@@ -4,9 +4,17 @@ import chalk from 'chalk';
 import path from 'path';
 import nodemon from 'nodemon';
 
+let nodemonInstance: typeof nodemon;
+
+process.on('SIGINT√', function () {
+  //handle your on exit code
+  console.log('Exiting, have a nice day');
+  if (nodemon) {
+    nodemonInstance.reset();
+  }
+});
+
 export function dev() {
-  console.log('dev', path.resolve(process.cwd(), 'src/**/*.ts*'));
-  console.log('dev', path.resolve(process.cwd(), 'src/index.ts'));
   const watcher = watch([
     path.resolve(process.cwd(), 'src/**/*.ts*', path.resolve(process.cwd(), '../../packages/**/*.ts*')),
     path.resolve(process.cwd(), 'src/*.ts*'),
@@ -16,7 +24,7 @@ export function dev() {
   watcher.on('change', () => {
     build();
   });
-  nodemon({
+  nodemonInstance = nodemon({
     cwd: process.cwd(),
     watch: ['dist'],
     script: 'dist/index.js',

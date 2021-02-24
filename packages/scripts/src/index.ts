@@ -10,7 +10,6 @@ function run(args: any) {
       .command('dev')
       .description('Start server in watch mode.')
       .action(() => {
-        console.log('dev command called', process.cwd());
         dev();
       });
 
