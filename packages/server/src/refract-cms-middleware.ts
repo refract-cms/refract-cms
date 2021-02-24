@@ -27,17 +27,6 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
 
   app.use(webpackDevMiddleware(compiler, {}));
 
-  router.get('/*', (req, res) => {
-    res.send(
-      `<head>
-        <title>Admin</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-       </head>
-       <body><script>window.serverUrl = "${req.baseUrl}";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script>
-       </body>`
-    );
-  });
-
   app.use(webpackHotMiddleware(compiler));
 
   router.post('/login', async (req, res) => {
@@ -144,5 +133,15 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
 
   // return [serverConfig.rootPath || '', router] as RequestHandlerParams[];
 
+  router.get('/*', (req, res) => {
+    res.send(
+      `<head>
+        <title>Admin</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+       </head>
+       <body><script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script>
+       </body>`
+    );
+  });
   return router;
 };
