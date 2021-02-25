@@ -1,7 +1,7 @@
 import { buildServerConfig } from '@refract-cms/server';
 import { config } from './config';
 import { activeDirectoryServerPlugin } from '@refract-cms/plugin-active-directory-auth/src/server';
-import { fileSystemImageServerPlugin } from '@refract-cms/plugin-file-system-image/src/server';
+// import { fileSystemImageServerPlugin } from '@refract-cms/plugin-file-system-image/src/server';
 import path from 'path';
 import { env } from './env';
 
@@ -10,7 +10,7 @@ export const serverConfig = buildServerConfig({
   mongoConnectionString: env.MONGO_URI,
   plugins: [
     activeDirectoryServerPlugin,
-    fileSystemImageServerPlugin({ filesPath: path.resolve(process.cwd(), 'files') }),
+    // fileSystemImageServerPlugin({ filesPath: path.resolve(process.cwd(), 'files') }),
   ],
   auth: {
     adminCredentials: {

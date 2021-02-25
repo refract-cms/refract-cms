@@ -3,7 +3,7 @@ import path from 'path';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import WebpackBar from 'webpackbar';
 
-export function createWebpackDevConfig(): Configuration {
+export function createWebpackDevClientConfig(): Configuration {
   return {
     output: {
       // publicPath: '/cms/',
@@ -26,19 +26,27 @@ export function createWebpackDevConfig(): Configuration {
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.(js|jsx|ts|tsx|mjs)$/,
           loader: 'ts-loader',
           options: {
             transpileOnly: true,
           },
         },
-        {
-          test: /\.mjs?$/,
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
-          },
-        },
+
+        // {
+        //   test: /\.tsx?$/,
+        //   loader: 'ts-loader',
+        //   options: {
+        //     transpileOnly: true,
+        //   },
+        // },
+        // {
+        //   test: /\.mjs?$/,
+        //   loader: 'ts-loader',
+        //   options: {
+        //     transpileOnly: true,
+        //   },
+        // },
       ],
     },
     plugins: [
