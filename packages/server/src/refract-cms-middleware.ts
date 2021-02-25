@@ -26,9 +26,8 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
   const webpackDevConfig = createWebpackDevConfig();
   const compiler = webpack(webpackDevConfig);
 
-  app.use(webpackDevMiddleware(compiler, {}));
-
-  app.use(webpackHotMiddleware(compiler));
+  // app.use(webpackDevMiddleware(compiler, {}));
+  // app.use(webpackHotMiddleware(compiler));
 
   router.post('/login', async (req, res) => {
     const { username, password } = req.body as any;
@@ -135,19 +134,23 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
   // return [serverConfig.rootPath || '', router] as RequestHandlerParams[];
 
   let server: SnowpackDevServer;
-  startServer({
+  const startSnowpack = startServer({
     config: createConfiguration({
       mount: {
         public: { url: '/', static: true },
-        src: { url: '/dist' },
+        'src/config': { url: '/dist' },
       },
       plugins: ['@snowpack/plugin-react-refresh', '@snowpack/plugin-dotenv', '@snowpack/plugin-typescript'],
     }),
     lockfile: undefined,
-  }).then((s) => (server = s));
+  }).then((s) => {
+    console.log({ s });
+    server = s;
+  });
 
   router.use(async (req, res, next) => {
     try {
+      await startSnowpack;
       const buildResult = await server.loadUrl(req.url);
       res.send(buildResult.contents);
     } catch (err) {
@@ -155,16 +158,17 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
     }
   });
 
-  router.get('/*', (req, res) => {
-    res.send(
-      `<head>
-        <title>Admin</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-       </head>
-       <body>
-        <script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script>
-       </body>`
-    );
-  });
+  // router.get('/*', (req, res) => {
+  //   res.send(
+  //     `<head>
+  //       <title>Admin</title>
+  //       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  //      </head>
+  //      <body>
+  //       <script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script>
+  //      </body>`
+  //   );
+  // });
+
   return router;
 };

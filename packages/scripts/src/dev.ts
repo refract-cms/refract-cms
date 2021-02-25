@@ -63,7 +63,7 @@ const build = async () => {
       color: true,
       entryPoints: [path.resolve(process.cwd(), 'src/index.ts')],
       outfile: path.resolve(process.cwd(), 'dist/index.js'),
-      external: ['mongoose', 'webpack', 'fsevents'],
+      external: ['mongoose', 'webpack', 'fsevents', 'snowpack'],
       // external: [/^[a-z0-9-]/],
       bundle: true,
       sourcemap: false,
@@ -71,7 +71,7 @@ const build = async () => {
       platform: 'node',
       target: 'node14.15.0',
       logLevel: 'error',
-      plugins: [esbuildNodeExternals()],
+      // plugins: [esbuildNodeExternals()],
     });
     // Get time after build ends
     const timerEnd = Date.now();
