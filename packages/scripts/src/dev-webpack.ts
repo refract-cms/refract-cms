@@ -4,6 +4,9 @@ import chalk from 'chalk';
 import path from 'path';
 import nodemon from 'nodemon';
 import StartServerPlugin from 'start-server-webpack-plugin';
+import nodeExternals from 'webpack-node-externals';
+import WebpackBar from 'webpackbar';
+import WriteFilePlugin from 'write-file-webpack-plugin';
 
 export function createWebpackDevServerConfig(): Configuration {
   return {
@@ -13,7 +16,11 @@ export function createWebpackDevServerConfig(): Configuration {
     },
     mode: 'development',
     target: 'node',
-    // externals: ['mongoose'],
+    externals: [
+      nodeExternals({
+        additionalModuleDirs: [path.resolve(process.cwd(), '../../node_modules')],
+      }),
+    ],
     resolve: {
       mainFields: ['browser', 'main', 'module'],
       alias: { '@consumer/config': path.resolve(process.cwd(), 'src/config') },
@@ -49,15 +56,19 @@ export function createWebpackDevServerConfig(): Configuration {
       ],
     },
     plugins: [
+      new WriteFilePlugin({
+        // exclude hot-update files
+        test: /^(?!.*(hot)).*/,
+      }),
       new StartServerPlugin({
         name: 'index.js',
         // nodeArgs: ['--inspect'], // allow debugging
         args: [], // pass args to script
-        signal: false,
+        signal: true,
         keyboard: true,
       }),
       // new WebpackBar({
-      //   name: 'client',
+      //   name: 'server',
       //   fancy: true,
       // }),
       //   new webpack.HotModuleReplacementPlugin(),
@@ -79,72 +90,23 @@ process.on('SIGINT', function () {
   //   }
 });
 
+let nodemonInstance: typeof nodemon;
+
 export function dev() {
-  //   const watcher = watch([
-  //     path.resolve(process.cwd(), 'src/**/*.ts*', path.resolve(process.cwd(), '../../packages/**/*.ts*')),
-  //     path.resolve(process.cwd(), 'src/*.ts*'),
-  //   ]);
+  const webpackConfig = createWebpackDevServerConfig();
+  const compiler = webpack(webpackConfig);
   console.log('Building server...');
   compiler.watch({}, (err, stats) => {
-    // console.log(err, stats);
-    console.log(chalk.green(`Server built.`));
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(chalk.green(`Server built.`));
+    }
   });
-  //   console.log('Watching files... \n');
-  //   build();
-  //   watcher.on('change', () => {
-  //     build();
-  //   });
-  //   nodemonInstance = nodemon({
-  //     cwd: process.cwd(),
-  //     delay: 1,
-  //     watch: ['dist'],
-  //     script: 'dist/index.js',
-  //   });
+  // nodemonInstance = nodemon({
+  //   cwd: process.cwd(),
+  //   delay: 1,
+  //   watch: ['dist'],
+  //   script: 'dist/index.js',
+  // });
 }
-
-const noop = () => {};
-
-/**
- * Function to update lines when something happens
- * @param input The text you want to print
- * @param isBuiltInput Whether you are printing `Built in x ms` or not
- */
-const updateLine = (input: string, isBuiltInput: boolean = false) => {
-  const numberOfLines = (input.match(/\n/g) || []).length;
-  // process.stdout.cursorTo(0, 2);
-  // process.stdout.clearScreenDown();
-  process.stdout.write(input + '\n');
-  isBuiltInput ? process.stdout.moveCursor(0, -numberOfLines) : noop();
-};
-
-/**
- * Builds the code in no time
- */
-const webpackConfig = createWebpackDevServerConfig();
-const compiler = webpack(webpackConfig);
-
-const build = async () => {
-  //Start build service
-
-  try {
-    // process.stdout.cursorTo(0, 2);
-    // process.stdout.clearLine(0);
-    // Get time before build starts
-    const timerStart = Date.now();
-    // Build code
-    await new Promise<void>((resolve) => {
-      compiler.run(() => {
-        resolve();
-      });
-    });
-
-    // Get time after build ends
-    const timerEnd = Date.now();
-    updateLine(chalk.green(`Built in ${timerEnd - timerStart}ms.`), true);
-  } catch (e) {
-    // OOPS! ERROR!
-  } finally {
-    // We command you to stop. Will start again if files change.
-    // service.stop();
-  }
-};

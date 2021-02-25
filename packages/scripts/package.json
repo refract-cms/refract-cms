@@ -38,7 +38,8 @@
     "esbuild-node-externals": "^1.0.2",
     "fs-extra": "^9.0.1",
     "inquirer": "^7.1.0",
-    "start-server-webpack-plugin": "^2.2.5"
+    "start-server-webpack-plugin": "^2.2.5",
+    "write-file-webpack-plugin": "^4.5.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.1",
