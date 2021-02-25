@@ -39,3 +39,4 @@ export { default as createBooleanEditor } from './property-editors/BooleanEditor
 export { default as createMarkdownRteEditor } from './property-editors/markdown-rte-editor/MarkdownRteEditor';
 
 export * from './config/build-config';
+export * from './properties/property-editor';

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { PropertyEditorProps } from '@refract-cms/core';
+import type { PropertyEditor } from '@refract-cms/core';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,13 +9,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function CustomTextEditor(props: PropertyEditorProps<string>) {
+interface CustomTextEditorOptions {
+  showHelpText?: boolean;
+}
+
+export const customTextEditor: PropertyEditor<CustomTextEditorOptions, string> = (options) => (props) => {
   const classes = useStyles(props);
   const { value, setValue } = props;
   return (
     <div>
-      <p className={classes.paragraph}>This is an example of a basic custom editor component</p>
+      {options.showHelpText && (
+        <p className={classes.paragraph}>This is an example of a basic custom editor component</p>
+      )}
       <input value={value} onChange={(e) => setValue(e.target.value)} />
     </div>
   );
-}
+};
