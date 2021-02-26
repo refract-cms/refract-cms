@@ -10,11 +10,11 @@ import { requireAuth } from './auth/require-auth-middleware';
 import type { RefractGraphQLContext } from './graphql/refract-graphql-context';
 import chalk from 'chalk';
 import type { ServerConfig } from './config/server-config';
-import webpack from 'webpack';
+// import webpack from 'webpack';
 // import { createWebpackDevClientConfig } from './webpack/create-webpack-dev-client-config';
 // import webpackDevMiddleware from 'webpack-dev-middleware';
 // import webpackHotMiddleware from 'webpack-hot-middleware';
-import rollup from 'express-middleware-rollup';
+// import rollup from 'express-middleware-rollup';
 import path from 'path';
 import Bundler from 'parcel-bundler';
 
@@ -105,14 +105,16 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
     return expressPlayground({ endpoint })(req, res, next);
   });
 
-  const entry = path.resolve(process.cwd(), 'src/client/index.js');
-  console.log({ entry });
+  const entry = path.resolve(process.cwd(), 'src/client/index.tsx');
+  // const entry = '@refract-cms/server/src/client/index.tsx';
+
   const bundler = new Bundler(entry, {
     target: 'browser',
     outDir: './client', // The out directory to put the build files in, defaults to dist
     outFile: 'client.js',
     hmr: true,
     watch: true,
+    bundleNodeModules: true,
   });
 
   router.use(bundler.middleware());
