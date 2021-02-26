@@ -11,9 +11,12 @@ import type { RefractGraphQLContext } from './graphql/refract-graphql-context';
 import chalk from 'chalk';
 import type { ServerConfig } from './config/server-config';
 import webpack from 'webpack';
-import { createWebpackDevClientConfig } from './webpack/create-webpack-dev-client-config';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
+// import { createWebpackDevClientConfig } from './webpack/create-webpack-dev-client-config';
+// import webpackDevMiddleware from 'webpack-dev-middleware';
+// import webpackHotMiddleware from 'webpack-hot-middleware';
+import rollup from 'express-middleware-rollup';
+import path from 'path';
+import Bundler from 'parcel-bundler';
 
 export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: ServerConfig; app: express.Express }) => {
   const { config } = serverConfig;
@@ -22,12 +25,12 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
 
   router.use(bodyParser.json());
 
-  const webpackDevConfig = createWebpackDevClientConfig();
-  const compiler = webpack(webpackDevConfig);
+  // const webpackDevConfig = createWebpackDevClientConfig();
+  // const compiler = webpack(webpackDevConfig);
 
-  app.use(webpackDevMiddleware(compiler, {}));
+  // app.use(webpackDevMiddleware(compiler, {}));
 
-  app.use(webpackHotMiddleware(compiler));
+  // app.use(webpackHotMiddleware(compiler));
 
   router.post('/login', async (req, res) => {
     const { username, password } = req.body as any;
@@ -102,16 +105,27 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
     return expressPlayground({ endpoint })(req, res, next);
   });
 
-  router.get('/*', (req, res) => {
-    res.send(
-      `<head>
-        <title>Admin</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-       </head>
-       <body>
-        <script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script>
-       </body>`
-    );
+  const entry = path.resolve(process.cwd(), 'src/client/index.js');
+  console.log({ entry });
+  const bundler = new Bundler(entry, {
+    target: 'browser',
+    outDir: './client', // The out directory to put the build files in, defaults to dist
+    outFile: 'client.js',
   });
+
+  router.use(bundler.middleware());
+
+  // router.get('/*', (req, res) => {
+  //   res.send(
+  //     `<head>
+  //       <title>Admin</title>
+  //       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  //      </head>
+  //      <body>
+  //       <script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script>
+  //      </body>`
+  //   );
+  // });
+
   return router;
 };

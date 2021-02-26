@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors());
 
-// app.use('/cms', refractCmsMiddleware({ serverConfig, app }));
+app.use('/cms', refractCmsMiddleware({ serverConfig, app }));
 
 app.listen(4100, () => {
   console.log(`API listening on port 4100`);

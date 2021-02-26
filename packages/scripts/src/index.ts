@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import program from 'commander';
 // import { createApp } from './create-app';
 import { build } from './build';
-import { dev } from './dev-webpack';
+import { dev } from './dev';
 
 function run(args: any) {
   return new Promise<void>((resolve) => {

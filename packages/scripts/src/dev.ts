@@ -63,7 +63,7 @@ const build = async () => {
       color: true,
       entryPoints: [path.resolve(process.cwd(), 'src/index.ts')],
       outfile: path.resolve(process.cwd(), 'dist/index.js'),
-      external: ['mongoose', 'webpack', 'fsevents'],
+      external: ['mongoose', 'webpack', 'fsevents', 'parcel-bundler'],
       // external: [/^[a-z0-9-]/],
       bundle: true,
       sourcemap: false,
