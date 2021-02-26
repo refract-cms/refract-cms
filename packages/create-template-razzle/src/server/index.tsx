@@ -14,12 +14,12 @@ app.use(express.static(process.env.RAZZLE_PUBLIC_DIR));
 app.use(constants.refractPath, refract({ serverConfig }));
 
 app.get('/*', (req, res) => {
-  res.status(200).send(`<!doctype html>${renderToString(<Html title="Refract CMS App" />)}`);
+  res.send(`<!doctype html>${renderToString(<Html title="Refract CMS App" />)}`);
 });
 
 const PORT = process.env.PORT || 3000;
 
-console.log(chalk.magenta(`GraphQL endpoint: http://localhost:${PORT}${cmsRoute}/graphql`));
+console.log(chalk.magenta(`GraphQL endpoint: http://localhost:${PORT}${constants.refractPath}/graphql`));
 console.log(chalk.blue(`CMS Dashboard: http://localhost:${PORT}`));
 
 if (process.env.NODE_ENV === 'development') {
