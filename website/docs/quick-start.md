@@ -12,8 +12,7 @@ npx @refract-cms/create --dir myapp
 
 ```bash
 cd ./myapp
-docker-compose up -d
-npm start
+npm run dev
 ```
 
 ## Open in your favourite code editor
