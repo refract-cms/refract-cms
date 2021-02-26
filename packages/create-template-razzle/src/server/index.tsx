@@ -11,7 +11,7 @@ app.use(express.static(process.env.RAZZLE_PUBLIC_DIR));
 
 app.use(constants.refractPath, refract({ serverConfig }));
 
-app.get('/*', indexHtml);
+app.get('/*', indexHtml({ title: 'Refract CMS App' }));
 
 const PORT = process.env.PORT || 3000;
 
