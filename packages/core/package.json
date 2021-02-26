@@ -1,6 +1,6 @@
 {
   "name": "@refract-cms/core",
-  "version": "0.18.2",
+  "version": "0.18.3",
   "description": "",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -47,9 +47,7 @@
     "moment": "^2.22.2",
     "pluralize": "^7.0.0",
     "query-string": "^6.2.0",
-    "react": "^16.8.4",
     "react-apollo": "^2.5.3",
-    "react-dom": "^16.8.4",
     "react-easy-crop": "^1.6.0",
     "react-redux": "^7.2.0",
     "react-router": "^4.3.1",
