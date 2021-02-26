@@ -105,19 +105,21 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
     return expressPlayground({ endpoint })(req, res, next);
   });
 
-  // const entry = path.resolve(process.cwd(), 'src/client/index.tsx');
-  // // const entry = '@refract-cms/server/src/client/index.tsx';
+  const entry = path.resolve(process.cwd(), 'src/dashboard/index.tsx');
+  // const entry = '@refract-cms/server/src/client/index.tsx';
 
-  // const bundler = new Bundler(entry, {
-  //   target: 'browser',
-  //   outDir: './client', // The out directory to put the build files in, defaults to dist
-  //   outFile: 'client.js',
-  //   hmr: true,
-  //   watch: true,
-  //   bundleNodeModules: true,
-  // });
+  const bundler = new Bundler(entry, {
+    target: 'browser',
+    outDir: './client', // The out directory to put the build files in, defaults to dist
+    outFile: 'client.js',
+    hmr: true,
+    hmrPort: 18430,
+    watch: true,
+    bundleNodeModules: true,
+    cacheDir: '.cache/client',
+  });
 
-  // router.use(bundler.middleware());
+  router.use(bundler.middleware());
 
   router.get('/*', (req, res) => {
     res.send(
@@ -128,7 +130,7 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
         <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
        </head>
        <body>
-        <script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="http://localhost:1234/client.js"></script>
+        <script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/client.js"></script>
        </body>`
     );
   });

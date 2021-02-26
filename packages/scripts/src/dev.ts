@@ -21,90 +21,101 @@ let bundler: Bundler;
 let parcelServer;
 
 export function dev() {
-  const entry = path.resolve(process.cwd(), 'src/dashboard/index.tsx');
+  const entry = path.resolve(process.cwd(), 'src/index.ts');
 
   bundler = new Bundler(entry, {
-    target: 'browser',
-    outDir: './client', // The out directory to put the build files in, defaults to dist
-    outFile: 'client.js',
-    hmr: true,
+    target: 'node',
+    outDir: './dist', // The out directory to put the build files in, defaults to dist
+    outFile: 'server.js',
+    // hmr: true,
     watch: true,
-    bundleNodeModules: true,
+    bundleNodeModules: false,
+    minify: false,
+    cacheDir: '.cache/server',
   });
 
-  bundler.serve(1234).then((server) => (parcelServer = server));
-
-  bundler.on('bundled', () => {
-    build();
-  });
-
-  const watcher = watch([
-    path.resolve(process.cwd(), 'src/**/*.ts*', path.resolve(process.cwd(), '../../packages/**/*.ts*')),
-    path.resolve(process.cwd(), 'src/*.ts*'),
-  ]);
-  console.log('Watching files... \n');
-  build().then(() => {
+  bundler.bundle().then(() => {
     nodemonInstance = nodemon({
       cwd: process.cwd(),
       // delay: 1,
-      watch: ['dist'],
+      watch: ['dist/server.js'],
       script: 'dist/server.js',
     });
   });
-  watcher.on('change', () => {
-    build();
-  });
+
+  // bundler.serve(1234).then((server) => (parcelServer = server));
+
+  // bundler.on('bundled', () => {
+  //   build();
+  // });
+
+  //   const watcher = watch([
+  //     path.resolve(process.cwd(), 'src/**/*.ts*', path.resolve(process.cwd(), '../../packages/**/*.ts*')),
+  //     path.resolve(process.cwd(), 'src/*.ts*'),
+  //   ]);
+  //   console.log('Watching files... \n');
+  //   build().then(() => {
+  //     nodemonInstance = nodemon({
+  //       cwd: process.cwd(),
+  //       // delay: 1,
+  //       watch: ['dist'],
+  //       script: 'dist/server.js',
+  //     });
+  //   });
+  //   watcher.on('change', () => {
+  //     build();
+  //   });
 }
 
-const noop = () => {};
+// const noop = () => {};
 
-/**
- * Function to update lines when something happens
- * @param input The text you want to print
- * @param isBuiltInput Whether you are printing `Built in x ms` or not
- */
-const updateLine = (input: string, isBuiltInput: boolean = false) => {
-  const numberOfLines = (input.match(/\n/g) || []).length;
-  // process.stdout.cursorTo(0, 2);
-  // process.stdout.clearScreenDown();
-  process.stdout.write(input + '\n');
-  isBuiltInput ? process.stdout.moveCursor(0, -numberOfLines) : noop();
-};
+// /**
+//  * Function to update lines when something happens
+//  * @param input The text you want to print
+//  * @param isBuiltInput Whether you are printing `Built in x ms` or not
+//  */
+// const updateLine = (input: string, isBuiltInput: boolean = false) => {
+//   const numberOfLines = (input.match(/\n/g) || []).length;
+//   // process.stdout.cursorTo(0, 2);
+//   // process.stdout.clearScreenDown();
+//   process.stdout.write(input + '\n');
+//   isBuiltInput ? process.stdout.moveCursor(0, -numberOfLines) : noop();
+// };
 
-/**
- * Builds the code in no time
- */
-let service: Service;
-const build = async () => {
-  //Start build service
-  service = await startService();
-  try {
-    // process.stdout.cursorTo(0, 2);
-    // process.stdout.clearLine(0);
-    // Get time before build starts
-    const timerStart = Date.now();
-    // Build code
-    await service.build({
-      color: true,
-      entryPoints: [path.resolve(process.cwd(), 'src/index.ts')],
-      outfile: path.resolve(process.cwd(), 'dist/server.js'),
-      external: ['mongoose', 'webpack', 'fsevents', 'parcel-bundler'],
-      // external: [/^[a-z0-9-]/],
-      bundle: true,
-      sourcemap: false,
-      tsconfig: path.resolve(process.cwd(), 'tsconfig.json'),
-      platform: 'node',
-      target: 'node14.15.0',
-      logLevel: 'error',
-      plugins: [esbuildNodeExternals()],
-    });
-    // Get time after build ends
-    const timerEnd = Date.now();
-    updateLine(chalk.green(`Server built in ${timerEnd - timerStart}ms.`), true);
-  } catch (e) {
-    // OOPS! ERROR!
-  } finally {
-    // We command you to stop. Will start again if files change.
-    service.stop();
-  }
-};
+// /**
+//  * Builds the code in no time
+//  */
+// let service: Service;
+// const build = async () => {
+//   //Start build service
+//   service = await startService();
+//   try {
+//     // process.stdout.cursorTo(0, 2);
+//     // process.stdout.clearLine(0);
+//     // Get time before build starts
+//     const timerStart = Date.now();
+//     // Build code
+//     await service.build({
+//       color: true,
+//       entryPoints: [path.resolve(process.cwd(), 'src/index.ts')],
+//       outfile: path.resolve(process.cwd(), 'dist/server.js'),
+//       external: ['mongoose', 'webpack', 'fsevents', 'parcel-bundler'],
+//       // external: [/^[a-z0-9-]/],
+//       bundle: true,
+//       sourcemap: false,
+//       tsconfig: path.resolve(process.cwd(), 'tsconfig.json'),
+//       platform: 'node',
+//       target: 'node14.15.0',
+//       logLevel: 'error',
+//       plugins: [esbuildNodeExternals()],
+//     });
+//     // Get time after build ends
+//     const timerEnd = Date.now();
+//     updateLine(chalk.green(`Server built in ${timerEnd - timerStart}ms.`), true);
+//   } catch (e) {
+//     // OOPS! ERROR!
+//   } finally {
+//     // We command you to stop. Will start again if files change.
+//     service.stop();
+//   }
+// };
