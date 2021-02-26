@@ -1,5 +1,5 @@
 import express from 'express';
-import { refractCmsMiddleware, buildServerConfig } from '@refract-cms/server';
+import { refract, buildServerConfig } from '@refract-cms/server';
 import { config } from '../config';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
@@ -27,7 +27,7 @@ const serverConfig = buildServerConfig({
 
 const cmsRoute = '/cms';
 
-app.use(cmsRoute, refractCmsMiddleware({ serverConfig }));
+app.use(cmsRoute, refract({ serverConfig }));
 
 app.use('/client', express.static(path.resolve(__dirname, 'client')));
 

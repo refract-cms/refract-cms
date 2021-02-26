@@ -4,6 +4,11 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 // https://razzlejs.org/docs/customization
 module.exports = {
+  /**
+   *
+   * @param {{ webpackConfig: import('webpack').Configuration }} args
+   * @returns {import('webpack').Configuration}
+   */
   modifyWebpackConfig({ env, webpackConfig }) {
     return merge(webpackConfig, {
       module: {
@@ -11,7 +16,7 @@ module.exports = {
           {
             test: /\.(js|jsx|ts|tsx)$/,
             loader: 'ts-loader',
-            exclude: path.resolve(__dirname, 'node_modules'),
+            include: path.resolve(__dirname, 'src'),
             options: {
               transpileOnly: true,
             },

@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { config } from '../config';
 import { createDashboard } from '@refract-cms/dashboard';
+import { config } from '../config/config';
+import { constants } from '../shared/constants';
 
-const serverUrl = '/cms';
+const serverUrl = constants.refractPath;
 
 const Dashboard = createDashboard({
   config,
