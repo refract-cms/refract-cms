@@ -17,7 +17,8 @@ app.listen(4100, () => {
     chalk.magenta(
       `Login to the dashboard with ${serverConfig.auth.adminCredentials.username} / ${serverConfig.auth.adminCredentials.password}`
     ),
-    chalk.magenta(`GraphQL API running at http://localhost:4100/cms/graphql`)
+    chalk.magenta(`GraphQL API running at http://localhost:4100/cms/graphql`),
+    chalk.magenta(`Dashboard http://localhost:4100/cms`)
   );
   // }
 });

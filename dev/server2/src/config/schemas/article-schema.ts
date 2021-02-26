@@ -7,7 +7,7 @@ export const ArticleSchema = composeSchema({
     alias: 'article',
     displayName: 'Article',
     instanceDisplayProps: (article) => ({
-      primaryText: article.title,
+      primaryText: article.title + 'hi3',
     }),
     icon: DescriptionIcon,
   },
