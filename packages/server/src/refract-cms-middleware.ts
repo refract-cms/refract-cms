@@ -124,6 +124,8 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
       `<head>
         <title>Admin</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
        </head>
        <body>
         <script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/client.js"></script>
