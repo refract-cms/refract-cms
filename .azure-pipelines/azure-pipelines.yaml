@@ -50,12 +50,12 @@ stages:
               docker buildx build \
                 -t "${image}:$(tag)" \
                 --platform linux/arm64,linux/amd64 \
-                --cache-from=type=registry,ref=${image}:$(cache_tag) \
-                --cache-to=type=registry,ref=${image}:$(cache_tag),mode=max \
                 --push \
                 --progress=plain \
                 -f ./iac/dockerfiles/website.Dockerfile .
             displayName: 'Build website'
+            # --cache-from=type=registry,ref=${image}:$(cache_tag) \
+            # --cache-to=type=registry,ref=${image}:$(cache_tag),mode=max \
 
   - stage: Deploy
     displayName: Deploy
