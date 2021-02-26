@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import path from 'path';
 import nodemon from 'nodemon';
 import esbuildNodeExternals from 'esbuild-node-externals';
+import Bundler from 'parcel-bundler';
 
 let nodemonInstance: typeof nodemon;
 
@@ -14,6 +15,20 @@ process.on('SIGINT', function () {
 });
 
 export function dev() {
+  const entry = path.resolve(process.cwd(), 'src/client/index.tsx');
+  // const entry = '@refract-cms/server/src/client/index.tsx';
+
+  const bundler = new Bundler(entry, {
+    target: 'browser',
+    outDir: './client', // The out directory to put the build files in, defaults to dist
+    outFile: 'client.js',
+    hmr: true,
+    watch: true,
+    bundleNodeModules: true,
+  });
+
+  bundler.serve();
+
   const watcher = watch([
     path.resolve(process.cwd(), 'src/**/*.ts*', path.resolve(process.cwd(), '../../packages/**/*.ts*')),
     path.resolve(process.cwd(), 'src/*.ts*'),
