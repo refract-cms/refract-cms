@@ -19,15 +19,16 @@ export function dev() {
     path.resolve(process.cwd(), 'src/*.ts*'),
   ]);
   console.log('Watching files... \n');
-  build();
+  build().then(() => {
+    nodemonInstance = nodemon({
+      cwd: process.cwd(),
+      delay: 1,
+      watch: ['dist'],
+      script: 'dist/server.js',
+    });
+  });
   watcher.on('change', () => {
     build();
-  });
-  nodemonInstance = nodemon({
-    cwd: process.cwd(),
-    delay: 1,
-    watch: ['dist'],
-    script: 'dist/index.js',
   });
 }
 
@@ -62,7 +63,7 @@ const build = async () => {
     await service.build({
       color: true,
       entryPoints: [path.resolve(process.cwd(), 'src/index.ts')],
-      outfile: path.resolve(process.cwd(), 'dist/index.js'),
+      outfile: path.resolve(process.cwd(), 'dist/server.js'),
       external: ['mongoose', 'webpack', 'fsevents', 'parcel-bundler'],
       // external: [/^[a-z0-9-]/],
       bundle: true,
