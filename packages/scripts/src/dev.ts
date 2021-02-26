@@ -29,6 +29,10 @@ export function dev() {
 
   bundler.serve();
 
+  bundler.on('bundled', () => {
+    build();
+  });
+
   const watcher = watch([
     path.resolve(process.cwd(), 'src/**/*.ts*', path.resolve(process.cwd(), '../../packages/**/*.ts*')),
     path.resolve(process.cwd(), 'src/*.ts*'),
@@ -37,7 +41,7 @@ export function dev() {
   build().then(() => {
     nodemonInstance = nodemon({
       cwd: process.cwd(),
-      delay: 1,
+      // delay: 1,
       watch: ['dist'],
       script: 'dist/server.js',
     });

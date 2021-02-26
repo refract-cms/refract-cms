@@ -5,7 +5,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 export const ArticleSchema = composeSchema({
   options: {
     alias: 'article',
-    displayName: 'Article2',
+    displayName: 'Article',
     instanceDisplayProps: (article) => ({
       primaryText: article.title,
     }),
