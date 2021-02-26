@@ -7,7 +7,7 @@ import React from 'react';
 import { Html } from './Html';
 import { constants } from '../shared/constants';
 
-export const app = express();
+const app = express();
 
 app.use(express.static(process.env.RAZZLE_PUBLIC_DIR));
 
@@ -29,3 +29,5 @@ if (process.env.NODE_ENV === 'development') {
     )
   );
 }
+
+export default app;
