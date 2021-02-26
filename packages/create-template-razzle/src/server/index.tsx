@@ -1,10 +1,8 @@
 import express from 'express';
-import { renderToString } from 'react-dom/server';
 import { refract } from '@refract-cms/server';
 import { serverConfig } from './server-config';
 import chalk from 'chalk';
-import React from 'react';
-import { Html } from './Html';
+import { indexHtml } from './index-html';
 import { constants } from '../shared/constants';
 
 const app = express();
@@ -13,9 +11,7 @@ app.use(express.static(process.env.RAZZLE_PUBLIC_DIR));
 
 app.use(constants.refractPath, refract({ serverConfig }));
 
-app.get('/*', (req, res) => {
-  res.send(`<!doctype html>${renderToString(<Html title="Refract CMS App" />)}`);
-});
+app.get('/*', indexHtml({ title: 'Refract CMS App' }));
 
 const PORT = process.env.PORT || 3000;
 

@@ -29,8 +29,7 @@ npx @refract-cms/create --dir myapp
 
 ```bash
 cd ./myapp
-docker-compose up -d
-npm start
+npm run dev
 ```
 
 ### Create a schema
@@ -169,11 +168,3 @@ npm run start:prod
 yarn
 yarn dev
 ```
-
-### Urls for dev project
-
-Frontend: <http://localhost:3000>
-
-Admin Dashboard: <http://localhost:3000/admin> (Login with `admin / pw`)
-
-GraphQL: <http://localhost:4100/cms/graphql>
