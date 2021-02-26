@@ -9,16 +9,21 @@ import Bundler from 'parcel-bundler';
 let nodemonInstance: typeof nodemon;
 
 process.on('SIGINT', function () {
-  if (nodemon) {
+  if (nodemonInstance) {
     nodemonInstance.reset();
+  }
+  if (parcelServer) {
+    parcelServer.close();
   }
 });
 
-export function dev() {
-  const entry = path.resolve(process.cwd(), 'src/client/index.tsx');
-  // const entry = '@refract-cms/server/src/client/index.tsx';
+let bundler: Bundler;
+let parcelServer;
 
-  const bundler = new Bundler(entry, {
+export function dev() {
+  const entry = path.resolve(process.cwd(), 'src/dashboard/index.tsx');
+
+  bundler = new Bundler(entry, {
     target: 'browser',
     outDir: './client', // The out directory to put the build files in, defaults to dist
     outFile: 'client.js',
@@ -27,7 +32,7 @@ export function dev() {
     bundleNodeModules: true,
   });
 
-  bundler.serve();
+  bundler.serve(1234).then((server) => (parcelServer = server));
 
   bundler.on('bundled', () => {
     build();
@@ -95,7 +100,7 @@ const build = async () => {
     });
     // Get time after build ends
     const timerEnd = Date.now();
-    updateLine(chalk.green(`Built in ${timerEnd - timerStart}ms.`), true);
+    updateLine(chalk.green(`Server built in ${timerEnd - timerStart}ms.`), true);
   } catch (e) {
     // OOPS! ERROR!
   } finally {
