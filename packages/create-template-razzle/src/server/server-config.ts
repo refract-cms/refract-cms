@@ -1,5 +1,5 @@
 import { buildServerConfig } from '@refract-cms/server';
-import { config } from '../config';
+import { config } from '../config/config';
 
 export const serverConfig = buildServerConfig({
   config,

@@ -5,16 +5,15 @@ import { serverConfig } from './server-config';
 import chalk from 'chalk';
 import React from 'react';
 import { Html } from './Html';
+import { constants } from '../shared/constants';
 
-const cmsRoute = '/cms';
-
-const app = express();
+export const app = express();
 
 app.disable('x-powered-by');
 
 app.use(express.static(process.env.RAZZLE_PUBLIC_DIR));
 
-app.use(cmsRoute, refractCmsMiddleware({ serverConfig }));
+app.use(constants.refractPath, refractCmsMiddleware({ serverConfig }));
 
 app.get('/*', (req, res) => {
   res.status(200).send(`<!doctype html>${renderToString(<Html title="Refract CMS App" />)}`);
@@ -32,5 +31,3 @@ if (process.env.NODE_ENV === 'development') {
     )
   );
 }
-
-export default app;
