@@ -1,4 +1,4 @@
-import express from 'express';
+import type { Request, Response } from 'express';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -6,7 +6,7 @@ export interface HtmlOptions {
   title: string;
 }
 
-export const indexHtml = (options: HtmlOptions) => (req: express.Request, res: express.Response) => {
+export const indexHtml = (options: HtmlOptions) => (req: Request, res: Response) => {
   res.status(200).send(
     `<!doctype html>
     <html lang="">
