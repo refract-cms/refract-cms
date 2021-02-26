@@ -111,21 +111,23 @@ export const refractCmsMiddleware = ({ serverConfig, app }: { serverConfig: Serv
     target: 'browser',
     outDir: './client', // The out directory to put the build files in, defaults to dist
     outFile: 'client.js',
+    hmr: true,
+    watch: true,
   });
 
   router.use(bundler.middleware());
 
-  // router.get('/*', (req, res) => {
-  //   res.send(
-  //     `<head>
-  //       <title>Admin</title>
-  //       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-  //      </head>
-  //      <body>
-  //       <script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/main.js"></script>
-  //      </body>`
-  //   );
-  // });
+  router.get('/*', (req, res) => {
+    res.send(
+      `<head>
+        <title>Admin</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+       </head>
+       <body>
+        <script>window.serverUrl = "${req.baseUrl}/";</script><div id='root'></div><script src="${req.baseUrl}/client.js"></script>
+       </body>`
+    );
+  });
 
   return router;
 };
