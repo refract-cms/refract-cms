@@ -23,4 +23,9 @@ export const serverConfig = buildServerConfig({
       secret: env.JWT_SECRET,
     },
   },
+  events: {
+    onMongoConnected: () => {
+      console.log('connected to db');
+    },
+  },
 });

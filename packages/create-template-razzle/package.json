@@ -1,6 +1,6 @@
 {
   "name": "my-refract-cms-app",
-  "version": "0.18.3",
+  "version": "0.18.4",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -14,23 +14,23 @@
     "start:prod": "cross-env NODE_ENV=production node build/server.js"
   },
   "dependencies": {
-    "@refract-cms/core": "^0.18.3",
-    "@refract-cms/dashboard": "^0.18.3",
-    "@refract-cms/server": "^0.18.3",
+    "@refract-cms/core": "^0.18.4",
+    "@refract-cms/dashboard": "^0.18.4",
+    "@refract-cms/server": "^0.18.4",
     "express": "^4.17.1",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "cross-env": "7.0.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.7",
     "@types/react": "^16.9.44",
     "@types/react-dom": "^16.9.8",
     "@types/webpack-env": "^1.15.2",
-    "cross-env": "7.0.3",
     "fork-ts-checker-webpack-plugin": "^5.0.14",
     "npm-run-all": "4.1.5",
     "razzle": "^3.1.6",
-    "ts-loader": "8.0.2",
+    "esbuild-loader": "^2.9.2",
     "typescript": "^4.2.2",
     "webpack-merge": "^5.1.1"
   }

@@ -1,6 +1,6 @@
 const { merge } = require('webpack-merge');
-const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const { ESBuildPlugin, ESBuildMinifyPlugin } = require('esbuild-loader');
 
 // https://razzlejs.org/docs/customization
 module.exports = {
@@ -11,19 +11,27 @@ module.exports = {
    */
   modifyWebpackConfig({ env, webpackConfig }) {
     return merge(webpackConfig, {
+      optimization: {
+        minimize: env.target === 'web',
+        minimizer: [
+          new ESBuildMinifyPlugin({
+            target: 'es2015',
+          }),
+        ],
+      },
       module: {
         rules: [
           {
             test: /\.(js|jsx|ts|tsx)$/,
-            loader: 'ts-loader',
-            include: path.resolve(__dirname, 'src'),
+            loader: 'esbuild-loader',
             options: {
-              transpileOnly: true,
+              loader: 'tsx',
+              target: env.target === 'web' ? 'es2015' : 'esnext',
             },
           },
         ],
       },
-      plugins: [new ForkTsCheckerWebpackPlugin()],
+      plugins: [new ForkTsCheckerWebpackPlugin(), new ESBuildPlugin()],
       resolve: {
         extensions: ['.ts', '.tsx'],
       },
