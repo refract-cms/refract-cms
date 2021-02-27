@@ -1,6 +1,6 @@
 {
   "name": "my-refract-cms-app",
-  "version": "0.18.3",
+  "version": "0.18.4",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -14,9 +14,9 @@
     "start:prod": "cross-env NODE_ENV=production node build/server.js"
   },
   "dependencies": {
-    "@refract-cms/core": "^0.18.3",
-    "@refract-cms/dashboard": "^0.18.3",
-    "@refract-cms/server": "^0.18.3",
+    "@refract-cms/core": "^0.18.4",
+    "@refract-cms/dashboard": "^0.18.4",
+    "@refract-cms/server": "^0.18.4",
     "express": "^4.17.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
