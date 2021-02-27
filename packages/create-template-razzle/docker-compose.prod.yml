@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: hqXzNv2f5YC45veW
+
+  cms:
+    build: ./
+    # Use image param instead of buil, with your built image name if using docker-compose in production
+    # image: myapp_cms
+    links:
+      - mongo
+    ports:
+      - 3000:3000
+    environment:
+      - MONGO_URI=mongodb://root:hqXzNv2f5YC45veW@mongo:27017/refract-cms?authSource=admin
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=password
+      - JWT_SECRET=secret123
