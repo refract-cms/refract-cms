@@ -17,7 +17,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      - MONGO_URI=mongodb://root:hqXzNv2f5YC45veW@mongo:27017/refract-cms?authSource=admin
-      - ADMIN_USERNAME=admin
-      - ADMIN_PASSWORD=password
-      - JWT_SECRET=secret123
+      MONGO_URI: mongodb://root:hqXzNv2f5YC45veW@mongo:27017/refract-cms?authSource=admin
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: password
+      JWT_SECRET: secret123
