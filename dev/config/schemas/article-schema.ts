@@ -6,7 +6,7 @@ import {
   propertyBuilder,
   createSingleEntityPickerEditor,
 } from '@refract-cms/core';
-import { CustomTextEditor } from '../editor-components/custom-text-editor';
+import { customTextEditor } from '../editor-components/custom-text-editor';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { ArticleCategorySchema } from './article-category-schema';
 import { FileSystemImageSchema } from '@refract-cms/plugin-file-system-image';
@@ -29,7 +29,9 @@ export const ArticleSchema = composeSchema({
     description: {
       type: String,
       displayName: 'Description',
-      editorComponent: CustomTextEditor,
+      editorComponent: customTextEditor({
+        showHelpText: true,
+      }),
     },
     body: {
       type: String,
