@@ -6,7 +6,7 @@
     "typecheck": "tsc --noEmit",
     "test:watch": "npm test -- --watch-extensions ts --watch-files src,__tests__/**/*test*.ts,packages/**/*.ts --watch",
     "build": "lerna run build --scope @refract-cms/*",
-    "bump-version": "lerna version --no-push --no-git-tag-version",
+    "bump-version": "lerna version --no-push --no-git-tag-version && yarn prettier:fix",
     "prettier:fix": "prettier --write .",
     "prettier": "prettier --check .",
     "dev": "lerna run dev --stream --scope @local/*",

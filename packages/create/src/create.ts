@@ -57,7 +57,6 @@ export function create(args: { name: string }) {
     spinner.stop();
     console.log(`Installed npm dependencies`);
     console.log(`cd ./${name}`);
-    console.log(`docker-compose up -d`);
-    console.log(`npm start`);
+    console.log(`npm run dev`);
   });
 }
