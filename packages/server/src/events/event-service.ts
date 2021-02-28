@@ -13,4 +13,8 @@ export class EventService implements Events {
   onSchemaBuilt(schema: GraphQLSchema) {
     this.serverConfig.events.filter((events) => events.onSchemaBuilt).forEach((events) => events.onSchemaBuilt(schema));
   }
+
+  onMongoConnected() {
+    this.serverConfig.events.filter((events) => events.onMongoConnected).forEach((events) => events.onMongoConnected());
+  }
 }
