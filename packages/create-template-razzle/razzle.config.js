@@ -12,7 +12,7 @@ module.exports = {
   modifyWebpackConfig({ env, webpackConfig }) {
     return merge(webpackConfig, {
       optimization: {
-        minimize: env.target === 'web',
+        minimize: env.target === 'web' && !env.dev,
         minimizer: [
           new ESBuildMinifyPlugin({
             target: 'es2015',
