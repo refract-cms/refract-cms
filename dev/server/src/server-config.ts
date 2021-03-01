@@ -25,7 +25,7 @@ export const serverConfig = buildServerConfig({
   },
   events: {
     onMongoConnected: () => {
-      console.log('connected to db');
+      console.log('custom connected to db event handler');
     },
   },
 });
