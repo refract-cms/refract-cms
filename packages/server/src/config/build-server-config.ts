@@ -34,5 +34,7 @@ export function buildServerConfig(userServerConfig: UserServerConfig): ServerCon
     resolvers,
     routers,
     resolverPlugins,
+    query: userServerConfig.query,
+    mutation: userServerConfig.mutation,
   };
 }

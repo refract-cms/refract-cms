@@ -1,4 +1,4 @@
-import { createServerPlugin, repositoryForSchema, createResolverPlugin } from '@refract-cms/server';
+import { createServerPlugin, collection, createResolverPlugin } from '@refract-cms/server';
 import { fileSystemImagePluginConfig } from './';
 import multer from 'multer';
 import uniqueString from 'unique-string';
@@ -27,7 +27,7 @@ export const fileSystemImageServerPlugin = ({ filesPath }: FileSystemImageServer
       const upload = multer({ storage });
 
       router.get('/files/:id', async (req, res) => {
-        const fileRepository = repositoryForSchema(FileSystemImageSchema);
+        const fileRepository = collection(FileSystemImageSchema);
         const { id } = req.params;
         const crop = req.query as any;
         const entity = await fileRepository.findById(id);

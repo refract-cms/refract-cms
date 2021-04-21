@@ -1,5 +1,5 @@
 import type { EntitySchema } from '@refract-cms/core';
-import { repositoryForSchema } from '../repository-for-schema';
+import { collection } from '../collection';
 import { createResolverPlugin } from './create-resolver-plugin';
 import { GraphQLList } from 'graphql';
 import { getMongoDbQueryResolver, getGraphQLQueryArgs } from 'graphql-to-mongodb';
@@ -16,7 +16,7 @@ export const multipleRefPlugin = createResolverPlugin({
       args: getGraphQLQueryArgs(entityType),
       resolve: getMongoDbQueryResolver(entityType, async (filter, projection, options, source, args) => {
         const ids = source[propertyKey] as string[];
-        return repositoryForSchema(refSchema)
+        return collection(refSchema)
           .find(
             merge(filter, {
               _id: {

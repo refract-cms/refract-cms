@@ -1,5 +1,5 @@
 export * from './refract-cms-middleware';
-export { repositoryForSchema } from './repository-for-schema';
+export { collection } from './collection';
 export { createResolver } from './graphql/create-resolver';
 export { SchemaBuilder } from './graphql/schema-builder';
 // export { RefractGraphQLContext } from './graphql/refract-graphql-context';
