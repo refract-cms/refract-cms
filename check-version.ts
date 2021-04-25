@@ -25,9 +25,6 @@ async function getFileContents({ file, branch }: { file: string; branch: string 
   return outStr;
 }
 
-// interface LernaJson {
-//   version: string;
-// }
 interface GitVersionResponse {
   'next-version': string;
 }

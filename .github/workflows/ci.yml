@@ -46,13 +46,13 @@ jobs:
         name: 'Check version'
         if: github.event_name == 'pull_request'
 
-      - run: |
-          lerna version ${{ steps.gitversion.outputs.semVer }} --no-push --no-git-tag-version --exact -y && yarn prettier:fix
-        name: Set version to ${{ steps.gitversion.outputs.semVer }}
-
       - name: Yarn install
         run: |
           yarn
+
+      - run: |
+          lerna version ${{ steps.gitversion.outputs.semVer }} --no-push --no-git-tag-version --exact -y && yarn prettier:fix
+        name: Set version to ${{ steps.gitversion.outputs.semVer }}
 
       - name: Test
         run: |
