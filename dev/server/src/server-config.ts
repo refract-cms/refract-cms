@@ -25,22 +25,20 @@ export const serverConfig = buildServerConfig({
       secret: env.JWT_SECRET,
     },
   },
-  mutation: ({ getCollection, getType }) => () => ({
-    doSomething: {
-      type: GraphQLString,
-      resolve: () => 'hi',
-    },
-  }),
-  query: ({ getType, getCollection }) => {
-    return () => ({
-      hello: {
-        type: getType(ArticleSchema),
-        resolve: async (source, args, context) => {
-          const articles = getCollection(ArticleSchema);
-          return articles.find({});
-        },
+  // mutation: {
+  //   doSomething: ({ getCollection, getType }) => ({
+  //     type: GraphQLString,
+  //     resolve: () => 'hi',
+  //   }),
+  // },
+  query: {
+    hello: ({ getType, getCollection }) => ({
+      type: getType(ArticleSchema),
+      resolve: async (source, args, context) => {
+        const articles = getCollection(ArticleSchema);
+        return articles.find({});
       },
-    });
+    }),
   },
   events: {
     onMongoConnected: () => {

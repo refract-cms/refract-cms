@@ -33,9 +33,9 @@ export interface UserServerConfig {
   // config: PluginConfig | Config;
 }
 
-type ExtendGraphQL = (opts: {
-  getType: <T>(entitySchema: EntitySchema<T>) => GraphQLObjectType;
-  getCollection: typeof getCollection;
-}) => () => {
-  [x: string]: GraphQLFieldConfig<any, RefractGraphQLContext, any>;
+type ExtendGraphQL = {
+  [x: string]: (opts: {
+    getType: <T>(entitySchema: EntitySchema<T>) => GraphQLObjectType;
+    getCollection: typeof getCollection;
+  }) => GraphQLFieldConfig<any, RefractGraphQLContext, any>;
 };

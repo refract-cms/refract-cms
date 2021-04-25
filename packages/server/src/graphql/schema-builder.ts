@@ -60,34 +60,36 @@ export class SchemaBuilder {
   }
 
   buildSchema(schema: EntitySchema[]) {
-    let publicQueryFields = {};
-    schema.forEach((entitySchema) => {
-      const type = this.buildGraphQLObjectFromSchema({
-        entitySchema,
-        prefixName: '',
-        addResolvers: true,
-      });
-      const repository = getCollection(entitySchema) as mongoose.Model<any>;
-
-      publicQueryFields = {
-        ...publicQueryFields,
-        ...this.buildPublicFieldQueries(entitySchema, repository, type),
-      };
-
-      console.log(chalk.blue(`Added schema: ${entitySchema.options.displayName || entitySchema.options.alias}`));
-    });
-
-    publicQueryFields = {
-      ...publicQueryFields,
-      ...(this.serverConfig.query({
-        getCollection,
-        getType: this.getEntityTypeFromSchema,
-      }) as any),
-    };
-
     const publicQuery = new GraphQLObjectType({
       name: 'Query',
-      fields: publicQueryFields,
+      fields: () => {
+        let publicQueryFields = {};
+        schema.forEach((entitySchema) => {
+          const type = this.buildGraphQLObjectFromSchema({
+            entitySchema,
+            prefixName: '',
+            addResolvers: true,
+          });
+          const repository = getCollection(entitySchema) as mongoose.Model<any>;
+
+          publicQueryFields = {
+            ...publicQueryFields,
+            ...this.buildPublicFieldQueries(entitySchema, repository, type),
+          };
+
+          console.log(chalk.blue(`Added schema: ${entitySchema.options.displayName || entitySchema.options.alias}`));
+        });
+
+        if (this.serverConfig.query) {
+          Object.keys(this.serverConfig.query).forEach((key) => {
+            publicQueryFields[key] = this.serverConfig.query[key]({
+              getType: this.getTypeFromSchema.bind(this),
+              getCollection,
+            });
+          });
+        }
+        return publicQueryFields;
+      },
     });
 
     let publicMutation: GraphQLObjectType = null;
@@ -95,10 +97,16 @@ export class SchemaBuilder {
     if (this.serverConfig.mutation) {
       publicMutation = new GraphQLObjectType({
         name: 'Mutation',
-        fields: this.serverConfig.mutation({
-          getCollection,
-          getType: this.getEntityTypeFromSchema,
-        }),
+        fields: () => {
+          const fields = {};
+          Object.keys(this.serverConfig.mutation).forEach((key) => {
+            fields[key] = this.serverConfig.mutation[key]({
+              getType: this.getTypeFromSchema.bind(this),
+              getCollection,
+            });
+          });
+          return fields;
+        },
       });
     }
 
