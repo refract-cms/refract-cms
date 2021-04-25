@@ -13,8 +13,6 @@ import {
   GraphQLScalarType,
 } from 'graphql';
 import type mongoose from 'mongoose';
-// import { Properties, buildHelpers } from '../create-public-schema';
-import { repositoryForSchema } from '../repository-for-schema';
 import { getGraphQLQueryArgs, getMongoDbQueryResolver, getMongoDbFilter } from 'graphql-to-mongodb';
 import type { Db, ObjectId } from 'mongodb';
 import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date';
@@ -26,6 +24,7 @@ import { multipleRefPlugin } from '../plugins/multiple-ref-plugin';
 import produce from 'immer';
 import type { ServerConfig } from '../config/server-config';
 import { EventService } from '../events/event-service';
+import { getCollection } from '../get-collection';
 
 export class SchemaBuilder {
   types: GraphQLObjectType[] = [];
@@ -61,33 +60,64 @@ export class SchemaBuilder {
   }
 
   buildSchema(schema: EntitySchema[]) {
-    let publicQueryFields = {};
-    schema.forEach((entitySchema) => {
-      const type = this.buildGraphQLObjectFromSchema({
-        entitySchema,
-        prefixName: '',
-        addResolvers: true,
-      });
-      const repository = repositoryForSchema(entitySchema);
-
-      publicQueryFields = {
-        ...publicQueryFields,
-        ...this.buildPublicFieldQueries(entitySchema, repository, type),
-      };
-
-      console.log(chalk.blue(`Added schema: ${entitySchema.options.displayName || entitySchema.options.alias}`));
-    });
-
     const publicQuery = new GraphQLObjectType({
       name: 'Query',
-      fields: publicQueryFields,
+      fields: () => {
+        let publicQueryFields = {};
+        schema.forEach((entitySchema) => {
+          const type = this.buildGraphQLObjectFromSchema({
+            entitySchema,
+            prefixName: '',
+            addResolvers: true,
+          });
+          const repository = getCollection(entitySchema) as mongoose.Model<any>;
+
+          publicQueryFields = {
+            ...publicQueryFields,
+            ...this.buildPublicFieldQueries(entitySchema, repository, type),
+          };
+
+          console.log(chalk.blue(`Added schema: ${entitySchema.options.displayName || entitySchema.options.alias}`));
+        });
+
+        if (this.serverConfig.query) {
+          Object.keys(this.serverConfig.query).forEach((key) => {
+            publicQueryFields[key] = this.serverConfig.query[key]({
+              getType: this.getTypeFromSchema.bind(this),
+              getCollection,
+            });
+          });
+        }
+        return publicQueryFields;
+      },
     });
 
-    const publicGraphQLSchema = new GraphQLSchema({ query: publicQuery });
+    let publicMutation: GraphQLObjectType = null;
+
+    if (this.serverConfig.mutation) {
+      publicMutation = new GraphQLObjectType({
+        name: 'Mutation',
+        fields: () => {
+          const fields = {};
+          Object.keys(this.serverConfig.mutation).forEach((key) => {
+            fields[key] = this.serverConfig.mutation[key]({
+              getType: this.getTypeFromSchema.bind(this),
+              getCollection,
+            });
+          });
+          return fields;
+        },
+      });
+    }
+
+    const publicGraphQLSchema = new GraphQLSchema({
+      query: publicQuery,
+      mutation: publicMutation,
+    });
 
     let internalQueryFields = {};
     schema.forEach((entitySchema) => {
-      const repository = repositoryForSchema(entitySchema);
+      const repository = getCollection(entitySchema);
       internalQueryFields = {
         ...internalQueryFields,
         ...this.buildInternalFieldQueries(entitySchema, repository),
@@ -101,7 +131,7 @@ export class SchemaBuilder {
 
     let mutationFields = {};
     schema.forEach((entitySchema) => {
-      const repository = repositoryForSchema(entitySchema);
+      const repository = getCollection(entitySchema);
 
       mutationFields = {
         ...mutationFields,

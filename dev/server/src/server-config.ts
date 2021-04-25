@@ -4,6 +4,8 @@ import { activeDirectoryServerPlugin } from '@refract-cms/plugin-active-director
 import { fileSystemImageServerPlugin } from '@refract-cms/plugin-file-system-image/src/server';
 import dotenv from 'dotenv';
 import path from 'path';
+import { GraphQLString } from 'graphql';
+import { ArticleSchema } from '@local/config/schemas/article-schema';
 const env = dotenv.config().parsed;
 
 export const serverConfig = buildServerConfig({
@@ -22,6 +24,21 @@ export const serverConfig = buildServerConfig({
       issuer: 'my-app',
       secret: env.JWT_SECRET,
     },
+  },
+  mutation: {
+    doSomething: ({ getCollection, getType }) => ({
+      type: GraphQLString,
+      resolve: () => 'hi',
+    }),
+  },
+  query: {
+    hello: ({ getType, getCollection }) => ({
+      type: getType(ArticleSchema),
+      resolve: async (source, args, context) => {
+        const articles = getCollection(ArticleSchema);
+        return articles.findOne({});
+      },
+    }),
   },
   events: {
     onMongoConnected: () => {

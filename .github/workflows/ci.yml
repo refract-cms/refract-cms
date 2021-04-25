@@ -2,9 +2,13 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches:
+      - develop
+      - master
   pull_request:
-    branches: [master]
+    branches:
+      - develop
+      - master
 
 jobs:
   build:
@@ -12,6 +16,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: '5.x'
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
+          configFilePath: GitVersion.yml
 
       - run: |
           curl -fsSL https://deno.land/x/install/install.sh | sh
@@ -48,6 +66,10 @@ jobs:
         run: |
           yarn prettier
 
+      - run: |
+          lerna version ${{ steps.gitversion.outputs.semVer }} --no-push --no-git-tag-version --exact -y && yarn prettier:fix
+        name: Set version to ${{ steps.gitversion.outputs.semVer }}
+
       - name: Yarn build
         run: |
           yarn build
@@ -58,7 +80,16 @@ jobs:
           npm set //registry.npmjs.org/:_authToken $NPM_TOKEN
           npm config set access public
           npx lerna publish from-package --yes --contents pkg
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Lerna publish
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          npm set //registry.npmjs.org/:_authToken $NPM_TOKEN
+          npm config set access public
+          npx lerna publish from-package --yes --contents pkg --dist-tag alpha
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

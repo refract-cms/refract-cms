@@ -25,18 +25,21 @@ async function getFileContents({ file, branch }: { file: string; branch: string 
   return outStr;
 }
 
-interface LernaJson {
-  version: string;
+interface GitVersionResponse {
+  'next-version': string;
 }
 
 let failed = false;
 
-async function compareVersion(file: string) {
-  const sourceGitVersionResponse = JSON.parse(await getFileContents({ file, branch: 'HEAD' })) as LernaJson;
-  const targetGitVersionResponse = JSON.parse(await getFileContents({ file, branch: 'origin/master' })) as LernaJson;
+async function compareVersion() {
+  const file = 'GitVersion.yml';
+  const sourceGitVersionResponse = parse(await getFileContents({ file, branch: 'HEAD' })) as GitVersionResponse;
+  const targetGitVersionResponse =
+    (parse(await getFileContents({ file, branch: 'origin/master' })) as GitVersionResponse) ||
+    ({ 'next-version': '0.0.1' } as GitVersionResponse);
 
-  const sourceVersion = sourceGitVersionResponse.version;
-  const targetVersion = targetGitVersionResponse.version;
+  const sourceVersion = sourceGitVersionResponse['next-version'];
+  const targetVersion = targetGitVersionResponse['next-version'];
 
   console.log({ sourceVersion, targetVersion });
 
@@ -52,10 +55,7 @@ async function compareVersion(file: string) {
   }
 }
 
-await compareVersion('lerna.json');
-await compareVersion('packages/core/package.json');
-await compareVersion('packages/dashboard/package.json');
-await compareVersion('packages/server/package.json');
+await compareVersion();
 
 if (failed) {
   Deno.exit(1);

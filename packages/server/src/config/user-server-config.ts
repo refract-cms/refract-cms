@@ -1,8 +1,9 @@
-import type { UserConfig, PropertyType, Config } from '@refract-cms/core';
-import { ResolverPlugin } from '../plugins/resolver-plugin';
-import { ASTNode } from 'graphql';
+import type { UserConfig, PropertyType, Config, EntitySchema } from '@refract-cms/core';
+import type { ASTNode, GraphQLFieldConfig, GraphQLFieldConfigMap, GraphQLObjectType, Thunk } from 'graphql';
 import type { PluginServerConfig } from '../plugins/plugin-server-config';
 import type { Events } from '../events/events';
+import type { RefractGraphQLContext } from '../graphql/refract-graphql-context';
+import type { getCollection } from '../get-collection';
 
 export interface UserServerConfig {
   config: Config;
@@ -27,5 +28,14 @@ export interface UserServerConfig {
       };
     };
   };
+  query?: ExtendGraphQL;
+  mutation?: ExtendGraphQL;
   // config: PluginConfig | Config;
 }
+
+type ExtendGraphQL = {
+  [x: string]: (opts: {
+    getType: <T>(entitySchema: EntitySchema<T>) => GraphQLObjectType;
+    getCollection: typeof getCollection;
+  }) => GraphQLFieldConfig<any, RefractGraphQLContext, any>;
+};

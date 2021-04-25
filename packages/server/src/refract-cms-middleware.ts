@@ -11,6 +11,7 @@ import type { RefractGraphQLContext } from './graphql/refract-graphql-context';
 import chalk from 'chalk';
 import type { ServerConfig } from './config/server-config';
 import { EventService } from './events/event-service';
+import { getCollection } from './get-collection';
 
 export const refract = ({ serverConfig }: { serverConfig: ServerConfig }) => {
   const router = express.Router();
