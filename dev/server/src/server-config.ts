@@ -25,18 +25,18 @@ export const serverConfig = buildServerConfig({
       secret: env.JWT_SECRET,
     },
   },
-  // mutation: {
-  //   doSomething: ({ getCollection, getType }) => ({
-  //     type: GraphQLString,
-  //     resolve: () => 'hi',
-  //   }),
-  // },
+  mutation: {
+    doSomething: ({ getCollection, getType }) => ({
+      type: GraphQLString,
+      resolve: () => 'hi',
+    }),
+  },
   query: {
     hello: ({ getType, getCollection }) => ({
       type: getType(ArticleSchema),
       resolve: async (source, args, context) => {
         const articles = getCollection(ArticleSchema);
-        return articles.find({});
+        return articles.findOne({});
       },
     }),
   },
