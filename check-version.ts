@@ -38,7 +38,7 @@ async function compareVersion() {
   const file = 'GitVersion.yml';
   const sourceGitVersionResponse = parse(await getFileContents({ file, branch: 'HEAD' })) as GitVersionResponse;
   const targetGitVersionResponse =
-    parse(await getFileContents({ file, branch: 'origin/master' })) ||
+    (parse(await getFileContents({ file, branch: 'origin/master' })) as GitVersionResponse) ||
     ({ 'next-version': '0.0.1' } as GitVersionResponse);
 
   const sourceVersion = sourceGitVersionResponse['next-version'];
