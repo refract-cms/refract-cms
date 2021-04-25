@@ -2,9 +2,13 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches:
+      - develop
+      - master
   pull_request:
-    branches: [master]
+    branches:
+      - develop
+      - master
 
 jobs:
   build:
@@ -12,6 +16,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: '5.x'
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
+          configFilePath: GitVersion.yml
 
       - run: |
           curl -fsSL https://deno.land/x/install/install.sh | sh
@@ -27,6 +45,10 @@ jobs:
           deno run --allow-run --allow-env --allow-read ./check-version.ts
         name: 'Check version'
         if: github.event_name == 'pull_request'
+
+      - run: |
+          lerna version ${{ steps.gitversion.outputs.semVer }} --no-push --no-git-tag-version --exact -y && yarn prettier:fix
+        name: Set version to ${{ steps.gitversion.outputs.semVer }}
 
       - name: Yarn install
         run: |
