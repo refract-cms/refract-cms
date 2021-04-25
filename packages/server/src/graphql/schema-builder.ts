@@ -13,8 +13,6 @@ import {
   GraphQLScalarType,
 } from 'graphql';
 import type mongoose from 'mongoose';
-// import { Properties, buildHelpers } from '../create-public-schema';
-import { collection } from '../collection';
 import { getGraphQLQueryArgs, getMongoDbQueryResolver, getMongoDbFilter } from 'graphql-to-mongodb';
 import type { Db, ObjectId } from 'mongodb';
 import { GraphQLDate, GraphQLDateTime } from 'graphql-iso-date';
@@ -26,6 +24,7 @@ import { multipleRefPlugin } from '../plugins/multiple-ref-plugin';
 import produce from 'immer';
 import type { ServerConfig } from '../config/server-config';
 import { EventService } from '../events/event-service';
+import { getCollection } from '../get-collection';
 
 export class SchemaBuilder {
   types: GraphQLObjectType[] = [];
@@ -68,7 +67,7 @@ export class SchemaBuilder {
         prefixName: '',
         addResolvers: true,
       });
-      const repository = collection(entitySchema);
+      const repository = getCollection(entitySchema) as mongoose.Model<any>;
 
       publicQueryFields = {
         ...publicQueryFields,
@@ -81,8 +80,8 @@ export class SchemaBuilder {
     publicQueryFields = {
       ...publicQueryFields,
       ...(this.serverConfig.query({
-        collection,
-        getTypeFromSchema: this.getEntityTypeFromSchema,
+        getCollection,
+        getType: this.getEntityTypeFromSchema,
       }) as any),
     };
 
@@ -97,8 +96,8 @@ export class SchemaBuilder {
       publicMutation = new GraphQLObjectType({
         name: 'Mutation',
         fields: this.serverConfig.mutation({
-          collection,
-          getTypeFromSchema: this.getEntityTypeFromSchema,
+          getCollection,
+          getType: this.getEntityTypeFromSchema,
         }),
       });
     }
@@ -110,7 +109,7 @@ export class SchemaBuilder {
 
     let internalQueryFields = {};
     schema.forEach((entitySchema) => {
-      const repository = collection(entitySchema);
+      const repository = getCollection(entitySchema);
       internalQueryFields = {
         ...internalQueryFields,
         ...this.buildInternalFieldQueries(entitySchema, repository),
@@ -124,7 +123,7 @@ export class SchemaBuilder {
 
     let mutationFields = {};
     schema.forEach((entitySchema) => {
-      const repository = collection(entitySchema);
+      const repository = getCollection(entitySchema);
 
       mutationFields = {
         ...mutationFields,

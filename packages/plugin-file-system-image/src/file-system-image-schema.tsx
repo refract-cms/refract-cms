@@ -1,7 +1,5 @@
 import { composeSchema, createTextEditor, PropertyEditorProps } from '@refract-cms/core';
-import { FileModel } from './file';
 import ImageIcon from '@material-ui/icons/Image';
-import { FileRef } from './file-ref';
 import createFileUploadEditor from './FileUploaderEditor';
 import { FileService } from './file-service';
 

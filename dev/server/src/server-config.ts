@@ -25,22 +25,23 @@ export const serverConfig = buildServerConfig({
       secret: env.JWT_SECRET,
     },
   },
-  mutation: () => ({
+  mutation: ({ getCollection, getType }) => () => ({
     doSomething: {
       type: GraphQLString,
       resolve: () => 'hi',
     },
   }),
-  query: ({ getTypeFromSchema, collection }) => ({
-    hello: {
-      type: GraphQLString,
-      resolve: (source, args, context) => {
-        const articleType = getTypeFromSchema(ArticleSchema);
-        const articles = collection(ArticleSchema);
-        return articles.find({});
+  query: ({ getType, getCollection }) => {
+    return () => ({
+      hello: {
+        type: getType(ArticleSchema),
+        resolve: async (source, args, context) => {
+          const articles = getCollection(ArticleSchema);
+          return articles.find({});
+        },
       },
-    },
-  }),
+    });
+  },
   events: {
     onMongoConnected: () => {
       console.log('connected to db');

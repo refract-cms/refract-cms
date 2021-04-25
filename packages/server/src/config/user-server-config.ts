@@ -3,7 +3,7 @@ import type { ASTNode, GraphQLFieldConfig, GraphQLFieldConfigMap, GraphQLObjectT
 import type { PluginServerConfig } from '../plugins/plugin-server-config';
 import type { Events } from '../events/events';
 import type { RefractGraphQLContext } from '../graphql/refract-graphql-context';
-import type { collection } from '../collection';
+import type { getCollection } from '../get-collection';
 
 export interface UserServerConfig {
   config: Config;
@@ -29,15 +29,15 @@ export interface UserServerConfig {
     };
   };
   query?: (opts: {
-    getTypeFromSchema: <T>(entitySchema: EntitySchema<T>) => GraphQLObjectType;
-    collection: typeof collection;
-  }) => {
+    getType: <T>(entitySchema: EntitySchema<T>) => GraphQLObjectType;
+    getCollection: typeof getCollection;
+  }) => () => {
     [x: string]: GraphQLFieldConfig<any, RefractGraphQLContext, any>;
   };
   mutation?: (opts: {
-    getTypeFromSchema: <T>(entitySchema: EntitySchema<T>) => GraphQLObjectType;
-    collection: typeof collection;
-  }) => {
+    getType: <T>(entitySchema: EntitySchema<T>) => GraphQLObjectType;
+    getCollection: typeof getCollection;
+  }) => () => {
     [x: string]: GraphQLFieldConfig<any, RefractGraphQLContext, any>;
   };
   // config: PluginConfig | Config;
