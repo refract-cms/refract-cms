@@ -68,6 +68,9 @@ jobs:
 
       - run: |
           lerna version ${{ steps.gitversion.outputs.semVer }} --no-push --no-git-tag-version --exact -y && yarn prettier:fix
+          git config --global user.email "build@refract-cms.com"
+          git config --global user.name "refract-cms build"
+          git commit -am "Temp version commit"
         name: Set version to ${{ steps.gitversion.outputs.semVer }}
 
       - name: Yarn build
