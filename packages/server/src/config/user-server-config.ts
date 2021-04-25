@@ -28,17 +28,14 @@ export interface UserServerConfig {
       };
     };
   };
-  query?: (opts: {
-    getType: <T>(entitySchema: EntitySchema<T>) => GraphQLObjectType;
-    getCollection: typeof getCollection;
-  }) => () => {
-    [x: string]: GraphQLFieldConfig<any, RefractGraphQLContext, any>;
-  };
-  mutation?: (opts: {
-    getType: <T>(entitySchema: EntitySchema<T>) => GraphQLObjectType;
-    getCollection: typeof getCollection;
-  }) => () => {
-    [x: string]: GraphQLFieldConfig<any, RefractGraphQLContext, any>;
-  };
+  query?: ExtendGraphQL;
+  mutation?: ExtendGraphQL;
   // config: PluginConfig | Config;
 }
+
+type ExtendGraphQL = (opts: {
+  getType: <T>(entitySchema: EntitySchema<T>) => GraphQLObjectType;
+  getCollection: typeof getCollection;
+}) => () => {
+  [x: string]: GraphQLFieldConfig<any, RefractGraphQLContext, any>;
+};
