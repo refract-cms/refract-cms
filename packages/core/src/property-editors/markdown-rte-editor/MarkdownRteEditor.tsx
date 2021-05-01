@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Typography, Theme, NoSsr, Paper, makeStyles } from '@material-ui/core';
 import { Editor, EditorState, RichUtils, convertFromRaw, convertToRaw } from 'draft-js';
-import { stateFromMarkdown } from 'draft-js-import-markdown';
-import { stateToMarkdown } from 'draft-js-export-markdown';
 import { draftjsToMd, mdToDraftjs } from 'draftjs-md-converter';
 import RteToolbar from './RteToolbar';
 import classNames from 'classnames';
