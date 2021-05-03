@@ -55,7 +55,6 @@ const RteToolbar: ComponentType<Props> = (props) => {
     };
   }
 
-  const hasLink = RichUtils.currentBlockContainsLink(editorState);
   const selectionState = editorState.getSelection();
   const anchorKey = selectionState.getAnchorKey();
   const currentContent = editorState.getCurrentContent();
@@ -65,8 +64,21 @@ const RteToolbar: ComponentType<Props> = (props) => {
   const currentContentBlockText = currentContentBlock.getText();
   const selectedText = currentContentBlock.getText().slice(start, end);
 
+  const startKey = editorState.getSelection().getStartKey();
+  const startOffset = editorState.getSelection().getStartOffset();
+  const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
+  const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
+
+  let url = '';
+  if (linkKey) {
+    const linkInstance = contentState.getEntity(linkKey);
+    url = linkInstance.getData().url;
+  }
+
+  const hasLink = Boolean(url) || RichUtils.currentBlockContainsLink(editorState);
+
   function toggleLinkButtonProps() {
-    const url = selectedText;
+    const newUrl = selectedText;
     return {
       className: classNames({
         [classes.active]: hasLink,
@@ -75,8 +87,8 @@ const RteToolbar: ComponentType<Props> = (props) => {
         if (hasLink) {
           setEditorState(RichUtils.toggleLink(editorState, selection, null));
         } else {
-          if (url.length > 0) {
-            const entityKey = Entity.create('LINK', 'MUTABLE', { url });
+          if (newUrl.length > 0) {
+            const entityKey = Entity.create('LINK', 'MUTABLE', { url: newUrl });
             setEditorState(RichUtils.toggleLink(editorState, selection, entityKey));
           }
         }
@@ -100,20 +112,18 @@ const RteToolbar: ComponentType<Props> = (props) => {
         <Button {...createStyleButtonProps({ inlineStyle: 'ITALIC' })}>Italic</Button>
         <Button {...createStyleButtonProps({ inlineStyle: 'UNDERLINE' })}>Underline</Button>
       </ButtonGroup>
-      {currentContentBlockText.length > 0 && (
-        <ButtonGroup className={classes.buttonGroup} size="small">
-          <Button {...toggleLinkButtonProps()}>Link</Button>
-          {hasLink && (
-            <Chip
-              size="medium"
-              label={currentContentBlockText}
-              onDelete={() => {
-                setEditorState(RichUtils.toggleLink(editorState, selection, null));
-              }}
-            />
-          )}
-        </ButtonGroup>
-      )}
+      <ButtonGroup className={classes.buttonGroup} size="small">
+        <Button {...toggleLinkButtonProps()}>Link</Button>
+        {hasLink && (
+          <Chip
+            size="medium"
+            label={currentContentBlockText}
+            onDelete={() => {
+              setEditorState(RichUtils.toggleLink(editorState, selection, null));
+            }}
+          />
+        )}
+      </ButtonGroup>
     </div>
   );
 };

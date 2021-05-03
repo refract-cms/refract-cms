@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Typography, Theme, NoSsr, Paper, makeStyles } from '@material-ui/core';
-import { EditorState, RichUtils, convertFromRaw, convertToRaw } from 'draft-js';
+import { Theme, NoSsr, Paper, makeStyles } from '@material-ui/core';
+import { EditorState, RichUtils, convertFromRaw, convertToRaw, CompositeDecorator, Editor } from 'draft-js';
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
 import RteToolbar from './RteToolbar';
-import classNames from 'classnames';
-import Editor from '@draft-js-plugins/editor';
 import type { PropertyEditorProps } from '../../properties/property-editor-props';
+import { decorator } from './decorator';
 
 export interface MarkdownRteEditorOptions {}
 
@@ -220,10 +219,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default (options: MarkdownRteEditorOptions = {}) => ({ value, setValue }: PropertyEditorProps<string>) => {
-  const rteValue = value
-    ? EditorState.createWithContent(convertFromRaw(markdownToDraft(value)))
-    : EditorState.createEmpty();
   const classes = useStyles({});
+
+  const rteValue = value
+    ? EditorState.createWithContent(convertFromRaw(markdownToDraft(value)), decorator)
+    : EditorState.createEmpty(decorator);
   const [editorState, setLocalEditorState] = React.useState<EditorState>(rteValue);
 
   const setEditorState = (newEditorState: EditorState) => {
