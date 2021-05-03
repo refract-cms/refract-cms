@@ -63,7 +63,7 @@ const RteToolbar: ComponentType<Props> = (props) => {
   var currentContentBlock = currentContent.getBlockForKey(anchorKey);
   var start = selectionState.getStartOffset();
   var end = selectionState.getEndOffset();
-  var selectedTextBlock = currentContentBlock.getText();
+  var currentContentBlockText = currentContentBlock.getText();
   var selectedText = currentContentBlock.getText().slice(start, end);
 
   console.log({ currentContentBlock });
@@ -97,18 +97,18 @@ const RteToolbar: ComponentType<Props> = (props) => {
         <Button {...createBlockButtonProps({ blockType: 'header-six' })}>H6</Button>
         <Button {...createBlockButtonProps({ blockType: 'blockquote' })}>Quote</Button>
       </ButtonGroup>
-      <ButtonGroup size="small">
+      <ButtonGroup className={classes.buttonGroup} size="small">
         <Button {...createStyleButtonProps({ inlineStyle: 'BOLD' })}>Bold</Button>
         <Button {...createStyleButtonProps({ inlineStyle: 'ITALIC' })}>Italic</Button>
         <Button {...createStyleButtonProps({ inlineStyle: 'UNDERLINE' })}>Underline</Button>
       </ButtonGroup>
-      {selectedTextBlock.length > 0 && (
-        <ButtonGroup size="small">
+      {currentContentBlockText.length > 0 && (
+        <ButtonGroup className={classes.buttonGroup} size="small">
           <Button {...toggleLinkButtonProps()}>Link</Button>
           {hasLink && (
             <Chip
               size="medium"
-              label={selectedText}
+              label={currentContentBlockText}
               onDelete={() => {
                 setEditorState(RichUtils.toggleLink(editorState, selection, null));
               }}
