@@ -246,7 +246,7 @@ export default (options: MarkdownRteEditorOptions = {}) => ({ value, setValue }:
           const type = contentBlock.getType();
           return classes[type];
         }}
-        plugins={[linkifyPlugin]}
+        // plugins={[linkifyPlugin]}
       />
     </Paper>
   );

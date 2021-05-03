@@ -2,7 +2,7 @@ import React, { ComponentType } from 'react';
 import { Theme, createStyles, WithStyles, withStyles, ButtonGroup, Button } from '@material-ui/core';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { EditorState, RichUtils } from 'draft-js';
+import { EditorState, Entity, RichUtils } from 'draft-js';
 import classNames from 'classnames';
 
 export interface RteToolbarProps {
@@ -49,6 +49,31 @@ const RteToolbar: ComponentType<Props> = (props) => {
       onClick: () => setEditorState(RichUtils.toggleInlineStyle(editorState, inlineStyle)),
     };
   }
+
+  function toggleLinkButtonProps() {
+    const currentStyle = props.editorState.getCurrentInlineStyle();
+    const selection = editorState.getSelection();
+    const contentState = editorState.getCurrentContent();
+    console.log(selection.keys());
+    const url = 'www.danfoss.com';
+    console.log({ selection });
+    const hasLink = RichUtils.currentBlockContainsLink(editorState);
+    return {
+      className: classNames({
+        [classes.active]: hasLink,
+      }),
+      onClick: () => {
+        if (hasLink) {
+          setEditorState(RichUtils.toggleLink(editorState, selection, null));
+        } else {
+          if (url.length > 0) {
+            const entityKey = Entity.create('LINK', 'MUTABLE', { url: url });
+            setEditorState(RichUtils.toggleLink(editorState, selection, entityKey));
+          }
+        }
+      },
+    };
+  }
   return (
     <div className={classes.root}>
       <ButtonGroup className={classes.buttonGroup} size="small">
@@ -65,6 +90,9 @@ const RteToolbar: ComponentType<Props> = (props) => {
         <Button {...createStyleButtonProps({ inlineStyle: 'BOLD' })}>Bold</Button>
         <Button {...createStyleButtonProps({ inlineStyle: 'ITALIC' })}>Italic</Button>
         <Button {...createStyleButtonProps({ inlineStyle: 'UNDERLINE' })}>Underline</Button>
+      </ButtonGroup>
+      <ButtonGroup>
+        <Button {...toggleLinkButtonProps()}>Link</Button>
       </ButtonGroup>
     </div>
   );
