@@ -1,7 +1,7 @@
 mode: ContinuousDeployment
 assembly-versioning-scheme: MajorMinorPatch
 assembly-informational-format: '{SemVer}'
-next-version: 0.19.1
+next-version: 0.19.2
 branches:
   develop:
     mode: ContinuousDeployment
