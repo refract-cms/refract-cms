@@ -56,17 +56,15 @@ const RteToolbar: ComponentType<Props> = (props) => {
   }
 
   const hasLink = RichUtils.currentBlockContainsLink(editorState);
+  const selectionState = editorState.getSelection();
+  const anchorKey = selectionState.getAnchorKey();
+  const currentContent = editorState.getCurrentContent();
+  const currentContentBlock = currentContent.getBlockForKey(anchorKey);
+  const start = selectionState.getStartOffset();
+  const end = selectionState.getEndOffset();
+  const currentContentBlockText = currentContentBlock.getText();
+  const selectedText = currentContentBlock.getText().slice(start, end);
 
-  var selectionState = editorState.getSelection();
-  var anchorKey = selectionState.getAnchorKey();
-  var currentContent = editorState.getCurrentContent();
-  var currentContentBlock = currentContent.getBlockForKey(anchorKey);
-  var start = selectionState.getStartOffset();
-  var end = selectionState.getEndOffset();
-  var currentContentBlockText = currentContentBlock.getText();
-  var selectedText = currentContentBlock.getText().slice(start, end);
-
-  console.log({ currentContentBlock });
   function toggleLinkButtonProps() {
     const url = selectedText;
     return {
