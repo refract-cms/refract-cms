@@ -29,5 +29,9 @@
   "dependencies": {
     "@refract-cms/core": "0.19.0",
     "@refract-cms/server": "0.19.0"
+  },
+  "volta": {
+    "node": "14.16.1",
+    "yarn": "1.22.10"
   }
 }

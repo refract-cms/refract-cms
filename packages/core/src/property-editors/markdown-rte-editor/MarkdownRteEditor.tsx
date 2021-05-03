@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Typography, Theme, NoSsr, Paper, makeStyles } from '@material-ui/core';
-import { Editor, EditorState, RichUtils, convertFromRaw, convertToRaw } from 'draft-js';
+import { EditorState, RichUtils, convertFromRaw, convertToRaw } from 'draft-js';
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
 import RteToolbar from './RteToolbar';
 import classNames from 'classnames';
+import Editor from '@draft-js-plugins/editor';
 import type { PropertyEditorProps } from '../../properties/property-editor-props';
+import createLinkifyPlugin from '@draft-js-plugins/linkify';
+
+const linkifyPlugin = createLinkifyPlugin();
 
 export interface MarkdownRteEditorOptions {}
 
@@ -242,6 +246,7 @@ export default (options: MarkdownRteEditorOptions = {}) => ({ value, setValue }:
           const type = contentBlock.getType();
           return classes[type];
         }}
+        plugins={[linkifyPlugin]}
       />
     </Paper>
   );
