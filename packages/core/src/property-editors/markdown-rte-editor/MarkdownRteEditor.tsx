@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
 import { Typography, Theme, NoSsr, Paper, makeStyles } from '@material-ui/core';
-import { EditorState, RichUtils, convertFromRaw, convertToRaw } from 'draft-js';
+import { EditorState, RichUtils, convertFromRaw, convertToRaw, CompositeDecorator, Editor } from 'draft-js';
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
 import RteToolbar from './RteToolbar';
 import classNames from 'classnames';
-import Editor from '@draft-js-plugins/editor';
+// import Editor from '@draft-js-plugins/editor';
 import type { PropertyEditorProps } from '../../properties/property-editor-props';
 
 export interface MarkdownRteEditorOptions {}
+
+function findLinkEntities(contentBlock, callback, contentState) {
+  contentBlock.findEntityRanges((character) => {
+    try {
+      console.log(character);
+      const entityKey = character.getEntity();
+      return entityKey !== null && contentState.getEntity(entityKey).getType() === 'LINK';
+    } catch (error) {}
+  }, callback);
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -220,9 +230,26 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default (options: MarkdownRteEditorOptions = {}) => ({ value, setValue }: PropertyEditorProps<string>) => {
+  const Link = (props) => {
+    const { url } = props.contentState.getEntity(props.entityKey).getData();
+    console.log('hi', url, props);
+    return (
+      <a href={url} style={{ color: 'red' }}>
+        {props.children}
+      </a>
+    );
+  };
+
+  const decorator = new CompositeDecorator([
+    {
+      strategy: findLinkEntities,
+      component: Link,
+    },
+  ]);
+
   const rteValue = value
-    ? EditorState.createWithContent(convertFromRaw(markdownToDraft(value)))
-    : EditorState.createEmpty();
+    ? EditorState.createWithContent(convertFromRaw(markdownToDraft(value)), decorator)
+    : EditorState.createEmpty(decorator);
   const classes = useStyles({});
   const [editorState, setLocalEditorState] = React.useState<EditorState>(rteValue);
 
