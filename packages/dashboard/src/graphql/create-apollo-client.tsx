@@ -6,6 +6,19 @@ import { onError, ErrorResponse } from 'apollo-link-error';
 import { setContext } from 'apollo-link-context';
 import { store } from '../state/root-store';
 import { logout } from '../auth/state/auth-actions';
+import { RetryLink } from 'apollo-link-retry';
+
+const retryLink = new RetryLink({
+  delay: {
+    initial: 300,
+    max: Infinity,
+    jitter: true,
+  },
+  attempts: {
+    max: 5,
+    retryIf: (error, _operation) => !!error,
+  },
+});
 
 export const createApolloClient = ({ serverUrl }: { serverUrl: string }) => {
   const httpLink = new HttpLink({ uri: `${serverUrl}/internal/graphql` });
@@ -22,6 +35,7 @@ export const createApolloClient = ({ serverUrl }: { serverUrl: string }) => {
       store.dispatch(logout());
     }
     if (networkError) {
+      console.log({ networkError });
       switch ((networkError as any).statusCode) {
         case 401: {
           store.dispatch(logout());
@@ -34,7 +48,7 @@ export const createApolloClient = ({ serverUrl }: { serverUrl: string }) => {
     }
     return forward(operation);
   });
-  const link = ApolloLink.from([withTokenLink, handleAuthErrorLink, httpLink]);
+  const link = ApolloLink.from([retryLink, withTokenLink, handleAuthErrorLink, httpLink]);
   const cache = new InMemoryCache({
     addTypename: false,
     dataIdFromObject: (o: any) => o._id,
