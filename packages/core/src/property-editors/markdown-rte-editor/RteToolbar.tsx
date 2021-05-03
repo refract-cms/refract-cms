@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { Theme, createStyles, WithStyles, withStyles, ButtonGroup, Button } from '@material-ui/core';
+import { Theme, createStyles, WithStyles, withStyles, ButtonGroup, Button, Chip } from '@material-ui/core';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { EditorState, Entity, RichUtils } from 'draft-js';
@@ -32,6 +32,11 @@ interface Props extends RteToolbarProps, WithStyles<typeof styles> {}
 
 const RteToolbar: ComponentType<Props> = (props) => {
   const { classes, setEditorState, editorState } = props;
+
+  const currentStyle = props.editorState.getCurrentInlineStyle();
+  const selection = editorState.getSelection();
+  const contentState = editorState.getCurrentContent();
+
   function createBlockButtonProps({ blockType }: { blockType: string }) {
     return {
       className: classNames({
@@ -50,14 +55,20 @@ const RteToolbar: ComponentType<Props> = (props) => {
     };
   }
 
+  const hasLink = RichUtils.currentBlockContainsLink(editorState);
+
+  var selectionState = editorState.getSelection();
+  var anchorKey = selectionState.getAnchorKey();
+  var currentContent = editorState.getCurrentContent();
+  var currentContentBlock = currentContent.getBlockForKey(anchorKey);
+  var start = selectionState.getStartOffset();
+  var end = selectionState.getEndOffset();
+  var selectedTextBlock = currentContentBlock.getText();
+  var selectedText = currentContentBlock.getText().slice(start, end);
+
+  console.log({ currentContentBlock });
   function toggleLinkButtonProps() {
-    const currentStyle = props.editorState.getCurrentInlineStyle();
-    const selection = editorState.getSelection();
-    const contentState = editorState.getCurrentContent();
-    console.log(selection.keys());
-    const url = 'www.danfoss.com';
-    console.log({ selection });
-    const hasLink = RichUtils.currentBlockContainsLink(editorState);
+    const url = selectedText;
     return {
       className: classNames({
         [classes.active]: hasLink,
@@ -67,7 +78,7 @@ const RteToolbar: ComponentType<Props> = (props) => {
           setEditorState(RichUtils.toggleLink(editorState, selection, null));
         } else {
           if (url.length > 0) {
-            const entityKey = Entity.create('LINK', 'MUTABLE', { url: url });
+            const entityKey = Entity.create('LINK', 'MUTABLE', { url });
             setEditorState(RichUtils.toggleLink(editorState, selection, entityKey));
           }
         }
@@ -91,9 +102,20 @@ const RteToolbar: ComponentType<Props> = (props) => {
         <Button {...createStyleButtonProps({ inlineStyle: 'ITALIC' })}>Italic</Button>
         <Button {...createStyleButtonProps({ inlineStyle: 'UNDERLINE' })}>Underline</Button>
       </ButtonGroup>
-      <ButtonGroup>
-        <Button {...toggleLinkButtonProps()}>Link</Button>
-      </ButtonGroup>
+      {selectedTextBlock.length > 0 && (
+        <ButtonGroup size="small">
+          <Button {...toggleLinkButtonProps()}>Link</Button>
+          {hasLink && (
+            <Chip
+              size="medium"
+              label={selectedText}
+              onDelete={() => {
+                setEditorState(RichUtils.toggleLink(editorState, selection, null));
+              }}
+            />
+          )}
+        </ButtonGroup>
+      )}
     </div>
   );
 };
