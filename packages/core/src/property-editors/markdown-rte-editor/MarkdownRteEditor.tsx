@@ -1,22 +1,12 @@
 import React, { useState } from 'react';
-import { Typography, Theme, NoSsr, Paper, makeStyles, Link as MuiLink } from '@material-ui/core';
+import { Theme, NoSsr, Paper, makeStyles } from '@material-ui/core';
 import { EditorState, RichUtils, convertFromRaw, convertToRaw, CompositeDecorator, Editor } from 'draft-js';
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
 import RteToolbar from './RteToolbar';
-// import Editor from '@draft-js-plugins/editor';
 import type { PropertyEditorProps } from '../../properties/property-editor-props';
-import { Link } from './Link';
+import { decorator } from './decorator';
 
 export interface MarkdownRteEditorOptions {}
-
-function findLinkEntities(contentBlock, callback, contentState) {
-  contentBlock.findEntityRanges((character) => {
-    try {
-      const entityKey = character.getEntity();
-      return entityKey !== null && contentState.getEntity(entityKey).getType() === 'LINK';
-    } catch (error) {}
-  }, callback);
-}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -230,13 +220,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default (options: MarkdownRteEditorOptions = {}) => ({ value, setValue }: PropertyEditorProps<string>) => {
   const classes = useStyles({});
-
-  const decorator = new CompositeDecorator([
-    {
-      strategy: findLinkEntities,
-      component: Link,
-    },
-  ]);
 
   const rteValue = value
     ? EditorState.createWithContent(convertFromRaw(markdownToDraft(value)), decorator)
