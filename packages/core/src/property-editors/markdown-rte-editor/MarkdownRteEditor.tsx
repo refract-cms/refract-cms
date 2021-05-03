@@ -12,7 +12,6 @@ export interface MarkdownRteEditorOptions {}
 function findLinkEntities(contentBlock, callback, contentState) {
   contentBlock.findEntityRanges((character) => {
     try {
-      console.log(character);
       const entityKey = character.getEntity();
       return entityKey !== null && contentState.getEntity(entityKey).getType() === 'LINK';
     } catch (error) {}

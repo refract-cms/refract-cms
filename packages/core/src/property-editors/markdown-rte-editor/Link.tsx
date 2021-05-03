@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const Link = (props) => {
   const data = props.contentState.getEntity(props.entityKey).getData();
   const { url } = data;
-  console.log(data);
   const classes = useStyles(props);
   return (
     <MuiLink className={classes.link} href={url}>
