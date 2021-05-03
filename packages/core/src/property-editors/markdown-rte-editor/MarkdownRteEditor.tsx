@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Typography, Theme, NoSsr, Paper, makeStyles } from '@material-ui/core';
+import { Typography, Theme, NoSsr, Paper, makeStyles, Link as MuiLink } from '@material-ui/core';
 import { EditorState, RichUtils, convertFromRaw, convertToRaw, CompositeDecorator, Editor } from 'draft-js';
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
 import RteToolbar from './RteToolbar';
-import classNames from 'classnames';
 // import Editor from '@draft-js-plugins/editor';
 import type { PropertyEditorProps } from '../../properties/property-editor-props';
+import { Link } from './Link';
 
 export interface MarkdownRteEditorOptions {}
 
@@ -230,15 +230,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default (options: MarkdownRteEditorOptions = {}) => ({ value, setValue }: PropertyEditorProps<string>) => {
-  const Link = (props) => {
-    const { url } = props.contentState.getEntity(props.entityKey).getData();
-    console.log('hi', url, props);
-    return (
-      <a href={url} style={{ color: 'red' }}>
-        {props.children}
-      </a>
-    );
-  };
+  const classes = useStyles({});
 
   const decorator = new CompositeDecorator([
     {
@@ -250,7 +242,6 @@ export default (options: MarkdownRteEditorOptions = {}) => ({ value, setValue }:
   const rteValue = value
     ? EditorState.createWithContent(convertFromRaw(markdownToDraft(value)), decorator)
     : EditorState.createEmpty(decorator);
-  const classes = useStyles({});
   const [editorState, setLocalEditorState] = React.useState<EditorState>(rteValue);
 
   const setEditorState = (newEditorState: EditorState) => {

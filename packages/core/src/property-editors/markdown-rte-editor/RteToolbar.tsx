@@ -78,18 +78,17 @@ const RteToolbar: ComponentType<Props> = (props) => {
   const hasLink = Boolean(url) || RichUtils.currentBlockContainsLink(editorState);
 
   function toggleLinkButtonProps() {
-    const url = selectedText;
+    const newUrl = selectedText;
     return {
       className: classNames({
         [classes.active]: hasLink,
-        // [classes.active]: Boolean(url),
       }),
       onClick: () => {
         if (hasLink) {
           setEditorState(RichUtils.toggleLink(editorState, selection, null));
         } else {
-          if (url.length > 0) {
-            const entityKey = Entity.create('LINK', 'MUTABLE', { url });
+          if (newUrl.length > 0) {
+            const entityKey = Entity.create('LINK', 'MUTABLE', { url: newUrl });
             setEditorState(RichUtils.toggleLink(editorState, selection, entityKey));
           }
         }
