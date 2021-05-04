@@ -57,13 +57,8 @@ const RteToolbar: ComponentType<Props> = (props) => {
   }
 
   const selectionState = editorState.getSelection();
-  // const anchorKey = selectionState.getAnchorKey();
-  // const currentContent = editorState.getCurrentContent();
-  // const currentContentBlock = currentContent.getBlockForKey(anchorKey);
   const start = selectionState.getStartOffset();
   const end = selectionState.getEndOffset();
-  // const currentContentBlockText = currentContentBlock.getText();
-  // const selectedText = currentContentBlock.getText().slice(start, end);
 
   const startKey = editorState.getSelection().getStartKey();
   const startOffset = editorState.getSelection().getStartOffset();
@@ -74,13 +69,10 @@ const RteToolbar: ComponentType<Props> = (props) => {
   const selectionOffset = selectionState.getAnchorOffset();
 
   const selectedText = blockWithLinkAtBeginning.getText().slice(start, end);
-  console.log({ start, end, selectedText });
 
   let url = '';
   if (linkKey) {
     const linkInstance = contentState.getEntity(linkKey);
-    console.log(linkInstance.getData(), linkInstance, startOffset);
-
     url = linkInstance.getData().url;
   }
 
@@ -102,7 +94,7 @@ const RteToolbar: ComponentType<Props> = (props) => {
     });
   }
 
-  const hasLink = Boolean(url); // || RichUtils.currentBlockContainsLink(editorState);
+  const hasLink = Boolean(url);
 
   function toggleLinkButtonProps() {
     const newUrl = selectedText;
@@ -113,7 +105,6 @@ const RteToolbar: ComponentType<Props> = (props) => {
       onClick: () => {
         if (hasLink) {
           removeSelectedUrl();
-          // setEditorState(RichUtils.toggleLink(editorState, selection, null));
         } else {
           if (newUrl.length > 0) {
             const entityKey = Entity.create('LINK', 'MUTABLE', { url: newUrl });
