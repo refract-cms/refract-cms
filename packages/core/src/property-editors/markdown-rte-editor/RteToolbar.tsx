@@ -2,8 +2,9 @@ import React, { ComponentType } from 'react';
 import { Theme, createStyles, WithStyles, withStyles, ButtonGroup, Button, Chip } from '@material-ui/core';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { EditorState, Entity, RichUtils } from 'draft-js';
+import { EditorState, Entity, RichUtils, SelectionState } from 'draft-js';
 import classNames from 'classnames';
+import getRangesForDraftEntity from 'draft-js/lib/getRangesForDraftEntity';
 
 export interface RteToolbarProps {
   editorState: EditorState;
@@ -56,26 +57,52 @@ const RteToolbar: ComponentType<Props> = (props) => {
   }
 
   const selectionState = editorState.getSelection();
-  const anchorKey = selectionState.getAnchorKey();
-  const currentContent = editorState.getCurrentContent();
-  const currentContentBlock = currentContent.getBlockForKey(anchorKey);
+  // const anchorKey = selectionState.getAnchorKey();
+  // const currentContent = editorState.getCurrentContent();
+  // const currentContentBlock = currentContent.getBlockForKey(anchorKey);
   const start = selectionState.getStartOffset();
   const end = selectionState.getEndOffset();
-  const currentContentBlockText = currentContentBlock.getText();
-  const selectedText = currentContentBlock.getText().slice(start, end);
+  // const currentContentBlockText = currentContentBlock.getText();
+  // const selectedText = currentContentBlock.getText().slice(start, end);
 
   const startKey = editorState.getSelection().getStartKey();
   const startOffset = editorState.getSelection().getStartOffset();
   const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
   const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
 
+  const selectionKey = selectionState.getAnchorKey();
+  const selectionOffset = selectionState.getAnchorOffset();
+
+  const selectedText = blockWithLinkAtBeginning.getText().slice(start, end);
+  console.log({ start, end, selectedText });
+
   let url = '';
   if (linkKey) {
     const linkInstance = contentState.getEntity(linkKey);
+    console.log(linkInstance.getData(), linkInstance, startOffset);
+
     url = linkInstance.getData().url;
   }
 
-  const hasLink = Boolean(url) || RichUtils.currentBlockContainsLink(editorState);
+  function removeSelectedUrl() {
+    getRangesForDraftEntity(blockWithLinkAtBeginning, linkKey).forEach((range) => {
+      if (range.start <= selectionOffset && selectionOffset <= range.end) {
+        const block = contentState.getBlockForKey(selectionKey);
+        const blockKey = block.getKey();
+        const linkSelection = new SelectionState({
+          anchorOffset: range.start,
+          anchorKey: blockKey,
+          focusOffset: range.end,
+          focusKey: blockKey,
+          isBackward: false,
+          hasFocus: selectionState.getHasFocus(),
+        });
+        setEditorState(RichUtils.toggleLink(editorState, linkSelection, null));
+      }
+    });
+  }
+
+  const hasLink = Boolean(url); // || RichUtils.currentBlockContainsLink(editorState);
 
   function toggleLinkButtonProps() {
     const newUrl = selectedText;
@@ -85,7 +112,8 @@ const RteToolbar: ComponentType<Props> = (props) => {
       }),
       onClick: () => {
         if (hasLink) {
-          setEditorState(RichUtils.toggleLink(editorState, selection, null));
+          removeSelectedUrl();
+          // setEditorState(RichUtils.toggleLink(editorState, selection, null));
         } else {
           if (newUrl.length > 0) {
             const entityKey = Entity.create('LINK', 'MUTABLE', { url: newUrl });
@@ -117,9 +145,9 @@ const RteToolbar: ComponentType<Props> = (props) => {
         {hasLink && (
           <Chip
             size="medium"
-            label={currentContentBlockText}
+            label={url}
             onDelete={() => {
-              setEditorState(RichUtils.toggleLink(editorState, selection, null));
+              removeSelectedUrl();
             }}
           />
         )}
